@@ -22,7 +22,9 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "bootstrap/dist/css/bootstrap.css",
+              "bootstrap-icons/font/bootstrap-icons.css"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
