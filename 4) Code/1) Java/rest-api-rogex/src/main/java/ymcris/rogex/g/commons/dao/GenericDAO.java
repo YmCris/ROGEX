@@ -20,9 +20,9 @@ import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 public abstract class GenericDAO<T> {
 
     // CONSTANTS ---------------------------------------------------------------
-    private final String SQL_GET_BY_PK;
+    private final String SQL_GET_ENTITY_BY_PK;
     private final String SQL_INSERT_ENTITY;
-    private final String SQL_EXISTS_ENTITY;
+    private final String SQL_ENTITY_EXISTS;
     private final String SQL_UPDATE_ENTITY;
     private final String SQL_DELETE_ENTITY;
     private final String SQL_GET_ALL_ENTITIES;
@@ -42,8 +42,8 @@ public abstract class GenericDAO<T> {
             String SQL_GET_BY_PK, String SQL_UPDATE_ENTITY,
             String SQL_GET_ALL_ENTITIES, String SQL_DELETE_ENTITY) {
         this.SQL_INSERT_ENTITY = SQL_INSERT_ENTITY;
-        this.SQL_EXISTS_ENTITY = SQL_EXISTS_ENTITY;
-        this.SQL_GET_BY_PK = SQL_GET_BY_PK;
+        this.SQL_ENTITY_EXISTS = SQL_EXISTS_ENTITY;
+        this.SQL_GET_ENTITY_BY_PK = SQL_GET_BY_PK;
         this.SQL_UPDATE_ENTITY = SQL_UPDATE_ENTITY;
         this.SQL_GET_ALL_ENTITIES = SQL_GET_ALL_ENTITIES;
         this.SQL_DELETE_ENTITY = SQL_DELETE_ENTITY;
@@ -123,11 +123,11 @@ public abstract class GenericDAO<T> {
      * @param primaryKeys unique id of the entity
      * @return true if it exists
      */
-    public boolean existsEntity(String[] primaryKeys) {
+    public boolean entityExists(String[] primaryKeys) {
         Connection connection = DBConnectionSingleton.getInstance().getConnection();
 
         try (PreparedStatement statement
-                = connection.prepareStatement(SQL_EXISTS_ENTITY)) {
+                = connection.prepareStatement(SQL_ENTITY_EXISTS)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
                 statement.setString(i + 1, primaryKeys[i]);
@@ -150,13 +150,13 @@ public abstract class GenericDAO<T> {
      * @return Entity
      * @throws ObjectNotFoundException if this does'nt exists
      */
-    public Optional<T> getByEntityByPrimariKeys(String[] primaryKeys)
+    public Optional<T> getEntityByPrimaryKeys(String[] primaryKeys)
             throws ObjectNotFoundException {
 
         Connection connection = DBConnectionSingleton.getInstance().getConnection();
 
         try (PreparedStatement statement
-                = connection.prepareStatement(SQL_GET_BY_PK)) {
+                = connection.prepareStatement(SQL_GET_ENTITY_BY_PK)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
                 statement.setString(i + 1, primaryKeys[i]);

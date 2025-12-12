@@ -20,7 +20,7 @@ import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 public abstract class GenericService<T> {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private GenericDAO<T> genericDAO;
+    protected GenericDAO<T> genericDAO;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public GenericService(GenericDAO<T> genericDAO) {
@@ -36,12 +36,12 @@ public abstract class GenericService<T> {
      * @throws InvalidUserParametersException if the parameters are invalids
      * @throws ObjectAlreadyExistsException if the entity already exists
      */
-    public T createObject(GenericNewObjectRequest newObjectRequest)
+    public final T createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException, ObjectAlreadyExistsException {
 
         T entity = extractEntity(newObjectRequest);
 
-        if (genericDAO.existsEntity(newObjectRequest.getPrimaryKeys())) {
+        if (genericDAO.entityExists(newObjectRequest.getPrimaryKeys())) {
 
             throw new ObjectAlreadyExistsException("Can't use this pks");
 
@@ -94,7 +94,7 @@ public abstract class GenericService<T> {
      * @throws InvalidUserParametersException if the parameters are invalid
      * @throws ObjectNotFoundException if the object does'nt exists
      */
-    public T updateObject(String[] primaryKeys,
+    public final T updateObject(String[] primaryKeys,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException, ObjectNotFoundException {
 
@@ -118,9 +118,11 @@ public abstract class GenericService<T> {
      *
      * @param entity Created entity
      * @param updateObjectRequest updateObjectRequest
+     * @throws
+     * ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException
      */
     protected abstract void updateEntity(T entity,
-            GenericUpdateObjectRequest updateObjectRequest);
+            GenericUpdateObjectRequest updateObjectRequest) throws InvalidUserParametersException;
 
     // DELETE ------------------------------------------------------------------
     /**
@@ -130,7 +132,9 @@ public abstract class GenericService<T> {
      * @return true if the entity was delete
      * @throws ObjectNotFoundException if the eentity doesnot exists
      */
-    public boolean deleteEntity(String[] primaryKeys) throws ObjectNotFoundException {
+    public final boolean deleteEntity(String[] primaryKeys)
+            throws ObjectNotFoundException {
+        
         T entity = getEntity(primaryKeys);
 
         if (entity != null) {
@@ -150,8 +154,8 @@ public abstract class GenericService<T> {
      * @return CRUD type
      * @throws ObjectNotFoundException if the entity was not found
      */
-    public T getEntity(String[] primaryKeys) throws ObjectNotFoundException {
-        Optional<T> entityOptional = genericDAO.getByEntityByPrimariKeys(primaryKeys);
+    public final T getEntity(String[] primaryKeys) throws ObjectNotFoundException {
+        Optional<T> entityOptional = genericDAO.getEntityByPrimaryKeys(primaryKeys);
 
         if (entityOptional.isEmpty()) {
             throw new ObjectNotFoundException("This entity does'nt exists");
@@ -165,7 +169,7 @@ public abstract class GenericService<T> {
      *
      * @return List of entities
      */
-    public List<T> getAllEntities() {
+    public final List<T> getAllEntities() {
         return genericDAO.getAllEntities();
     }
 }

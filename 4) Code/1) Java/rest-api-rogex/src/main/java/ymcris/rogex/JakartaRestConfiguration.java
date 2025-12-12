@@ -9,11 +9,11 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
  * @author Juneau
  */
 //@ApplicationPath("resources")
-@ApplicationPath("api")
+@ApplicationPath("api/v1")
 //public class JakartaRestConfiguration extends Application{
 public class JakartaRestConfiguration extends ResourceConfig {
     
     public JakartaRestConfiguration() {
-        packages("ymcris.rogex").register(MultiPartFeature.class);
+        packages("ymcris.rogex.a.resources").register(MultiPartFeature.class);
     }
 }
