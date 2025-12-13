@@ -1,8 +1,10 @@
 package ymcris.rogex.c.dtos.users;
 
-import java.io.File;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * The NewUserRequest class is the class responsible for do a request to create
@@ -14,10 +16,12 @@ import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 public class NewUserRequest extends GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private File photo;
+    private String photo;
     private String nickname;
     private String password;
-    private LocalDateTime birthDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate birthDate;
     private String email;
     private String phoneNumber;
     private String country;
@@ -26,7 +30,7 @@ public class NewUserRequest extends GenericNewObjectRequest {
     private boolean publicLibrary;
 
     // GETTERS -----------------------------------------------------------------
-    public File getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
@@ -38,7 +42,7 @@ public class NewUserRequest extends GenericNewObjectRequest {
         return password;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -59,7 +63,7 @@ public class NewUserRequest extends GenericNewObjectRequest {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhoto(File photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 
@@ -71,7 +75,7 @@ public class NewUserRequest extends GenericNewObjectRequest {
         this.password = password;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

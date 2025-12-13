@@ -1,12 +1,13 @@
 package ymcris.rogex.b.services.users;
 
+import java.util.Base64;
+import ymcris.rogex.e.models.users.User;
+import ymcris.rogex.d.daos.users.UserDAO;
 import ymcris.rogex.c.dtos.users.NewUserRequest;
 import ymcris.rogex.c.dtos.users.UpdateUserRequest;
-import ymcris.rogex.d.daos.users.UserDAO;
-import ymcris.rogex.e.models.users.User;
+import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
-import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 
 /**
@@ -20,22 +21,34 @@ public class UserSerivicer extends GenericService<User> {
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public UserSerivicer() {
         super(new UserDAO());
-        
+
     }
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
     protected User createEntity(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
+
+        NewUserRequest req = (NewUserRequest) newObjectRequest;
+
+        byte[] photoBytes = null;
+
+        String base64 = ((NewUserRequest) newObjectRequest).getPhoto();
+        if (base64 != null && !base64.isBlank()) {
+            photoBytes = Base64.getDecoder().decode(base64);
+        }
+
+        req.setPrimaryKeys(new String[]{req.getEmail()});
+
         return new User(
-                ((NewUserRequest) newObjectRequest).getPhoto(),
-                ((NewUserRequest) newObjectRequest).getNickname(),
-                ((NewUserRequest) newObjectRequest).getPassword(),
-                ((NewUserRequest) newObjectRequest).getBirthDate(),
-                ((NewUserRequest) newObjectRequest).getEmail(),
-                ((NewUserRequest) newObjectRequest).getPhoneNumber(),
-                ((NewUserRequest) newObjectRequest).getCountry(),
-                ((NewUserRequest) newObjectRequest).isPublicLibrary()
+                photoBytes,
+                req.getNickname(),
+                req.getPassword(),
+                req.getBirthDate(),
+                req.getEmail(),
+                req.getPhoneNumber(),
+                req.getCountry(),
+                req.isPublicLibrary()
         );
     }
 
@@ -44,7 +57,16 @@ public class UserSerivicer extends GenericService<User> {
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 
-        user.setPhoto(((UpdateUserRequest) updateObjectRequest).getPhoto());
+        byte[] photoBytes = null;
+
+        String base64 = ((UpdateUserRequest) updateObjectRequest).getPhoto();
+        if (base64 != null && !base64.isBlank()) {
+            photoBytes = Base64.getDecoder().decode(base64);
+        }
+
+        if (photoBytes != null) {
+            user.setPhoto(photoBytes);
+        }
         user.setBirthDate(((UpdateUserRequest) updateObjectRequest).getBirthDate());
         user.setPhoneNumber(((UpdateUserRequest) updateObjectRequest).getPhoneNumber());
         user.setCountry(((UpdateUserRequest) updateObjectRequest).getCountry());

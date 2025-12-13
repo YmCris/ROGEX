@@ -1,10 +1,12 @@
 package ymcris.rogex.d.daos.users;
 
-import java.io.File;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZoneId;
 import ymcris.rogex.e.models.users.User;
+import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
 
 /**
@@ -30,7 +32,7 @@ public class UserDAO extends GenericDAO<User> {
 
     private static final String SQL_UPDATE_USER
             = "UPDATE user SET photo = ?, birth_date = ?, phone_number= ?,"
-            + "country = ?, public_library WHERE email = ?";
+            + "country = ?, public_library = ? WHERE email = ?";
 
     private static final String SQL_GET_ALL_USERS
             = "SELECT * FROM user";
@@ -50,10 +52,10 @@ public class UserDAO extends GenericDAO<User> {
     protected User createEntity(ResultSet resultSet) {
         try {
             return new User(
-                    (File) resultSet.getBlob("user"),
+                    resultSet.getBytes("photo"),
                     resultSet.getString("nickname"),
                     resultSet.getString("password"),
-                    resultSet.getDate("birth_date").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                    resultSet.getDate("birth_date").toLocalDate(),
                     resultSet.getString("email"),
                     resultSet.getString("phone_number"),
                     resultSet.getString("country"),
@@ -61,8 +63,31 @@ public class UserDAO extends GenericDAO<User> {
             );
         } catch (SQLException ex) {
             System.out.println("ERRORRRR");
+            throw new RuntimeException("Error creating user entity", ex);
         }
-        return null;
+    }
+
+    @Override
+    public void createEntity(User user) {
+        Connection connection = DBConnectionSingleton.getInstance().getConnection();
+
+        try (PreparedStatement statement
+                = connection.prepareStatement(SQL_INSERT_ENTITY)) {
+
+            statement.setBytes(1, user.getPhoto());
+            statement.setString(2, user.getNickname());
+            statement.setString(3, user.getPassword());
+            statement.setDate(4, Date.valueOf(user.getBirthDate()));
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getPhoneNumber());
+            statement.setString(7, user.getCountry());
+            statement.setBoolean(8, user.isPublicLibrary());
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Error in entity creation: " + e.getMessage());
+        }
     }
 
 }

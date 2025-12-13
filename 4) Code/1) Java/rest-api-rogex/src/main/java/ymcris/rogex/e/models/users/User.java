@@ -1,7 +1,6 @@
 package ymcris.rogex.e.models.users;
 
-import java.io.File;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -13,10 +12,10 @@ import org.apache.commons.lang3.StringUtils;
 public class User {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private File photo;
+    private byte[] photo;
     private String nickname;
     private String password;
-    private LocalDateTime birthDate;
+    private LocalDate birthDate;
     private String email;
     private String phoneNumber;
     private String country;
@@ -25,7 +24,7 @@ public class User {
     private boolean publicLibrary;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public User(File photo, String nickname, String password, LocalDateTime birthDate,
+    public User(byte[] photo, String nickname, String password, LocalDate birthDate,
             String email, String phoneNumber, String country, boolean publicLibrary) {
         this.photo = photo;
         this.nickname = nickname;
@@ -39,17 +38,17 @@ public class User {
 
     // SPECIFIC METHODS --------------------------------------------------------
     public boolean isValid() {
-        return StringUtils.isAnyBlank(
+        return !StringUtils.isAnyBlank(
                 nickname,
                 password,
                 email,
                 phoneNumber,
                 country
-        ) || birthDate == null;
+        ) && birthDate != null;
     }
 
     // GETTERS -----------------------------------------------------------------
-    public File getPhoto() {
+    public byte[] getPhoto() {
         return photo;
     }
 
@@ -61,7 +60,7 @@ public class User {
         return password;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -82,7 +81,7 @@ public class User {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhoto(File photo) {
+    public void setPhoto(byte[] photo) {
         this.photo = photo;
     }
 
@@ -94,7 +93,7 @@ public class User {
         this.password = password;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

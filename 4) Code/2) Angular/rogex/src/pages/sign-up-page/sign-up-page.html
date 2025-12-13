@@ -16,7 +16,6 @@
                             <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
                             <br>
                             <br>
-
                             @if (operationDone) {
                             <successful-action message="Usuario creado correctamente"></successful-action>
                             } @else {
@@ -24,9 +23,10 @@
                                 message="Error al crear el usuario"></app-unsuccessful-action-component>
                             }
 
+
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="username" class="form-label">Nombre de usuario:</label>
+                                    <label for="username" class="form-label">Nickname:</label>
                                     <input type="text" class="form-control" id="username" name="username"
                                         formControlName="username">
 
@@ -72,7 +72,7 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="location" class="form-label">Ubicación:</label>
+                                    <label for="location" class="form-label">Ciudad:</label>
                                     <input type="text" class="form-control" id="location" name="location"
                                         formControlName="location">
 
@@ -81,6 +81,40 @@
                                     <div class="invalid-feedback">
                                         <div>
                                             Se debe ingresar una ubicación con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="photo" class="form-label">Numéro telefónico:</label>
+                                    <input type="text" class="form-control" id="photo" name="photo"
+                                        formControlName="photo">
+
+                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una foto con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="birth-day" class="form-label">Fecha de cumpleaños:</label>
+                                    <input type="date" class="form-control" id="birth-day" name="birth-day"
+                                        formControlName="birth-day">
+
+                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una foto con 100 caracteres como maximo
                                         </div>
                                     </div>
                                     }

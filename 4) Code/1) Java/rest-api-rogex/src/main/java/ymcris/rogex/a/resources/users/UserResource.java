@@ -2,9 +2,9 @@ package ymcris.rogex.a.resources.users;
 
 import java.util.List;
 import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PathParam;
@@ -45,40 +45,15 @@ public class UserResource extends GenericObjectResource<User> {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createUser(NewUserRequest newUserRequest) {
-        GenericJSONResponse jSONResponse = new GenericJSONResponse();
-        System.out.println("POST DESDE ROGEX-********************");
-        UserSerivicer userSerivicer = new UserSerivicer();
-        System.out.println("POST DEDE ROGEX -********************");
-        try {
-
-            userSerivicer.createObject(newUserRequest);
-
-            return Response.status(Response.Status.CREATED).build();
-
-        } catch (InvalidUserParametersException e) {
-
-            return Response.status(Response.Status.BAD_REQUEST).build();
-
-        } catch (ObjectAlreadyExistsException ex) {
-
-            return jSONResponse.sendJSONResponse(ex.getMessage(), Response.Status.CREATED);
-            //return Response.status(Response.Status.CONFLICT).build();            //return Response.status(Response.Status.CONFLICT).build();
-
-        }
+        System.out.println("CREANDO USUARIOOOOOOOOOOOOO");
+        return createObjectInternal(newUserRequest);
     }
 
     // GET ---------------------------------------------------------------------
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        UserSerivicer userSerivicer = new UserSerivicer();
-        List<UserResponse> users = userSerivicer
-                .getAllEntities()
-                .stream()
-                .map(UserResponse::new)
-                .toList();
-
-        return Response.ok(users).build();
+        return getAllObjectsInternal();
     }
 
     @GET
@@ -132,11 +107,15 @@ public class UserResource extends GenericObjectResource<User> {
     // PATCH -------------------------------------------------------------------
     @Override
     protected GenericService<User> createCRUD() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new UserSerivicer();
     }
 
     @Override
     protected List<GenericObjectResponse> getObjects(GenericService<User> objectsGetter) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return objectsGetter.getAllEntities()
+                .stream()
+                .map(user -> (GenericObjectResponse) new UserResponse(user))
+                .toList();
     }
+
 }

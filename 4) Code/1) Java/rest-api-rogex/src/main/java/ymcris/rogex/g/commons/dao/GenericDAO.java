@@ -20,12 +20,12 @@ import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 public abstract class GenericDAO<T> {
 
     // CONSTANTS ---------------------------------------------------------------
-    private final String SQL_GET_ENTITY_BY_PK;
-    private final String SQL_INSERT_ENTITY;
-    private final String SQL_ENTITY_EXISTS;
-    private final String SQL_UPDATE_ENTITY;
-    private final String SQL_DELETE_ENTITY;
-    private final String SQL_GET_ALL_ENTITIES;
+    protected final String SQL_GET_ENTITY_BY_PK;
+    protected final String SQL_INSERT_ENTITY;
+    protected final String SQL_ENTITY_EXISTS;
+    protected final String SQL_UPDATE_ENTITY;
+    protected final String SQL_DELETE_ENTITY;
+    protected final String SQL_GET_ALL_ENTITIES;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     /**
@@ -55,19 +55,7 @@ public abstract class GenericDAO<T> {
      *
      * @param entity to create
      */
-    public void createEntity(T entity) {
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
-                = connection.prepareStatement(SQL_INSERT_ENTITY)) {
-
-            statement.setObject(1, entity);
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("Error in entity creation: " + e.getMessage());
-        }
-    }
+    public abstract void createEntity(T entity);
 
     /**
      * Method responsible for update an entity with their primary keys

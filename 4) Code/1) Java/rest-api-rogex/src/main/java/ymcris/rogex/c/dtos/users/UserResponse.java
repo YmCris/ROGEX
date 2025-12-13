@@ -1,9 +1,11 @@
 package ymcris.rogex.c.dtos.users;
 
-import java.io.File;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import ymcris.rogex.e.models.users.User;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 /**
  * The UserResponse class is the class responsible for send the user created in
@@ -16,10 +18,12 @@ import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 public class UserResponse extends GenericObjectResponse<User> {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private File photo;
+    private String photoUrl;
     private String nickname;
     private String password;
-    private LocalDateTime birthDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate birthDate;
     private String email;
     private String phoneNumber;
     private String country;
@@ -30,7 +34,7 @@ public class UserResponse extends GenericObjectResponse<User> {
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public UserResponse(User user) {
         super(user);
-        this.photo = user.getPhoto();
+        this.photoUrl = "/api/v1/users/" + user.getEmail() + "/photo";
         this.nickname = user.getNickname();
         this.password = user.getPassword();
         this.birthDate = user.getBirthDate();
@@ -41,8 +45,8 @@ public class UserResponse extends GenericObjectResponse<User> {
     }
 
     // GETTERS -----------------------------------------------------------------
-    public File getPhoto() {
-        return photo;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
     public String getNickname() {
@@ -53,7 +57,7 @@ public class UserResponse extends GenericObjectResponse<User> {
         return password;
     }
 
-    public LocalDateTime getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
@@ -74,8 +78,8 @@ public class UserResponse extends GenericObjectResponse<User> {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhoto(File photo) {
-        this.photo = photo;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public void setNickname(String nickname) {
@@ -86,7 +90,7 @@ public class UserResponse extends GenericObjectResponse<User> {
         this.password = password;
     }
 
-    public void setBirthDate(LocalDateTime birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

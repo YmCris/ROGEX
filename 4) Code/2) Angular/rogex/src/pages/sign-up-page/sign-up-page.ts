@@ -22,6 +22,7 @@ export class SignUpPage implements OnInit {
 
   newUserForm!: FormGroup;
   newUser!: User;
+  actionDone: boolean = false;
   operationDone: boolean = false;
 
   constructor(private formBuilder: FormBuilder,

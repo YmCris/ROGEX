@@ -1,15 +1,9 @@
 package ymcris.rogex.g.commons.resources;
 
 import java.util.List;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.MediaType;
 import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
@@ -32,9 +26,7 @@ public abstract class GenericObjectResource<T> {
     UriInfo uriInfo;
 
     // POST --------------------------------------------------------------------
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response createObject(GenericNewObjectRequest genericNewObjectRequest) {
+    public Response createObjectInternal(GenericNewObjectRequest genericNewObjectRequest) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
         GenericService<T> objectCreator = createCRUD();
@@ -58,9 +50,7 @@ public abstract class GenericObjectResource<T> {
     }
 
     // GET ---------------------------------------------------------------------
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllObjects() {
+    public Response getAllObjectsInternal() {
         GenericService<T> objectsGetter = createCRUD();
 
         List<GenericObjectResponse> objects = getObjects(objectsGetter);
