@@ -142,7 +142,7 @@ CREATE TABLE videogame_rating(-- (1FN, 2FN, 3FN)
 
 /************************************ USERS ***********************************/
 CREATE TABLE user (-- (1FN, 2FN, 3FN)
-    photo BLOB NOT NULL,
+    photo BLOB,
     nickname VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     birth_date DATE NOT NULL,
