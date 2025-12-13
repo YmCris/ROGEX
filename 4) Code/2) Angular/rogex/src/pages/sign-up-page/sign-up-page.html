@@ -1,0 +1,182 @@
+<body class="bg-dark text-light">
+    <main>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <br>
+                    <br>
+                    <br>
+                    <form [formGroup]="newUserForm" (submit)="submit()">
+
+                        <div class="row g-3">
+                            <br>
+                            <br>
+                            <br>
+                            <h2 class="text-center"><b>Registrarse</b></h2>
+                            <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
+                            <br>
+                            <br>
+
+                            @if (operationDone) {
+                            <successful-action message="Usuario creado correctamente"></successful-action>
+                            } @else {
+                            <app-unsuccessful-action-component
+                                message="Error al crear el usuario"></app-unsuccessful-action-component>
+                            }
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="username" class="form-label">Nombre de usuario:</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        formControlName="username">
+
+                                    @if (newUserForm.controls['username'].invalid &&
+                                    newUserForm.controls['username'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar un nombre con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                @if(!isEditMode) {
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Correo electrónico:</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        formControlName="email"
+                                        [class.is-invalid]="newUserForm.controls['email'].dirty && newUserForm.controls['email'].invalid">
+                                    @if (newUserForm.controls['email'].invalid && newUserForm.controls['email'].touched)
+                                    {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Por favor ingrese un correo valido
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+
+                                } @else {
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Correo electrónico:</label>
+                                    <label class="form-control">{{userToUpdate.email}}</label>
+                                    <input type="text" name="email" [value]="userToUpdate.email" />
+                                </div>
+
+                                }
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="location" class="form-label">Ubicación:</label>
+                                    <input type="text" class="form-control" id="location" name="location"
+                                        formControlName="location">
+
+                                    @if (newUserForm.controls['location'].invalid &&
+                                    newUserForm.controls['location'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una ubicación con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="photo" class="form-label">Foto de perfil:</label>
+                                    <input type="text" class="form-control" id="photo" name="photo"
+                                        formControlName="photo">
+
+                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una foto con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Contraseña:</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        formControlName="password">
+
+                                    @if (newUserForm.controls['password'].invalid &&
+                                    newUserForm.controls['password'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una contraseña con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+                        <button class="btn btn-primary" [disabled]="!newUserForm.dirty || newUserForm.invalid">
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+</body>
+
+
+<!--
+ <h2 class="text-center"><b>Registrarse</b></h2>
+                    <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
+                    <form class="needs-validation" method="POST"
+                        action="${pageContext.servletContext.contextPath}/mvc/system/sign-up-servlet">
+                        <div class="mb-3">
+                            <label><b>Nombre de usuario</b></label>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="Nombre de usuario que será visible para todos los usuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Correo electrónico</b></label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Correo en el que se enviarán notificaciones" required>
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Ubicación</b></label>
+                            <input type="location" class="form-control" id="location" name="location"
+                                placeholder="Ubicación para recomendación de cines">
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Foto de perfil</b></label>
+                            <input type="file" class="form-control" id="photo" name="photo"
+                                placeholder="Foto visible en el perfil">
+                        </div>
+                        <div class="mb-3">
+                            <label><b>Contraseña</b></label>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Contraseña" required>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg" type="submit">Registrarse</button>
+                        </div>
+                    </form>
+-->

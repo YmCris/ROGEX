@@ -1,0 +1,12 @@
+footer img {
+  width: 99%;
+  height: auto;
+  display: block;
+  max-width: 100%;
+}
+footer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow: hidden;
+}
