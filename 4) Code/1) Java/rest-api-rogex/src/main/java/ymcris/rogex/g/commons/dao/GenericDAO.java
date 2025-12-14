@@ -63,24 +63,7 @@ public abstract class GenericDAO<T> {
      * @param primaryKeys unique id of the entity
      * @param entity entity to update
      */
-    public void updateEntity(String[] primaryKeys, T entity) {
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
-                = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
-
-            statement.setObject(1, entity);
-
-            for (int i = 0; i < primaryKeys.length; i++) {
-                statement.setString(i + 2, primaryKeys[i]);
-            }
-
-            statement.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println("Error in the entity update: " + e.getMessage());
-        }
-    }
+    public abstract void updateEntity(String[] primaryKeys, T entity);
 
     /**
      * Method responsible for delete an entity with their primary keys
@@ -88,9 +71,9 @@ public abstract class GenericDAO<T> {
      * @param primaryKeys unique id of the entity
      */
     public void deleteEntity(String[] primaryKeys) {
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
+        try (
+                Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_DELETE_ENTITY)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
@@ -112,9 +95,9 @@ public abstract class GenericDAO<T> {
      * @return true if it exists
      */
     public boolean entityExists(String[] primaryKeys) {
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement statement
                 = connection.prepareStatement(SQL_ENTITY_EXISTS)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
@@ -141,9 +124,9 @@ public abstract class GenericDAO<T> {
     public Optional<T> getEntityByPrimaryKeys(String[] primaryKeys)
             throws ObjectNotFoundException {
 
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
+        try (Connection connection = 
+                DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ENTITY_BY_PK)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
@@ -184,9 +167,10 @@ public abstract class GenericDAO<T> {
      */
     public List<T> getAllEntities() {
         List<T> entities = new ArrayList<>();
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
+        
+        try (Connection connection =
+                DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ALL_ENTITIES)) {
 
             ResultSet resultSet = statement.executeQuery();

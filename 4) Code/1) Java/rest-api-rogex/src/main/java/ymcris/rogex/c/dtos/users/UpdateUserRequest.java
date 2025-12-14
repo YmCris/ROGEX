@@ -22,9 +22,7 @@ public class UpdateUserRequest extends GenericUpdateObjectRequest {
     private LocalDate birthDate;
     private String phoneNumber;
     private String country;
-
-    // PRIMITIVE VARIABLES -----------------------------------------------------
-    private boolean publicLibrary;
+    private Boolean publicLibrary;
 
     // GETTERS -----------------------------------------------------------------
     public String getPhoto() {
@@ -43,7 +41,7 @@ public class UpdateUserRequest extends GenericUpdateObjectRequest {
         return country;
     }
 
-    public boolean isPublicLibrary() {
+    public Boolean isPublicLibrary() {
         return publicLibrary;
     }
 

@@ -69,10 +69,9 @@ public class UserDAO extends GenericDAO<User> {
 
     @Override
     public void createEntity(User user) {
-        Connection connection = DBConnectionSingleton.getInstance().getConnection();
-
-        try (PreparedStatement statement
-                = connection.prepareStatement(SQL_INSERT_ENTITY)) {
+        try (
+                Connection connection = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement statement= connection.prepareStatement(SQL_INSERT_ENTITY)) {
 
             statement.setBytes(1, user.getPhoto());
             statement.setString(2, user.getNickname());
@@ -87,6 +86,26 @@ public class UserDAO extends GenericDAO<User> {
 
         } catch (SQLException e) {
             System.out.println("Error in entity creation: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updateEntity(String[] primaryKeys, User user) {
+
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection();
+                PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
+
+            statement.setBytes(1, user.getPhoto());
+            statement.setDate(2, Date.valueOf(user.getBirthDate()));
+            statement.setString(3, user.getPhoneNumber());
+            statement.setString(4, user.getCountry());
+            statement.setBoolean(5, user.isPublicLibrary());
+            statement.setString(6, primaryKeys[0]);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Error in the entity update: " + e.getMessage());
         }
     }
 

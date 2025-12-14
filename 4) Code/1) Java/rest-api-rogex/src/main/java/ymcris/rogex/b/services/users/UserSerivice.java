@@ -11,15 +11,15 @@ import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 
 /**
- * The UserSerivicer class is the class responsible for
+ * The UserSerivice class is the class responsible for
  *
  * @author YmCris
  * @since Dec 11, 2025
  */
-public class UserSerivicer extends GenericService<User> {
+public class UserSerivice extends GenericService<User> {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public UserSerivicer() {
+    public UserSerivice() {
         super(new UserDAO());
 
     }
@@ -29,7 +29,7 @@ public class UserSerivicer extends GenericService<User> {
     protected User createEntity(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
-        NewUserRequest req = (NewUserRequest) newObjectRequest;
+        NewUserRequest newUserRequest = (NewUserRequest) newObjectRequest;
 
         byte[] photoBytes = null;
 
@@ -38,18 +38,25 @@ public class UserSerivicer extends GenericService<User> {
             photoBytes = Base64.getDecoder().decode(base64);
         }
 
-        req.setPrimaryKeys(new String[]{req.getEmail()});
+        newUserRequest.setPrimaryKeys(new String[]{newUserRequest.getEmail()});
 
-        return new User(
+        User user = new User(
                 photoBytes,
-                req.getNickname(),
-                req.getPassword(),
-                req.getBirthDate(),
-                req.getEmail(),
-                req.getPhoneNumber(),
-                req.getCountry(),
-                req.isPublicLibrary()
+                newUserRequest.getNickname(),
+                newUserRequest.getPassword(),
+                newUserRequest.getBirthDate(),
+                newUserRequest.getEmail(),
+                newUserRequest.getPhoneNumber(),
+                newUserRequest.getCountry(),
+                newUserRequest.isPublicLibrary()
         );
+
+        if (!user.isValid()) {
+
+            throw new InvalidUserParametersException("Data sent is invalid");
+        }
+
+        return user;
     }
 
     @Override
@@ -67,10 +74,23 @@ public class UserSerivicer extends GenericService<User> {
         if (photoBytes != null) {
             user.setPhoto(photoBytes);
         }
-        user.setBirthDate(((UpdateUserRequest) updateObjectRequest).getBirthDate());
-        user.setPhoneNumber(((UpdateUserRequest) updateObjectRequest).getPhoneNumber());
-        user.setCountry(((UpdateUserRequest) updateObjectRequest).getCountry());
-        user.setPublicLibrary(((UpdateUserRequest) updateObjectRequest).isPublicLibrary());
+        UpdateUserRequest req = (UpdateUserRequest) updateObjectRequest;
+
+        if (req.getBirthDate() != null) {
+            user.setBirthDate(req.getBirthDate());
+        }
+
+        if (req.getPhoneNumber() != null && !req.getPhoneNumber().isBlank()) {
+            user.setPhoneNumber(req.getPhoneNumber());
+        }
+
+        if (req.getCountry() != null && !req.getCountry().isBlank()) {
+            user.setCountry(req.getCountry());
+        }
+
+        if (req.isPublicLibrary() != null) {
+            user.setPublicLibrary(req.isPublicLibrary());
+        }
 
         if (!user.isValid()) {
             throw new InvalidUserParametersException("Invalid data to update the user");

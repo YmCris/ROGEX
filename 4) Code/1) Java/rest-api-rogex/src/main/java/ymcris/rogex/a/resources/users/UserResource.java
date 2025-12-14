@@ -5,6 +5,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PathParam;
@@ -15,14 +16,14 @@ import jakarta.ws.rs.core.MediaType;
 import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.c.dtos.users.UserResponse;
 import ymcris.rogex.c.dtos.users.NewUserRequest;
-import ymcris.rogex.b.services.users.UserSerivicer;
+import ymcris.rogex.b.services.users.UserSerivice;
 import ymcris.rogex.c.dtos.users.UpdateUserRequest;
 import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
-import ymcris.rogex.g.commons.response.GenericJSONResponse;
+import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.resources.GenericObjectResource;
+import ymcris.rogex.g.commons.response.GenericJSONResponse;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
-import ymcris.rogex.h.utilities.exceptions.ObjectAlreadyExistsException;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 
 /**
@@ -32,7 +33,7 @@ import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
  * @author YmCris
  * @see UserResponse
  * @see NewUserRequest
- * @see UserSerivicer
+ * @see UserSerivice
  * @since Dec 11, 2025
  */
 @Path("users")
@@ -61,7 +62,8 @@ public class UserResource extends GenericObjectResource<User> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByEmail(@PathParam("email") String email) {
 
-        UserSerivicer userSerivicer = new UserSerivicer();
+        UserSerivice userSerivicer = new UserSerivice();
+        GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
         try {
 
@@ -71,12 +73,23 @@ public class UserResource extends GenericObjectResource<User> {
 
         } catch (ObjectNotFoundException e) {
 
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return jSONResponse.sendJSONResponse(e.getMessage(),
+                    Response.Status.NOT_FOUND);
 
         }
     }
 
     // DELETE ------------------------------------------------------------------
+    @DELETE
+    @Path("{email}")
+    public Response deleteUser(@PathParam("email") String email) {
+
+        GenericNewObjectRequest pk = new GenericNewObjectRequest();
+        pk.setPrimaryKeys(new String[]{email});
+
+        return deleteObjectInternal(pk);
+    }
+
     // PUT ---------------------------------------------------------------------
     @PUT
     @Path("{email}")
@@ -85,7 +98,8 @@ public class UserResource extends GenericObjectResource<User> {
     public Response updateUser(@PathParam("email") String email,
             UpdateUserRequest updateUserRequest) {
 
-        UserSerivicer userSerivicer = new UserSerivicer();
+        UserSerivice userSerivicer = new UserSerivice();
+        GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
         try {
 
@@ -95,11 +109,14 @@ public class UserResource extends GenericObjectResource<User> {
 
         } catch (InvalidUserParametersException e) {
 
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return jSONResponse.sendJSONResponse(e.getMessage(),
+                    Response.Status.BAD_REQUEST);
 
         } catch (ObjectNotFoundException ex) {
 
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return jSONResponse.sendJSONResponse(ex.getMessage(),
+                    Response.Status.NOT_FOUND);
+
         }
 
     }
@@ -107,7 +124,7 @@ public class UserResource extends GenericObjectResource<User> {
     // PATCH -------------------------------------------------------------------
     @Override
     protected GenericService<User> createCRUD() {
-        return new UserSerivicer();
+        return new UserSerivice();
     }
 
     @Override

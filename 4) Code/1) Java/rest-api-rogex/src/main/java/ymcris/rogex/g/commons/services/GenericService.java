@@ -64,11 +64,13 @@ public abstract class GenericService<T> {
 
         try {
 
-            T entity = createEntity(newObjectRequest);
+            if (newObjectRequest == null) {
+                throw new InvalidUserParametersException("Request cannot be null");
+            }
 
-            return entity;
+            return createEntity(newObjectRequest);
 
-        } catch (IllegalArgumentException | NullPointerException e) {
+        } catch (IllegalArgumentException e) {
             throw new InvalidUserParametersException("Invalid data sent");
         }
     }
@@ -129,21 +131,14 @@ public abstract class GenericService<T> {
      * Function responsible for delete an entity
      *
      * @param primaryKeys unique id of the entity
-     * @return true if the entity was delete
      * @throws ObjectNotFoundException if the eentity doesnot exists
      */
-    public final boolean deleteEntity(String[] primaryKeys)
+    public final void deleteEntity(String[] primaryKeys)
             throws ObjectNotFoundException {
-        
-        T entity = getEntity(primaryKeys);
 
-        if (entity != null) {
-            genericDAO.deleteEntity(primaryKeys);
+        getEntity(primaryKeys);
+        genericDAO.deleteEntity(primaryKeys);
 
-            return true;
-        }
-
-        return false;
     }
 
     // GET ---------------------------------------------------------------------

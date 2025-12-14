@@ -1,7 +1,5 @@
 package ymcris.rogex.g.commons.response;
 
-import jakarta.json.Json;
-import jakarta.json.JsonObject;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response.Status;
@@ -26,21 +24,10 @@ public class GenericJSONResponse {
      */
     public Response sendJSONResponse(String message, Status status) {
         return Response.status(status)
-                .entity(createJSONObject(message))
+                .entity(new MessageResponse(message))
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }
-
-    /**
-     * Function responsible for create the JSON object to send
-     *
-     * @param message to create the json
-     * @return json Object created
-     */
-    private JsonObject createJSONObject(String message) {
-        return Json.createObjectBuilder()
-                .add("message", message)
-                .build();
-    }
+    
 
 }
