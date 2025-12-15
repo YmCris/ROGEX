@@ -6,13 +6,7 @@ package ymcris.rogex.g.commons.dtos;
  * but its important to "overald" the program
  *
  * @author YmCris
- * @param <T> type of the object response
  * @since Dec 11, 2025
  */
-public class GenericObjectResponse<T> {
-
-    // CONSTRUCTOR METHOD ------------------------------------------------------
-    public GenericObjectResponse(T entity) {
-    }
-
+public interface GenericObjectResponse {
 }

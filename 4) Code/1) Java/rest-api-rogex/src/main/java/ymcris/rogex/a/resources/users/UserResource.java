@@ -135,4 +135,9 @@ public class UserResource extends GenericResource<User> {
                 .toList();
     }
 
+    @Override
+    protected GenericObjectResponse toResponse(User user) {
+        return new UserResponse(user);
+    }
+
 }

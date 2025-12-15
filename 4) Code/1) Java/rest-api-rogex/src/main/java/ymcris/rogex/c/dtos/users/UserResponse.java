@@ -15,7 +15,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
  * @author YmCris
  * @since Dec 11, 2025
  */
-public class UserResponse extends GenericObjectResponse<User> {
+public class UserResponse implements GenericObjectResponse {
 
     // REFERENCE VARIABLES -----------------------------------------------------
     private String photoUrl;
@@ -33,7 +33,6 @@ public class UserResponse extends GenericObjectResponse<User> {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public UserResponse(User user) {
-        super(user);
         this.photoUrl = "/api/v1/users/" + user.getEmail() + "/photo";
         this.nickname = user.getNickname();
         this.password = user.getPassword();

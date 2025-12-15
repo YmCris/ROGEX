@@ -70,9 +70,7 @@ public abstract class GenericResource<T> {
         try {
 
             T entity = service.getEntity(primaryKeys);
-            GenericObjectResponse response = new GenericObjectResponse(entity);
-
-            return Response.ok(response).build();
+            return Response.ok(toResponse(entity)).build();
 
         } catch (ObjectNotFoundException e) {
 
@@ -136,8 +134,7 @@ public abstract class GenericResource<T> {
         try {
 
             T updated = service.updateObject(primaryKeys, updateRequest);
-
-            return Response.ok(new GenericObjectResponse(updated)).build();
+            return Response.ok(toResponse(updated)).build();
 
         } catch (InvalidUserParametersException e) {
 
@@ -166,4 +163,7 @@ public abstract class GenericResource<T> {
      * @return
      */
     protected abstract List<GenericObjectResponse> getObjects(GenericService<T> objectsGetter);
+
+    protected abstract GenericObjectResponse toResponse(T entity);
+
 }

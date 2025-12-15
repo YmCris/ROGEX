@@ -10,7 +10,7 @@ import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
  * @author YmCris
  * @since Dec 14, 2025
  */
-public class WalletResponse extends GenericObjectResponse<Wallet> {
+public class WalletResponse implements GenericObjectResponse{
 
     // REFERENCE VARIABLES -----------------------------------------------------
     private String userEmail;
@@ -20,7 +20,6 @@ public class WalletResponse extends GenericObjectResponse<Wallet> {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public WalletResponse(Wallet wallet) {
-        super(wallet);
         this.userEmail = wallet.getUser().getEmail();
         this.name = wallet.getName();
         this.fund = wallet.getFund();

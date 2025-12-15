@@ -142,4 +142,10 @@ public class WalletResource extends GenericResource<Wallet> {
                 .map(wallet -> (GenericObjectResponse) new WalletResponse(wallet))
                 .toList();
     }
+
+    @Override
+    protected GenericObjectResponse toResponse(Wallet wallet) {
+        return new WalletResponse(wallet);
+    }
+
 }
