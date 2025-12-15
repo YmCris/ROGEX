@@ -11,15 +11,15 @@ import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 
 /**
- * The UserSerivice class is the class responsible for
+ * The UserService class is the class responsible for
  *
  * @author YmCris
  * @since Dec 11, 2025
  */
-public class UserSerivice extends GenericService<User> {
+public class UserService extends GenericService<User> {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public UserSerivice() {
+    public UserService() {
         super(new UserDAO());
 
     }
@@ -74,22 +74,22 @@ public class UserSerivice extends GenericService<User> {
         if (photoBytes != null) {
             user.setPhoto(photoBytes);
         }
-        UpdateUserRequest req = (UpdateUserRequest) updateObjectRequest;
+        UpdateUserRequest updateUserRequest = (UpdateUserRequest) updateObjectRequest;
 
-        if (req.getBirthDate() != null) {
-            user.setBirthDate(req.getBirthDate());
+        if (updateUserRequest.getBirthDate() != null) {
+            user.setBirthDate(updateUserRequest.getBirthDate());
         }
 
-        if (req.getPhoneNumber() != null && !req.getPhoneNumber().isBlank()) {
-            user.setPhoneNumber(req.getPhoneNumber());
+        if (updateUserRequest.getPhoneNumber() != null && !updateUserRequest.getPhoneNumber().isBlank()) {
+            user.setPhoneNumber(updateUserRequest.getPhoneNumber());
         }
 
-        if (req.getCountry() != null && !req.getCountry().isBlank()) {
-            user.setCountry(req.getCountry());
+        if (updateUserRequest.getCountry() != null && !updateUserRequest.getCountry().isBlank()) {
+            user.setCountry(updateUserRequest.getCountry());
         }
 
-        if (req.isPublicLibrary() != null) {
-            user.setPublicLibrary(req.isPublicLibrary());
+        if (updateUserRequest.isPublicLibrary() != null) {
+            user.setPublicLibrary(updateUserRequest.isPublicLibrary());
         }
 
         if (!user.isValid()) {

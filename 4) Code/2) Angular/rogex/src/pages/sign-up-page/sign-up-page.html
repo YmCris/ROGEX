@@ -1,4 +1,4 @@
-<body class="bg-dark text-light">
+<div class="bg-dark text-light min-vh-100">
     <main>
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -6,24 +6,22 @@
                     <br>
                     <br>
                     <br>
-                    <form [formGroup]="newUserForm" (submit)="submit()">
+                    <form [formGroup]="newUserForm" (ngSubmit)="submit()">
 
                         <div class="row g-3">
-                            <br>
-                            <br>
-                            <br>
+                            <div class="my-3"></div>
                             <h2 class="text-center"><b>Registrarse</b></h2>
                             <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
                             <br>
                             <br>
+                            @if (actionDone) {
                             @if (operationDone) {
                             <successful-action message="Usuario creado correctamente"></successful-action>
                             } @else {
                             <app-unsuccessful-action-component
                                 message="Error al crear el usuario"></app-unsuccessful-action-component>
                             }
-
-
+                            }
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="username" class="form-label">Nickname:</label>
@@ -63,8 +61,9 @@
 
                                 <div class="form-group">
                                     <label for="email" class="form-label">Correo electrónico:</label>
-                                    <label class="form-control">{{userToUpdate.email}}</label>
-                                    <input type="text" name="email" [value]="userToUpdate.email" />
+                                    <input type="text" class="form-control" formControlName="email"
+                                        [readonly]="isEditMode">
+
                                 </div>
 
                                 }
@@ -80,7 +79,7 @@
                                     newUserForm.controls['location'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una ubicación con 100 caracteres como maximo
+                                            Se debe ingresar una ciudad con 100 caracteres como maximo
                                         </div>
                                     </div>
                                     }
@@ -90,14 +89,15 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="photo" class="form-label">Numéro telefónico:</label>
-                                    <input type="text" class="form-control" id="photo" name="photo"
-                                        formControlName="photo">
+                                    <label for="phoneNumber" class="form-label">Numéro telefónico:</label>
+                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                        formControlName="phoneNumber">
 
-                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    @if (newUserForm.controls['phoneNumber'].invalid &&
+                                    newUserForm.controls['phoneNumber'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una foto con 100 caracteres como maximo
+                                            Se debe ingresar un número telefónico válido
                                         </div>
                                     </div>
                                     }
@@ -107,14 +107,15 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="birth-day" class="form-label">Fecha de cumpleaños:</label>
-                                    <input type="date" class="form-control" id="birth-day" name="birth-day"
-                                        formControlName="birth-day">
+                                    <label for="birthDay" class="form-label">Fecha de cumpleaños:</label>
+                                    <input type="date" class="form-control" id="birthDay" name="birthDay"
+                                        formControlName="birthDay">
 
-                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    @if (newUserForm.controls['birthDay'].invalid &&
+                                    newUserForm.controls['birthDay'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una foto con 100 caracteres como maximo
+                                            Se debe ingresar una fecha de cumpleaños con 100 caracteres como maximo
                                         </div>
                                     </div>
                                     }
@@ -125,9 +126,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="photo" class="form-label">Foto de perfil:</label>
-                                    <input type="text" class="form-control" id="photo" name="photo"
-                                        formControlName="photo">
-
+                                    <input type="file" class="form-control" (change)="onFileSelected($event)">
                                     @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
@@ -167,50 +166,5 @@
             </div>
         </div>
     </main>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-</body>
-
-
-<!--
- <h2 class="text-center"><b>Registrarse</b></h2>
-                    <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
-                    <form class="needs-validation" method="POST"
-                        action="${pageContext.servletContext.contextPath}/mvc/system/sign-up-servlet">
-                        <div class="mb-3">
-                            <label><b>Nombre de usuario</b></label>
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="Nombre de usuario que será visible para todos los usuario" required>
-                        </div>
-                        <div class="mb-3">
-                            <label><b>Correo electrónico</b></label>
-                            <input type="email" class="form-control" id="email" name="email"
-                                placeholder="Correo en el que se enviarán notificaciones" required>
-                        </div>
-                        <div class="mb-3">
-                            <label><b>Ubicación</b></label>
-                            <input type="location" class="form-control" id="location" name="location"
-                                placeholder="Ubicación para recomendación de cines">
-                        </div>
-                        <div class="mb-3">
-                            <label><b>Foto de perfil</b></label>
-                            <input type="file" class="form-control" id="photo" name="photo"
-                                placeholder="Foto visible en el perfil">
-                        </div>
-                        <div class="mb-3">
-                            <label><b>Contraseña</b></label>
-                            <input type="password" class="form-control" id="password" name="password"
-                                placeholder="Contraseña" required>
-                        </div>
-                        <div class="text-center">
-                            <button class="btn btn-primary btn-lg" type="submit">Registrarse</button>
-                        </div>
-                    </form>
--->
+    <div class="my-5"></div>
+</div>

@@ -9,12 +9,12 @@ import { UnsuccessfulActionComponent } from "../../components/response-elements/
 
 @Component({
   selector: 'app-sign-up-page',
-  imports: [NgFor, FormsModule, ReactiveFormsModule, KeyValuePipe, SuccessfulActionComponent, UnsuccessfulActionComponent],
+  imports: [FormsModule, ReactiveFormsModule, SuccessfulActionComponent, UnsuccessfulActionComponent],
   templateUrl: './sign-up-page.html',
   styleUrl: './sign-up-page.css'
 })
 export class SignUpPage implements OnInit {
-
+  [x: string]: any;
   @Input()
   isEditMode: boolean = false;
   @Input()
@@ -29,6 +29,10 @@ export class SignUpPage implements OnInit {
     private usersService: UsersService
   ) {
 
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
   }
 
   ngOnInit(): void {
@@ -61,6 +65,7 @@ export class SignUpPage implements OnInit {
       this.resetOnCreate();
     }
     this.operationDone = false;
+    this.actionDone = false;
   }
 
   private resetOnCreate(): void {
@@ -75,12 +80,16 @@ export class SignUpPage implements OnInit {
 
   private saveNewUser(): void {
     this.newUser = this.newUserForm.value as User;
+
     this.usersService.createNewUser(this.newUser).subscribe({
       next: () => {
-        this.reset();
         this.operationDone = true;
+        this.actionDone = true;
+        this.reset();
       },
       error: (error: any) => {
+        this.operationDone = false;
+        this.actionDone = true;
         console.log(error);
       }
     });
@@ -90,13 +99,17 @@ export class SignUpPage implements OnInit {
   private updateUser(): void {
     this.userToUpdate = this.newUserForm.value as User;
     const { email, ...userToUpdateRequest } = this.userToUpdate;
+
     this.usersService.updateUser(this.userToUpdate.email, userToUpdateRequest).subscribe({
       next: () => {
-        this.reset();
         this.operationDone = true;
+        this.actionDone = true;
+        this.reset();
       },
       error: (error: any) => {
         console.log(error);
+        this.operationDone = false;
+        this.actionDone = true;
       }
     });
   }

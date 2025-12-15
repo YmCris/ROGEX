@@ -1,13 +1,13 @@
 package ymcris.rogex.d.daos.users;
 
-import java.sql.Connection;
 import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import ymcris.rogex.e.models.users.User;
-import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
+import ymcris.rogex.f.database.DBConnectionSingleton;
 
 /**
  * The UsersDAO class is the class responsible for be the Data Access Object of
@@ -70,8 +70,7 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public void createEntity(User user) {
         try (
-                Connection connection = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement statement= connection.prepareStatement(SQL_INSERT_ENTITY)) {
+                Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_INSERT_ENTITY)) {
 
             statement.setBytes(1, user.getPhoto());
             statement.setString(2, user.getNickname());
@@ -92,8 +91,7 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     public void updateEntity(String[] primaryKeys, User user) {
 
-        try (Connection connection = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
+        try (Connection connection = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
 
             statement.setBytes(1, user.getPhoto());
             statement.setDate(2, Date.valueOf(user.getBirthDate()));

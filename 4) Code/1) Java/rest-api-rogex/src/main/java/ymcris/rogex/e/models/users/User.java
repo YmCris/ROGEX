@@ -1,7 +1,10 @@
 package ymcris.rogex.e.models.users;
 
+import java.util.List;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
+import ymcris.rogex.e.models.wallets.Wallet;
 
 /**
  * The User class is the class responsible for represent a final user
@@ -19,6 +22,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String country;
+    private List<Wallet> wallets;
 
     // PRIMITIVE VARIABLES -----------------------------------------------------
     private boolean publicLibrary;
@@ -26,6 +30,7 @@ public class User {
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public User(byte[] photo, String nickname, String password, LocalDate birthDate,
             String email, String phoneNumber, String country, boolean publicLibrary) {
+        wallets = new ArrayList<>();
         this.photo = photo;
         this.nickname = nickname;
         this.password = password;
@@ -80,6 +85,10 @@ public class User {
         return publicLibrary;
     }
 
+    public List<Wallet> getWallets() {
+        return wallets;
+    }
+
     // SETTERS -----------------------------------------------------------------
     public void setPhoto(byte[] photo) {
         this.photo = photo;
@@ -111,6 +120,10 @@ public class User {
 
     public void setPublicLibrary(boolean publicLibrary) {
         this.publicLibrary = publicLibrary;
+    }
+
+    public void setWallets(List<Wallet> wallets) {
+        this.wallets = wallets;
     }
 
 }

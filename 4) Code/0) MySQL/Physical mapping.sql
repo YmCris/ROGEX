@@ -168,11 +168,13 @@ CREATE TABLE message (-- (1FN, 2FN, 3FN)
 
 CREATE TABLE wallet (-- (1FN, 2FN, 3FN)
     banck ENUM('BANRURAL', 'BI', 'AZTECA','PROMERICA','G&T','BANTRAB', 'BAC') NOT NULL,
+    user_email VARCHAR(100) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL,
     fund DECIMAL(10,2) NOT NULL,
-    CONSTRAINT pk_wallet PRIMARY KEY (name, banck)
+    CONSTRAINT pk_wallet PRIMARY KEY (name, banck),
+    CONSTRAINT fk_wallet_user FOREIGN KEY (user_email) REFERENCES user(email)
 );
-
+/*
 CREATE TABLE wallet_user (-- (1FN, 2FN, 3FN)
     wallet_name VARCHAR(100) NOT NULL,
     wallet_banck ENUM('BANRURAL', 'BI', 'AZTECA','PROMERICA','G&T','BANTRAB', 'BAC') NOT NULL,
@@ -181,7 +183,7 @@ CREATE TABLE wallet_user (-- (1FN, 2FN, 3FN)
     CONSTRAINT fk_wallet_user_wallet FOREIGN KEY (wallet_name, wallet_banck) REFERENCES wallet(name, banck),
     CONSTRAINT fk_wallet_user_user FOREIGN KEY (user_email) REFERENCES user(email)
 );
-
+*/
 CREATE TABLE wallet_transaction (-- (1FN, 2FN, )
     transaction_date DATETIME NOT NULL,
     amount DECIMAL(10,2) NOT NULL,

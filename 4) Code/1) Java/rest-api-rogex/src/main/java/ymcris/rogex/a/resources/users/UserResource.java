@@ -16,12 +16,12 @@ import jakarta.ws.rs.core.MediaType;
 import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.c.dtos.users.UserResponse;
 import ymcris.rogex.c.dtos.users.NewUserRequest;
-import ymcris.rogex.b.services.users.UserSerivice;
+import ymcris.rogex.b.services.users.UserService;
 import ymcris.rogex.c.dtos.users.UpdateUserRequest;
 import ymcris.rogex.g.commons.services.GenericService;
+import ymcris.rogex.g.commons.resources.GenericResource;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
-import ymcris.rogex.g.commons.resources.GenericObjectResource;
 import ymcris.rogex.g.commons.response.GenericJSONResponse;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
@@ -33,11 +33,11 @@ import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
  * @author YmCris
  * @see UserResponse
  * @see NewUserRequest
- * @see UserSerivice
+ * @see UserService
  * @since Dec 11, 2025
  */
 @Path("users")
-public class UserResource extends GenericObjectResource<User> {
+public class UserResource extends GenericResource<User> {
 
     @Context
     UriInfo uriInfo;
@@ -62,7 +62,7 @@ public class UserResource extends GenericObjectResource<User> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserByEmail(@PathParam("email") String email) {
 
-        UserSerivice userSerivicer = new UserSerivice();
+        UserService userSerivicer = new UserService();
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
         try {
@@ -98,7 +98,7 @@ public class UserResource extends GenericObjectResource<User> {
     public Response updateUser(@PathParam("email") String email,
             UpdateUserRequest updateUserRequest) {
 
-        UserSerivice userSerivicer = new UserSerivice();
+        UserService userSerivicer = new UserService();
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
         try {
@@ -124,7 +124,7 @@ public class UserResource extends GenericObjectResource<User> {
     // PATCH -------------------------------------------------------------------
     @Override
     protected GenericService<User> createCRUD() {
-        return new UserSerivice();
+        return new UserService();
     }
 
     @Override

@@ -12,6 +12,15 @@ public class GenericNewObjectRequest {
     // REFERENCE VARIABLES -----------------------------------------------------
     private String[] primaryKeys;
 
+    // CONSTRUCTOR -------------------------------------------------------------
+    public GenericNewObjectRequest(String[] primaryKeys) {
+        this.primaryKeys = primaryKeys;
+    }
+
+    public GenericNewObjectRequest() {
+
+    }
+
     // GETTERS -----------------------------------------------------------------
     public String[] getPrimaryKeys() {
         return primaryKeys;

@@ -14,14 +14,14 @@ import ymcris.rogex.h.utilities.exceptions.ObjectAlreadyExistsException;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
 
 /**
- * The GenericObjectResource class is the class responsible for be the "servlet"
- * of the Generic CRUD
+ * The GenericResource class is the class responsible for be the "servlet" of
+ * the Generic CRUD
  *
  * @author YmCris
  * @param <T> type of the api
  * @since Dec 11, 2025
  */
-public abstract class GenericObjectResource<T> {
+public abstract class GenericResource<T> {
 
     // CONTEXT INFO ------------------------------------------------------------
     @Context
@@ -62,9 +62,30 @@ public abstract class GenericObjectResource<T> {
         return Response.ok(objects).build();
     }
 
+    public final Response getObjectInternal(String[] primaryKeys) {
+
+        GenericJSONResponse jsonResponse = new GenericJSONResponse();
+        GenericService<T> service = createCRUD();
+
+        try {
+
+            T entity = service.getEntity(primaryKeys);
+            GenericObjectResponse response = new GenericObjectResponse(entity);
+
+            return Response.ok(response).build();
+
+        } catch (ObjectNotFoundException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.NOT_FOUND
+            );
+        }
+    }
+
     // DELETE ------------------------------------------------------------------
     public final Response deleteObjectInternal(GenericNewObjectRequest genericNewObjectRequest) {
-        
+
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
         GenericService<T> deleteObject = createCRUD();
 
@@ -81,7 +102,7 @@ public abstract class GenericObjectResource<T> {
                     Response.Status.BAD_REQUEST);
         }
     }
-    
+
     // PUT ---------------------------------------------------------------------
     public final Response updateObject(GenericUpdateObjectRequest genericUpdateObjectRequest,
             GenericNewObjectRequest genericNewObjectRequest) throws ObjectNotFoundException {
@@ -103,6 +124,35 @@ public abstract class GenericObjectResource<T> {
 
         }
 
+    }
+
+    public final Response updateObjectInternal(
+            String[] primaryKeys,
+            GenericUpdateObjectRequest updateRequest) {
+
+        GenericJSONResponse jsonResponse = new GenericJSONResponse();
+        GenericService<T> service = createCRUD();
+
+        try {
+
+            T updated = service.updateObject(primaryKeys, updateRequest);
+
+            return Response.ok(new GenericObjectResponse(updated)).build();
+
+        } catch (InvalidUserParametersException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.BAD_REQUEST
+            );
+
+        } catch (ObjectNotFoundException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.NOT_FOUND
+            );
+        }
     }
 
     // AUXILIAR METHODS --------------------------------------------------------
