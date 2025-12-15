@@ -26,6 +26,7 @@ public abstract class GenericDAO<T> {
     protected final String SQL_UPDATE_ENTITY;
     protected final String SQL_DELETE_ENTITY;
     protected final String SQL_GET_ALL_ENTITIES;
+    protected final String SQL_GET_SINGLETON;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     /**
@@ -37,16 +38,19 @@ public abstract class GenericDAO<T> {
      * @param SQL_UPDATE_ENTITY
      * @param SQL_GET_ALL_ENTITIES
      * @param SQL_DELETE_ENTITY
+     * @param SQL_GET_SINGLETON
      */
     public GenericDAO(String SQL_INSERT_ENTITY, String SQL_EXISTS_ENTITY,
             String SQL_GET_BY_PK, String SQL_UPDATE_ENTITY,
-            String SQL_GET_ALL_ENTITIES, String SQL_DELETE_ENTITY) {
+            String SQL_GET_ALL_ENTITIES, String SQL_DELETE_ENTITY,
+            String SQL_GET_SINGLETON) {
         this.SQL_INSERT_ENTITY = SQL_INSERT_ENTITY;
         this.SQL_ENTITY_EXISTS = SQL_EXISTS_ENTITY;
         this.SQL_GET_ENTITY_BY_PK = SQL_GET_BY_PK;
         this.SQL_UPDATE_ENTITY = SQL_UPDATE_ENTITY;
         this.SQL_GET_ALL_ENTITIES = SQL_GET_ALL_ENTITIES;
         this.SQL_DELETE_ENTITY = SQL_DELETE_ENTITY;
+        this.SQL_GET_SINGLETON = SQL_GET_SINGLETON;
     }
 
     // SPECIFIC METHODS --------------------------------------------------------
@@ -71,8 +75,7 @@ public abstract class GenericDAO<T> {
      * @param primaryKeys unique id of the entity
      */
     public void deleteEntity(String[] primaryKeys) {
-        try (
-                Connection connection
+        try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_DELETE_ENTITY)) {
 
@@ -96,8 +99,7 @@ public abstract class GenericDAO<T> {
      */
     public boolean entityExists(String[] primaryKeys) {
         try (Connection connection
-                = DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement statement
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_ENTITY_EXISTS)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
@@ -124,9 +126,8 @@ public abstract class GenericDAO<T> {
     public Optional<T> getEntityByPrimaryKeys(String[] primaryKeys)
             throws ObjectNotFoundException {
 
-        try (Connection connection = 
-                DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement statement
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ENTITY_BY_PK)) {
 
             for (int i = 0; i < primaryKeys.length; i++) {
@@ -167,10 +168,9 @@ public abstract class GenericDAO<T> {
      */
     public List<T> getAllEntities() {
         List<T> entities = new ArrayList<>();
-        
-        try (Connection connection =
-                DBConnectionSingleton.getInstance().getConnection();
-                PreparedStatement statement
+
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ALL_ENTITIES)) {
 
             ResultSet resultSet = statement.executeQuery();
@@ -186,4 +186,24 @@ public abstract class GenericDAO<T> {
 
         return entities;
     }
+
+    public Optional<T> getSingleton() {
+
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_GET_SINGLETON)) {
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(createEntity(resultSet));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting singleton entity: " + e.getMessage());
+        }
+
+        return Optional.empty();
+    }
+
 }

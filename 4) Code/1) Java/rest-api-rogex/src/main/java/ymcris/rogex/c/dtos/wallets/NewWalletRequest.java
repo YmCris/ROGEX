@@ -1,6 +1,5 @@
 package ymcris.rogex.c.dtos.wallets;
 
-import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.e.models.wallets.BanckType;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 
@@ -13,14 +12,14 @@ import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 public class NewWalletRequest extends GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private User user;
+    private String userEmail;
     private String name;
     private Double fund;
     private BanckType banck;
 
     // GETTERS -----------------------------------------------------------------
-    public User getUser() {
-        return user;
+    public String getUserEmail() {
+        return userEmail;
     }
 
     public String getName() {
@@ -36,8 +35,8 @@ public class NewWalletRequest extends GenericNewObjectRequest {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public void setName(String name) {

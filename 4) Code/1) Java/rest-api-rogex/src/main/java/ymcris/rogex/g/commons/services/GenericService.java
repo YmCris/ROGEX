@@ -159,6 +159,29 @@ public abstract class GenericService<T> {
         return entityOptional.get();
     }
 
+    public final T getSingletonEntity() throws ObjectNotFoundException {
+
+        Optional<T> entityOptional = genericDAO.getSingleton();
+
+        if (entityOptional.isEmpty()) {
+            throw new ObjectNotFoundException("This entity does'nt exists");
+        }
+
+        return entityOptional.get();
+    }
+
+    public final T updateSingleton(GenericUpdateObjectRequest updateRequest)
+            throws InvalidUserParametersException, ObjectNotFoundException {
+
+        T entity = getSingletonEntity();
+
+        updateEntity(entity, updateRequest);
+
+        genericDAO.updateEntity(null, entity);
+
+        return entity;
+    }
+
     /**
      * Function responsible for deliver all entities
      *

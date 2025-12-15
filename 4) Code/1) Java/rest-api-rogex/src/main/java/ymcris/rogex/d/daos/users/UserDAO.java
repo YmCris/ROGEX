@@ -42,9 +42,15 @@ public class UserDAO extends GenericDAO<User> {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public UserDAO() {
-        super(SQL_INSERT_USER, SQL_EXISTS_USER,
-                SQL_GET_BY_EMAIL, SQL_UPDATE_USER,
-                SQL_GET_ALL_USERS, SQL_DELETE_USER);
+        super(
+                SQL_INSERT_USER,
+                SQL_EXISTS_USER,
+                SQL_GET_BY_EMAIL,
+                SQL_UPDATE_USER,
+                SQL_GET_ALL_USERS,
+                SQL_DELETE_USER,
+                null
+        );
     }
 
     // OVERRIDE METHODS --------------------------------------------------------

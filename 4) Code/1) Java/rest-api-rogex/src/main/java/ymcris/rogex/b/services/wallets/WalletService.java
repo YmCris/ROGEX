@@ -5,6 +5,7 @@ import ymcris.rogex.e.models.wallets.Wallet;
 import ymcris.rogex.c.dtos.wallets.NewWalletRequest;
 import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.c.dtos.wallets.UpdateWalletRequest;
+import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
 import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
@@ -39,6 +40,8 @@ public class WalletService extends GenericService<Wallet> {
                 newWalletRequest.getFund(),
                 newWalletRequest.getBanck()
         );
+
+        wallet.setUser(new User(null, null, null, null, newWalletRequest.getUserEmail(), null, null, true));
 
         if (!wallet.isValid()) {
             throw new InvalidUserParametersException("Data sent is invalid");

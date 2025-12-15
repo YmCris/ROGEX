@@ -81,6 +81,24 @@ public abstract class GenericResource<T> {
         }
     }
 
+    public final Response getObjectInternalSingleton() {
+        GenericJSONResponse jsonResponse = new GenericJSONResponse();
+        GenericService<T> service = createCRUD();
+
+        try {
+
+            T entity = service.getSingletonEntity();
+            return Response.ok(toResponse(entity)).build();
+
+        } catch (ObjectNotFoundException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.NOT_FOUND
+            );
+        }
+    }
+
     // DELETE ------------------------------------------------------------------
     public final Response deleteObjectInternal(GenericNewObjectRequest genericNewObjectRequest) {
 
@@ -134,6 +152,33 @@ public abstract class GenericResource<T> {
         try {
 
             T updated = service.updateObject(primaryKeys, updateRequest);
+            return Response.ok(toResponse(updated)).build();
+
+        } catch (InvalidUserParametersException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.BAD_REQUEST
+            );
+
+        } catch (ObjectNotFoundException e) {
+
+            return jsonResponse.sendJSONResponse(
+                    e.getMessage(),
+                    Response.Status.NOT_FOUND
+            );
+        }
+    }
+
+    public final Response updateObjectInternalSingleton(
+            GenericUpdateObjectRequest updateRequest) {
+
+        GenericJSONResponse jsonResponse = new GenericJSONResponse();
+        GenericService<T> service = createCRUD();
+
+        try {
+
+            T updated = service.updateSingleton(updateRequest);
             return Response.ok(toResponse(updated)).build();
 
         } catch (InvalidUserParametersException e) {
