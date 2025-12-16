@@ -26,7 +26,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
             + "VALUES (?, ?, ?, ?)";
 
     private static final String SQL_EXISTS_WALLET
-            = "SELECT 1 FROM wallet WHERE banck = ? AND name = ?";
+            = "SELECT 1 FROM wallet WHERE name = ? AND banck = ?";
 
     private static final String SQL_GET_BY_PK
             = "SELECT * FROM wallet WHERE banck = ? AND name = ?";
