@@ -1,0 +1,170 @@
+<div class="bg-dark text-light min-vh-100">
+    <main>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <br>
+                    <br>
+                    <br>
+                    <form [formGroup]="newUserForm" (ngSubmit)="submit()">
+
+                        <div class="row g-3">
+                            <div class="my-3"></div>
+                            <h2 class="text-center"><b>Registrarse</b></h2>
+                            <p class="text-center">Llena todos los campos necesarios para poder ingresar al sistema</p>
+                            <br>
+                            <br>
+                            @if (actionDone) {
+                            @if (operationDone) {
+                            <successful-action message="Usuario creado correctamente"></successful-action>
+                            } @else {
+                            <app-unsuccessful-action-component
+                                message="Error al crear el usuario"></app-unsuccessful-action-component>
+                            }
+                            }
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="username" class="form-label">Nickname:</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                        formControlName="username">
+
+                                    @if (newUserForm.controls['username'].invalid &&
+                                    newUserForm.controls['username'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar un nombre con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                @if(!isEditMode) {
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Correo electrónico:</label>
+                                    <input type="text" class="form-control" id="email" name="email"
+                                        formControlName="email"
+                                        [class.is-invalid]="newUserForm.controls['email'].dirty && newUserForm.controls['email'].invalid">
+                                    @if (newUserForm.controls['email'].invalid && newUserForm.controls['email'].touched)
+                                    {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Por favor ingrese un correo valido
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+
+                                } @else {
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Correo electrónico:</label>
+                                    <input type="text" class="form-control" formControlName="email"
+                                        [readonly]="isEditMode">
+
+                                </div>
+
+                                }
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="location" class="form-label">Ciudad:</label>
+                                    <input type="text" class="form-control" id="location" name="location"
+                                        formControlName="location">
+
+                                    @if (newUserForm.controls['location'].invalid &&
+                                    newUserForm.controls['location'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una ciudad con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="phoneNumber" class="form-label">Numéro telefónico:</label>
+                                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
+                                        formControlName="phoneNumber">
+
+                                    @if (newUserForm.controls['phoneNumber'].invalid &&
+                                    newUserForm.controls['phoneNumber'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar un número telefónico válido
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="birthDay" class="form-label">Fecha de cumpleaños:</label>
+                                    <input type="date" class="form-control" id="birthDay" name="birthDay"
+                                        formControlName="birthDay">
+
+                                    @if (newUserForm.controls['birthDay'].invalid &&
+                                    newUserForm.controls['birthDay'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una fecha de cumpleaños con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="photo" class="form-label">Foto de perfil:</label>
+                                    <input type="file" class="form-control" (change)="onFileSelected($event)">
+                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una foto con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="password" class="form-label">Contraseña:</label>
+                                    <input type="password" class="form-control" id="password" name="password"
+                                        formControlName="password">
+
+                                    @if (newUserForm.controls['password'].invalid &&
+                                    newUserForm.controls['password'].dirty) {
+                                    <div class="invalid-feedback">
+                                        <div>
+                                            Se debe ingresar una contraseña con 100 caracteres como maximo
+                                        </div>
+                                    </div>
+                                    }
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <button class="btn btn-secondary me-md-2" type="button" (click)="reset()">Limpiar</button>
+                        <button class="btn btn-primary" [disabled]="!newUserForm.dirty || newUserForm.invalid">
+                            Guardar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="my-5"></div>
+</div>

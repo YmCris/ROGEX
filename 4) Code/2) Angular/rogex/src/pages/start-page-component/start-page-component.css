@@ -1,0 +1,35 @@
+/* Reset Bootstrap margin/padding del body y html */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 99%;
+  height: 99%;
+  overflow-x: hidden; /* evita scroll horizontal */
+}
+
+.hero-section {
+  position: relative;
+  width: 99vw;        /* todo el ancho de la ventana */
+  height: 100vh;       /* todo el alto de la ventana */
+  margin: 0;
+  padding: 0;
+
+  background-image: url('../../assets/images/people.jpg');
+  background-size: cover;      /* cubrir todo el contenedor */
+  background-position: center; /* centrar la imagen */
+  background-repeat: no-repeat;
+}
+
+/* Capa oscura encima de la imagen para legibilidad */
+.hero-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 0;
+}
+
+.hero-section .container {
+  position: relative;
+  z-index: 1;
+}

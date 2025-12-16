@@ -38,18 +38,20 @@ CREATE TABLE main_banner(-- (1FN, 2FN, 3FN)
 CREATE TABLE enterprise (-- (1FN, 2FN, 3FN)
     name VARCHAR(150) NOT NULL,
     description TEXT NOT NULL,
-    logo BLOB NOT NULL,
-    cover BLOB NOT NULL,
+    specific_commission DECIMAL(5,2),
+    logo BLOB,
+    cover BLOB,
     hidden_all_comments BOOLEAN NOT NULL DEFAULT FALSE,
     CONSTRAINT pk_enterprise PRIMARY KEY (name) 
 );
-
+/*
 CREATE TABLE enterprise_specific_commission(-- (1FN, 2FN, 3FN)
     specific_commission DECIMAL(5,2) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
     CONSTRAINT pk_enterprise_specific_commission PRIMARY KEY (enterprise_name),
     CONSTRAINT fk_enterprise_specific_commission_enterprise FOREIGN KEY (enterprise_name) REFERENCES enterprise(name)
 );
+*/
 
 CREATE TABLE enterprise_user (-- (1FN, 2FN, 3FN)
     email VARCHAR(100) NOT NULL,
@@ -62,7 +64,7 @@ CREATE TABLE enterprise_user (-- (1FN, 2FN, 3FN)
 );
 
 /********************************* VIDEOGAMES *********************************/
-CREATE TABLE category (-- (1FN, 2FN, 3FN)
+CREATE TABLE category ( -- (1FN, 2FN, 3FN)
     name VARCHAR(50) NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
     CONSTRAINT pk_category PRIMARY KEY (id)
@@ -85,8 +87,8 @@ CREATE TABLE videogame (-- (1FN, 2FN, 3FN)
 );
    
 CREATE TABLE videogame_multimedia (-- (1FN, 2FN, 3FN)
-    multimedia BLOB NOT NULL,
-    is_image BOOLEAN NOT NULL,
+    multimedia BLOB,
+    is_image BOOLEAN NOT NULL DEFAULT TRUE,
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
@@ -110,12 +112,12 @@ CREATE TABLE videogame_comment (-- (1FN, 2FN, )
     comment_text TEXT NOT NULL,
     comment_date DATETIME NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
-    --parent_comment_id Para respuestas a comentarios? woa ver después
+    parent_comment_id INT,
     CONSTRAINT pk_videogame_comment PRIMARY KEY (id),
     CONSTRAINT fk_videogame_comment_videogame FOREIGN KEY (videogame_title, enterprise_name) REFERENCES videogame(title, enterprise_name),
     CONSTRAINT fk_videogame_comment_user FOREIGN KEY (user_email) REFERENCES user(email)
 );
-
+/*
 CREATE TABLE comment_comment_response(-- (1FN, 2FN, 3FN)???????? XXXX
     response_text TEXT NOT NULL,
     response_date DATETIME NOT NULL,
@@ -129,7 +131,7 @@ CREATE TABLE comment_comment_response(-- (1FN, 2FN, 3FN)???????? XXXX
     CONSTRAINT fk_comment_comment_response_user FOREIGN KEY (user_email) REFERENCES user(email),
     CONSTRAINT fk_comment_comment_response_original_comment FOREIGN KEY (original_comment_id) REFERENCES videogame_comment(id)
 );
-
+*/
 CREATE TABLE videogame_rating(-- (1FN, 2FN, 3FN)
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
@@ -142,7 +144,7 @@ CREATE TABLE videogame_rating(-- (1FN, 2FN, 3FN)
 
 /************************************ USERS ***********************************/
 CREATE TABLE user (-- (1FN, 2FN, 3FN)
-    photo BLOB NOT NULL,
+    photo BLOB,
     nickname VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
     birth_date DATE NOT NULL,
@@ -168,18 +170,11 @@ CREATE TABLE message (-- (1FN, 2FN, 3FN)
 
 CREATE TABLE wallet (-- (1FN, 2FN, 3FN)
     banck ENUM('BANRURAL', 'BI', 'AZTECA','PROMERICA','G&T','BANTRAB', 'BAC') NOT NULL,
+    user_email VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
     fund DECIMAL(10,2) NOT NULL,
-    CONSTRAINT pk_wallet PRIMARY KEY (name, banck)
-);
-
-CREATE TABLE wallet_user (-- (1FN, 2FN, 3FN)
-    wallet_name VARCHAR(100) NOT NULL,
-    wallet_banck ENUM('BANRURAL', 'BI', 'AZTECA','PROMERICA','G&T','BANTRAB', 'BAC') NOT NULL,
-    user_email VARCHAR(50) NOT NULL,
-    CONSTRAINT pk_wallet_user PRIMARY KEY (wallet_name, wallet_banck, user_email),
-    CONSTRAINT fk_wallet_user_wallet FOREIGN KEY (wallet_name, wallet_banck) REFERENCES wallet(name, banck),
-    CONSTRAINT fk_wallet_user_user FOREIGN KEY (user_email) REFERENCES user(email)
+    CONSTRAINT pk_wallet PRIMARY KEY (name, banck),
+    CONSTRAINT fk_wallet_user FOREIGN KEY (user_email) REFERENCES user(email)
 );
 
 CREATE TABLE wallet_transaction (-- (1FN, 2FN, )
@@ -195,7 +190,7 @@ CREATE TABLE wallet_transaction (-- (1FN, 2FN, )
     CONSTRAINT fk_wallet_transaction_user FOREIGN KEY (user_email) REFERENCES user(email)
 );
 
-CREATE TABLE sale (--Include commission details -- (1FN, )
+CREATE TABLE sale ( -- Include commission details ( 1FN, )
     videogame_price DECIMAL(10,2) NOT NULL,
     sale_date DATETIME NOT NULL,
     commission_percentage DECIMAL(5,2) NOT NULL,
@@ -255,7 +250,8 @@ CREATE TABLE videogame_loan (-- (1FN, ...)
     return_date DATETIME,
     id INT NOT NULL AUTO_INCREMENT,
     CONSTRAINT pk_videogame_loan PRIMARY KEY (id),
-    CONSTRAINT fk_videogame_loan_propietor FOREIGN KEY (propietor_email,lender_email) REFERENCES user(email),
+    CONSTRAINT fk_videogame_loan_propietor FOREIGN KEY (propietor_email) REFERENCES user(email),
+    CONSTRAINT fk_videogame_loan_lender FOREIGN KEY (lender_email) REFERENCES user(email),
     CONSTRAINT fk_videogame_loan_videogame FOREIGN KEY (videogame_title, enterprise_name) REFERENCES videogame(title, enterprise_name),
     CONSTRAINT fk_videogame_loan_family_group FOREIGN KEY (family_group_name) REFERENCES family_group(name)
 );
