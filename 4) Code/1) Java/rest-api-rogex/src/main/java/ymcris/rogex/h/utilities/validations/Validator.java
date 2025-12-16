@@ -1,6 +1,7 @@
 package ymcris.rogex.h.utilities.validations;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -33,6 +34,23 @@ public class Validator {
     }
 
     /**
+     * Method responsible for check if the string is a local date
+     *
+     * @param string string to check
+     * @return true if it's a local date
+     */
+    public boolean isLocalDate(String string) {
+        try {
+            LocalDate.parse(string, DateTimeFormatter.ISO_LOCAL_DATE);
+            return true;
+        } catch (DateTimeParseException e) {
+            System.out.println("An exception of type " + e.getClass().getName()
+                    + " occurred while parsing a LocalDateTime because " + e.getMessage());
+        }
+        return false;
+    }
+
+    /**
      * Method responsible for check if the string is an integer
      *
      * @param string string to check
@@ -54,7 +72,8 @@ public class Validator {
      * @return true if it's a boolean
      */
     public boolean isBoolean(String string) {
-        return "true".equalsIgnoreCase(string) || "false".equalsIgnoreCase(string);
+        return "true".equalsIgnoreCase(string)
+                || "false".equalsIgnoreCase(string);
     }
 
     /**

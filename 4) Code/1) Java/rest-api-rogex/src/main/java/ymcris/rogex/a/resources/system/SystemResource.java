@@ -11,14 +11,13 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
-import java.util.List;
 import ymcris.rogex.b.services.system.SystemService;
 import ymcris.rogex.c.dtos.system.SystemResponse;
 import ymcris.rogex.c.dtos.system.UpdateSystemRequest;
 import ymcris.rogex.e.models.system.SystemConfig;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
-import ymcris.rogex.g.commons.resources.GenericResource;
-import ymcris.rogex.g.commons.services.GenericService;
+import ymcris.rogex.g.commons.resources.GenericSingletonResource;
+import ymcris.rogex.g.commons.services.GenericSingletonService;
 
 /**
  * The SystemResource class is the class responsible for
@@ -27,7 +26,7 @@ import ymcris.rogex.g.commons.services.GenericService;
  * @since Dec 15, 2025
  */
 @Path("system/config")
-public class SystemResource extends GenericResource<SystemConfig> {
+public class SystemResource extends GenericSingletonResource<SystemConfig> {
 
     @Context
     UriInfo uriInfo;
@@ -65,16 +64,8 @@ public class SystemResource extends GenericResource<SystemConfig> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<SystemConfig> createCRUD() {
+    protected GenericSingletonService<SystemConfig> createCRUD() {
         return new SystemService();
-    }
-
-    @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<SystemConfig> objectsGetter) {
-        return objectsGetter.getAllEntities()
-                .stream()
-                .map(systemConfig -> (GenericObjectResponse) new SystemResponse(systemConfig))
-                .toList();
     }
 
     @Override

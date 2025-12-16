@@ -4,9 +4,9 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
-import ymcris.rogex.g.commons.dao.GenericDAO;
 import ymcris.rogex.e.models.system.SystemConfig;
 import ymcris.rogex.f.database.DBConnectionSingleton;
+import ymcris.rogex.g.commons.dao.GenericSingletonDAO;
 
 /**
  * The SystemConfigDAO class is the class responsible for
@@ -14,7 +14,7 @@ import ymcris.rogex.f.database.DBConnectionSingleton;
  * @author YmCris
  * @since Dec 15, 2025
  */
-public class SystemConfigDAO extends GenericDAO<SystemConfig> {
+public class SystemConfigDAO extends GenericSingletonDAO<SystemConfig> {
 
     // CONSTATNS ---------------------------------------------------------------
     private static final String SQL_GET_CONFIG
@@ -28,22 +28,12 @@ public class SystemConfigDAO extends GenericDAO<SystemConfig> {
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public SystemConfigDAO() {
         super(
-                null,
-                null,
-                null,
-                SQL_UPDATE_CONFIG,
-                null,
-                null,
-                SQL_GET_CONFIG
+                SQL_GET_CONFIG,
+                SQL_UPDATE_CONFIG
         );
     }
 
     // OVERRIDE METHODS --------------------------------------------------------
-    @Override
-    public void createEntity(SystemConfig entity) {
-        throw new UnsupportedOperationException("System configuration can't be created");
-    }
-
     @Override
     public void updateEntity(String[] primaryKeys, SystemConfig systemConfig) {
 
@@ -53,7 +43,7 @@ public class SystemConfigDAO extends GenericDAO<SystemConfig> {
 
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
-                = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
+                = connection.prepareStatement(SQL_UPDATE_SINGLETON)) {
 
             statement.setString(1, systemConfig.getDescription());
             statement.setDouble(2, systemConfig.getGlobalCommissionPercentage());

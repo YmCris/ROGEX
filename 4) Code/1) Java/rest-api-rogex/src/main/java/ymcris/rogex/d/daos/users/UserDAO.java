@@ -48,8 +48,7 @@ public class UserDAO extends GenericDAO<User> {
                 SQL_GET_BY_EMAIL,
                 SQL_UPDATE_USER,
                 SQL_GET_ALL_USERS,
-                SQL_DELETE_USER,
-                null
+                SQL_DELETE_USER
         );
     }
 

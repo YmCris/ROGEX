@@ -28,7 +28,15 @@ public abstract class GenericResource<T> {
     UriInfo uriInfo;
 
     // POST --------------------------------------------------------------------
-    public final Response createObjectInternal(GenericNewObjectRequest genericNewObjectRequest) {
+    /**
+     * Method responsible for create an object send the resonse via JSON
+     *
+     * @param genericNewObjectRequest request with the necesary data for create
+     * this
+     * @return Response to server
+     */
+    public final Response createObjectInternal(
+            GenericNewObjectRequest genericNewObjectRequest) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
         GenericService<T> objectCreator = createCRUD();
@@ -54,6 +62,11 @@ public abstract class GenericResource<T> {
     }
 
     // GET ---------------------------------------------------------------------
+    /**
+     * Method responsible for send all objects
+     *
+     * @return Response with the list of objects respornse
+     */
     public final Response getAllObjectsInternal() {
         GenericService<T> objectsGetter = createCRUD();
 
@@ -62,6 +75,12 @@ public abstract class GenericResource<T> {
         return Response.ok(objects).build();
     }
 
+    /**
+     * Method responsible for get an object with pks
+     *
+     * @param primaryKeys unique atributes of an entity
+     * @return Resonse in json
+     */
     public final Response getObjectInternal(String[] primaryKeys) {
 
         GenericJSONResponse jsonResponse = new GenericJSONResponse();
@@ -81,26 +100,15 @@ public abstract class GenericResource<T> {
         }
     }
 
-    public final Response getObjectInternalSingleton() {
-        GenericJSONResponse jsonResponse = new GenericJSONResponse();
-        GenericService<T> service = createCRUD();
-
-        try {
-
-            T entity = service.getSingletonEntity();
-            return Response.ok(toResponse(entity)).build();
-
-        } catch (ObjectNotFoundException e) {
-
-            return jsonResponse.sendJSONResponse(
-                    e.getMessage(),
-                    Response.Status.NOT_FOUND
-            );
-        }
-    }
-
     // DELETE ------------------------------------------------------------------
-    public final Response deleteObjectInternal(GenericNewObjectRequest genericNewObjectRequest) {
+    /**
+     * Method responsible for delete an object
+     *
+     * @param genericNewObjectRequest request of the data request
+     * @return response in JSON
+     */
+    public final Response deleteObjectInternal(
+            GenericNewObjectRequest genericNewObjectRequest) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
         GenericService<T> deleteObject = createCRUD();
@@ -119,29 +127,14 @@ public abstract class GenericResource<T> {
         }
     }
 
-    // PUT ---------------------------------------------------------------------
-    public final Response updateObject(GenericUpdateObjectRequest genericUpdateObjectRequest,
-            GenericNewObjectRequest genericNewObjectRequest) throws ObjectNotFoundException {
-
-        GenericJSONResponse jSONResponse = new GenericJSONResponse();
-        GenericService<T> updateObject = createCRUD();
-
-        try {
-
-            updateObject.updateObject(genericNewObjectRequest.getPrimaryKeys(), genericUpdateObjectRequest);
-
-            return jSONResponse.sendJSONResponse("Updated",
-                    Response.Status.OK);
-
-        } catch (InvalidUserParametersException | ObjectNotFoundException e) {
-
-            return jSONResponse.sendJSONResponse(e.getMessage(),
-                    Response.Status.BAD_REQUEST);
-
-        }
-
-    }
-
+    // "PUT" -------------------------------------------------------------------
+    /**
+     * Method responsible for update an entity with pks and updateRequest
+     *
+     * @param primaryKeys unique identifiers
+     * @param updateRequest updateRequest with data to update
+     * @return Response in JSON or entity
+     */
     public final Response updateObjectInternal(
             String[] primaryKeys,
             GenericUpdateObjectRequest updateRequest) {
@@ -170,45 +163,29 @@ public abstract class GenericResource<T> {
         }
     }
 
-    public final Response updateObjectInternalSingleton(
-            GenericUpdateObjectRequest updateRequest) {
-
-        GenericJSONResponse jsonResponse = new GenericJSONResponse();
-        GenericService<T> service = createCRUD();
-
-        try {
-
-            T updated = service.updateSingleton(updateRequest);
-            return Response.ok(toResponse(updated)).build();
-
-        } catch (InvalidUserParametersException e) {
-
-            return jsonResponse.sendJSONResponse(
-                    e.getMessage(),
-                    Response.Status.BAD_REQUEST
-            );
-
-        } catch (ObjectNotFoundException e) {
-
-            return jsonResponse.sendJSONResponse(
-                    e.getMessage(),
-                    Response.Status.NOT_FOUND
-            );
-        }
-    }
-
     // AUXILIAR METHODS --------------------------------------------------------
+    /**
+     * Method responsible for return the specific service
+     *
+     * @return specific service of the entity
+     */
     protected abstract GenericService<T> createCRUD();
 
     /**
-     * objectsGetter .getAllEntities() .stream()
-     * .map(GenericObjectResponse::new) .toList()
+     * Get the list of the objects to sent in the respose | objectsGetter
+     * .getAllEntities() .stream() .map(GenericObjectResponse::new) .toList()
      *
      * @param objectsGetter
      * @return
      */
     protected abstract List<GenericObjectResponse> getObjects(GenericService<T> objectsGetter);
 
+    /**
+     * Method responsible for return a specific entity response
+     *
+     * @param entity
+     * @return
+     */
     protected abstract GenericObjectResponse toResponse(T entity);
 
 }

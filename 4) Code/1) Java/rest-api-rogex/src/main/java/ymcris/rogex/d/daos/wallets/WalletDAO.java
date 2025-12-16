@@ -51,8 +51,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
                 SQL_GET_BY_PK,
                 SQL_UPDATE_WALLET,
                 SQL_GET_ALL_WALLETS,
-                SQL_DELETE_WALLET,
-                null
+                SQL_DELETE_WALLET
         );
     }
 

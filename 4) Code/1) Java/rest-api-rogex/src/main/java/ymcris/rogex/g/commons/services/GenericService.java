@@ -27,6 +27,7 @@ public abstract class GenericService<T> {
         this.genericDAO = genericDAO;
     }
 
+    // SPECIFICS METHODS -------------------------------------------------------
     // CREATE ------------------------------------------------------------------
     /**
      * Funcion responsible for create and object
@@ -43,7 +44,7 @@ public abstract class GenericService<T> {
 
         if (genericDAO.entityExists(newObjectRequest.getPrimaryKeys())) {
 
-            throw new ObjectAlreadyExistsException("Can't use this pks");
+            throw new ObjectAlreadyExistsException("This already exists");
 
         }
 
@@ -75,17 +76,6 @@ public abstract class GenericService<T> {
         }
     }
 
-    /**
-     * Have to create the user, and add the entity.isValid() whit
-     *
-     * @param newObjectRequest to extract all parameters to create the entity
-     * @return new entity
-     * @throws
-     * ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException
-     */
-    protected abstract T createEntity(GenericNewObjectRequest newObjectRequest)
-            throws InvalidUserParametersException;
-
     // UPDATE ------------------------------------------------------------------
     /**
      * Function responsible for update an object with their primary keys
@@ -108,23 +98,6 @@ public abstract class GenericService<T> {
 
         return entity;
     }
-
-    /**
-     * Function responsible for update an entity with the entity object
-     *
-     * entity.setLocation(updateObjectRequest.getLocation());
-     * entity.setPhoto(updateObjectRequest.getPhoto());
-     * entity.setPassword(updateObjectRequest.getPassword()); if
-     * (!entity.isValid()) { throw new InvalidUserParametersException("Invalid
-     * data to update"); }
-     *
-     * @param entity Created entity
-     * @param updateObjectRequest updateObjectRequest
-     * @throws
-     * ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException
-     */
-    protected abstract void updateEntity(T entity,
-            GenericUpdateObjectRequest updateObjectRequest) throws InvalidUserParametersException;
 
     // DELETE ------------------------------------------------------------------
     /**
@@ -159,29 +132,6 @@ public abstract class GenericService<T> {
         return entityOptional.get();
     }
 
-    public final T getSingletonEntity() throws ObjectNotFoundException {
-
-        Optional<T> entityOptional = genericDAO.getSingleton();
-
-        if (entityOptional.isEmpty()) {
-            throw new ObjectNotFoundException("This entity does'nt exists");
-        }
-
-        return entityOptional.get();
-    }
-
-    public final T updateSingleton(GenericUpdateObjectRequest updateRequest)
-            throws InvalidUserParametersException, ObjectNotFoundException {
-
-        T entity = getSingletonEntity();
-
-        updateEntity(entity, updateRequest);
-
-        genericDAO.updateEntity(null, entity);
-
-        return entity;
-    }
-
     /**
      * Function responsible for deliver all entities
      *
@@ -190,4 +140,33 @@ public abstract class GenericService<T> {
     public final List<T> getAllEntities() {
         return genericDAO.getAllEntities();
     }
+
+    // ABSTRACT METHODS --------------------------------------------------------
+    /**
+     * Have to create the user, and add the entity.isValid() whit
+     *
+     * @param newObjectRequest to extract all parameters to create the entity
+     * @return new entity
+     * @throws
+     * ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException
+     */
+    protected abstract T createEntity(GenericNewObjectRequest newObjectRequest)
+            throws InvalidUserParametersException;
+
+    /**
+     * Function responsible for update an entity with the entity object
+     *
+     * entity.setLocation(updateObjectRequest.getLocation());
+     * entity.setPhoto(updateObjectRequest.getPhoto());
+     * entity.setPassword(updateObjectRequest.getPassword()); if
+     * (!entity.isValid()) { throw new InvalidUserParametersException("Invalid
+     * data to update"); }
+     *
+     * @param entity Created entity
+     * @param updateObjectRequest updateObjectRequest
+     * @throws
+     * ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException
+     */
+    protected abstract void updateEntity(T entity,
+            GenericUpdateObjectRequest updateObjectRequest) throws InvalidUserParametersException;
 }
