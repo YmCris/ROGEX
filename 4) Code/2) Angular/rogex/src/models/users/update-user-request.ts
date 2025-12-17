@@ -1,5 +1,7 @@
 export interface UserToUpdateRequest {
-    location: string;
     photo: string;
-    password: string;
+    birthDate: Date;
+    phoneNumber: string;
+    country: string;
+    publicLibrary: boolean;
 }

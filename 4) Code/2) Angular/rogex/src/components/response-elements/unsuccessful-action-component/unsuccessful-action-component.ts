@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core';
   templateUrl: './unsuccessful-action-component.html',
 })
 export class UnsuccessfulActionComponent {
-  @Input() message: string = 'Operación realizada con éxito.';
+  @Input() message: string = 'Operación realizada sin éxito.';
 }
