@@ -53,7 +53,7 @@ public class CategoryService extends GenericService<Category> {
         }
 
         if (!category.isValid()) {
-            throw new InvalidUserParametersException("Invalid data to update the user");
+            throw new InvalidUserParametersException("Invalid data to update the category");
         }
 
     }
