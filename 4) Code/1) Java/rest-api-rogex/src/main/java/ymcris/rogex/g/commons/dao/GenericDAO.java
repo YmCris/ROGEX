@@ -132,7 +132,7 @@ public abstract class GenericDAO<T> {
                     + "because " + e.getMessage());
         }
 
-        throw new ObjectNotFoundException("The user entity has not exists");
+        throw new ObjectNotFoundException("The entity has not exists");
     }
 
     /**
