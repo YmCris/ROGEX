@@ -21,7 +21,8 @@ public class Enterprise {
     private byte[] cover;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public Enterprise(String name, String description, Double specificCommission, boolean hiddenAllComments, byte[] logo, byte[] cover) {
+    public Enterprise(String name, String description, Double specificCommission,
+            boolean hiddenAllComments, byte[] logo, byte[] cover) {
         this.name = name;
         this.description = description;
         this.specificCommission = specificCommission;

@@ -111,10 +111,14 @@ public class EnterpriseDAO extends GenericDAO<Enterprise> {
     @Override
     protected Enterprise createEntity(ResultSet resultSet) {
         try {
+            Double comission = null;
+            if (resultSet.getDouble("specific_commission") != 0) {
+                comission = resultSet.getDouble("specific_commission");
+            }
             return new Enterprise(
                     resultSet.getString("name"),
                     resultSet.getString("description"),
-                    resultSet.getDouble("specific_commission"),
+                    comission,
                     resultSet.getBoolean("hidden_all_comments"),
                     resultSet.getBytes("logo"),
                     resultSet.getBytes("cover")

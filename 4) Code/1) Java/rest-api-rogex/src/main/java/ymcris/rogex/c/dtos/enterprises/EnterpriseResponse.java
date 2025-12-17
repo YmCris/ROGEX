@@ -15,7 +15,7 @@ public class EnterpriseResponse implements GenericObjectResponse {
     private String name;
     private String description;
     private Double specificCommission;
-    private Boolean hiddenAllComments;
+    private boolean hiddenAllComments;
 
     // PRIMITIVE VARIABLES -----------------------------------------------------
     private String logoUrl;
@@ -44,7 +44,7 @@ public class EnterpriseResponse implements GenericObjectResponse {
         return specificCommission;
     }
 
-    public Boolean getHiddenAllComments() {
+    public boolean getHiddenAllComments() {
         return hiddenAllComments;
     }
 
@@ -69,7 +69,7 @@ public class EnterpriseResponse implements GenericObjectResponse {
         this.specificCommission = specificCommission;
     }
 
-    public void setHiddenAllComments(Boolean hiddenAllComments) {
+    public void setHiddenAllComments(boolean hiddenAllComments) {
         this.hiddenAllComments = hiddenAllComments;
     }
 

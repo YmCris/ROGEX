@@ -45,6 +45,11 @@ public class EnterpriseService extends GenericService<Enterprise> {
             logoBytes = Base64.getDecoder().decode(base64Logo);
         }
 
+        if (newEnterpriseRequest.getHiddenAllComments() == null
+                || newEnterpriseRequest.getSpecificCommission() == null) {
+            throw new InvalidUserParametersException("Invalid data sent to create the enterprise");
+        }
+
         Enterprise enterprise = new Enterprise(
                 newEnterpriseRequest.getName(),
                 newEnterpriseRequest.getDescription(),
