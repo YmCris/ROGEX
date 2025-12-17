@@ -51,32 +51,32 @@ public class CategoryResource extends GenericResource<Category> {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{name}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCategory(@PathParam("id") String id) {
+    public Response getCategory(@PathParam("name") String name) {
 
-        return getObjectInternal(new String[]{id});
+        return getObjectInternal(new String[]{name});
     }
 
     // DELETE ------------------------------------------------------------------
     @DELETE
-    @Path("{id}")
-    public Response deleteCategory(@PathParam("id") String id) {
+    @Path("{name}")
+    public Response deleteCategory(@PathParam("name") String name) {
         return deleteObjectInternal(
-                new GenericNewObjectRequest(new String[]{id})
+                new GenericNewObjectRequest(new String[]{name})
         );
     }
 
     // PUT ---------------------------------------------------------------------
     @PUT
-    @Path("{id}")
+    @Path("{name}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateCategory(@PathParam("id") String id,
+    public Response updateCategory(@PathParam("name") String name,
             UpdateCategoryRequest updateCategoryRequest) {
 
         return updateObjectInternal(
-                new String[]{id},
+                new String[]{name},
                 updateCategoryRequest
         );
     }

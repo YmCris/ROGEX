@@ -13,7 +13,7 @@
 
 -- 1) Define the entities and their corresponding tables (Standardized)
 /*********************************** SYSTEM ***********************************/
-CREATE TABLE system_configuration (-- (1FN, 2FN, 3FN)
+CREATE TABLE system_configuration (-- (1FN, 2FN, 3FN) Singleton
     global_commission_percentage DECIMAL(5,2) NOT NULL,
     description TEXT NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
@@ -30,8 +30,7 @@ CREATE TABLE main_banner(-- (1FN, 2FN, 3FN)
     multimedia BLOB NOT NULL,
     is_image BOOLEAN NOT NULL,
     link VARCHAR(255) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT,
-    CONSTRAINT pk_main_banner PRIMARY KEY (id)
+    CONSTRAINT pk_main_banner PRIMARY KEY (link)
 );
 
 /********************************* ENTERPRISE *********************************/
@@ -66,8 +65,7 @@ CREATE TABLE enterprise_user (-- (1FN, 2FN, 3FN)
 /********************************* VIDEOGAMES *********************************/
 CREATE TABLE category ( -- (1FN, 2FN, 3FN)
     name VARCHAR(50) NOT NULL,
-    id INT NOT NULL AUTO_INCREMENT,
-    CONSTRAINT pk_category PRIMARY KEY (id)
+    CONSTRAINT pk_category PRIMARY KEY (name)
 );
 
 CREATE TABLE videogame (-- (1FN, 2FN, 3FN)
@@ -97,15 +95,15 @@ CREATE TABLE videogame_multimedia (-- (1FN, 2FN, 3FN)
 );
 
 CREATE TABLE videogame_category (-- ()
-    category_id INT NOT NULL,
+    category_name VARCHAR(50) NOT NULL,
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
-    CONSTRAINT pk_videogame_category PRIMARY KEY (category_id, videogame_title, enterprise_name),
-    CONSTRAINT fk_videogame_category_category FOREIGN KEY (category_id) REFERENCES category(id),
+    CONSTRAINT pk_videogame_category PRIMARY KEY (category_name, videogame_title, enterprise_name),
+    CONSTRAINT fk_videogame_category_category FOREIGN KEY (category_name) REFERENCES category(name),
     CONSTRAINT fk_videogame_category_videogame FOREIGN KEY (videogame_title, enterprise_name) REFERENCES videogame(title, enterprise_name)
 );
 
-CREATE TABLE videogame_comment (-- (1FN, 2FN, )
+CREATE TABLE videogame_comment ( -- (1FN, 2FN, )
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
     user_email VARCHAR(50) NOT NULL,
@@ -132,7 +130,7 @@ CREATE TABLE comment_comment_response(-- (1FN, 2FN, 3FN)???????? XXXX
     CONSTRAINT fk_comment_comment_response_original_comment FOREIGN KEY (original_comment_id) REFERENCES videogame_comment(id)
 );
 */
-CREATE TABLE videogame_rating(-- (1FN, 2FN, 3FN)
+CREATE TABLE videogame_rating( -- (1FN, 2FN, 3FN)
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
     user_email VARCHAR(50) NOT NULL,

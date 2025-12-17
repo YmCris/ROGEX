@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
@@ -22,19 +21,19 @@ public class CategoryDAO extends GenericDAO<Category> {
             = "INSERT INTO category (name) VALUES (?)";
 
     private static final String SQL_EXISTS_CATEGORY
-            = "SELECT 1 FROM category WHERE id = ?";
+            = "SELECT 1 FROM category WHERE name = ?";
 
     private static final String SQL_GET_BY_ID
-            = "SELECT * FROM category WHERE id = ?";
+            = "SELECT * FROM category WHERE name = ?";
 
     private static final String SQL_UPDATE_CATEGORY
-            = "UPDATE category SET name = ? WHERE id = ?";
+            = "UPDATE category SET name = ? WHERE name = ?";
 
     private static final String SQL_GET_ALL_CATEGORIES
             = "SELECT * FROM category";
 
     private static final String SQL_DELETE_CATEGORY
-            = "DELETE FROM category WHERE id = ?";
+            = "DELETE FROM category WHERE name = ?";
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public CategoryDAO() {
@@ -53,17 +52,10 @@ public class CategoryDAO extends GenericDAO<Category> {
     public void createEntity(Category category) {
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
-                = connection.prepareStatement(SQL_INSERT_CATEGORY,
-                        Statement.RETURN_GENERATED_KEYS)) {
+                = connection.prepareStatement(SQL_INSERT_CATEGORY)) {
 
             statement.setString(1, category.getName());
             statement.executeUpdate();
-
-            try (ResultSet keys = statement.getGeneratedKeys()) {
-                if (keys.next()) {
-                    category.setId(keys.getInt(1));
-                }
-            }
 
         } catch (SQLException e) {
             System.out.println("An exception of type " + e.getClass().getName()
@@ -79,8 +71,7 @@ public class CategoryDAO extends GenericDAO<Category> {
                 = connection.prepareStatement(SQL_UPDATE_CATEGORY)) {
 
             statement.setString(1, category.getName());
-            statement.setInt(2, Integer.parseInt(primaryKeys[0]));
-
+            statement.setString(2, primaryKeys[0]);
             statement.executeUpdate();
 
         } catch (SQLException e) {
