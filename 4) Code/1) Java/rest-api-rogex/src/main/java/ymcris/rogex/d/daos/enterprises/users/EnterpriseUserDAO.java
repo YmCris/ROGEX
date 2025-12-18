@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
+import java.sql.SQLException;
 import ymcris.rogex.e.models.enterprise.users.EnterpriseUser;
 import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
@@ -19,12 +19,25 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
 
     // CONSTANTS ---------------------------------------------------------------
     private static final String SQL_INSERT_ENTERPRISE_USER
-            = "INSERT INTO user_enterprise ()";
-    private static final String SQL_EXISTS_ENTERPRISE_USER = "";
-    private static final String SQL_GET_ENTERPRISE_USER = "";
-    private static final String SQL_UPDATE_ENTERPRISE_USER = "";
-    private static final String SQL_GET_ALL_ENTERPRISE_USERS = "";
-    private static final String SQL_DELETE_ENTERPRISE_USER = "";
+            = "INSERT INTO enterprise_user (email, name, password, birth_date,"
+            + " enterprise_name) "
+            + "VALUES (?, ?, ?, ?, ?)";
+
+    private static final String SQL_EXISTS_ENTERPRISE_USER
+            = "SELECT 1 FROM enterprise_user WHERE email = ?";
+
+    private static final String SQL_GET_ENTERPRISE_USER
+            = "SELECT * FROM enterprise_user WHERE email = ?";
+
+    private static final String SQL_UPDATE_ENTERPRISE_USER
+            = "UPDATE enterprise_user SET name = ?, password = ?, birth_date = ?, "
+            + "enterprise_name = ? WHERE email = ?";
+
+    private static final String SQL_GET_ALL_ENTERPRISE_USERS
+            = "SELECT * FROM enterprise_user";
+
+    private static final String SQL_DELETE_ENTERPRISE_USER
+            = "DELETE FROM enterprise_user WHERE email = ?";
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public EnterpriseUserDAO() {
@@ -40,16 +53,16 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
 
     // SPECIFIC METHODS --------------------------------------------------------
     @Override
-    public void createEntity(EnterpriseUser entity) {
+    public void createEntity(EnterpriseUser enterpriseUser) {
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_INSERT_ENTERPRISE_USER)) {
 
-            statement.setString(1, entity.getEmail());
-            statement.setString(2, entity.getName());
-            statement.setString(3, entity.getPassword());
-            statement.setDate(4, Date.valueOf(entity.getBirthDate()));
-            statement.setString(5, entity.getEnterpriseName());
+            statement.setString(1, enterpriseUser.getEmail());
+            statement.setString(2, enterpriseUser.getName());
+            statement.setString(3, enterpriseUser.getPassword());
+            statement.setDate(4, Date.valueOf(enterpriseUser.getBirthDate()));
+            statement.setString(5, enterpriseUser.getEnterpriseName());
 
             statement.executeUpdate();
 
@@ -83,9 +96,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
 
     @Override
     protected EnterpriseUser createEntity(ResultSet resultSet) {
-        try (Connection connection
-                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
-                = connection.prepareStatement(SQL_INSERT_ENTERPRISE_USER)) {
+        try {
 
             return new EnterpriseUser(
                     resultSet.getString("email"),
@@ -95,7 +106,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
                     resultSet.getString("enterprise_name")
             );
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("An exception of type " + e.getClass().getName()
                     + " occurred while performing creating entity (EnterpriseUserDAO)"
                     + "because " + e.getMessage());

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Scanner;
 
 /**
  * The Validator class is the class responsible for be the class called to know
@@ -92,6 +93,36 @@ public class Validator {
     }
 
     /**
+     * To verify if the string is an email
+     *
+     * @param string
+     * @return
+     */
+    public boolean isEmail(String string) {
+        char[] characters = string.toCharArray();
+        String[] terminals = {".gt", ".com", ".edu", ".gob"};
+        boolean hasArroba = false;
+        boolean hasTerminal = false;
+        StringBuilder builder = new StringBuilder();
+
+        for (char character : characters) {
+            builder.append(character);
+            if (character == '@') {
+                hasArroba = true;
+            }
+        }
+
+        for (String terminal : terminals) {
+            if (builder.toString().endsWith(terminal)) {
+                hasTerminal = true;
+                break;
+            }
+        }
+
+        return hasArroba && hasTerminal;
+    }
+
+    /**
      * Method responsible for check if the string is a file
      *
      * @param string string to check
@@ -103,5 +134,10 @@ public class Validator {
         }
         File file = new File(string);
         return file.exists() && file.isFile();
+    }
+
+    public boolean isValidDate(LocalDate date) {
+        return !date.isBefore(LocalDate.now().minusYears(90))
+                && !date.isAfter(LocalDate.now());
     }
 }

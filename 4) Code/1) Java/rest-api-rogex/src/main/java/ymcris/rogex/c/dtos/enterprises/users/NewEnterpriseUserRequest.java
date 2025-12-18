@@ -1,7 +1,9 @@
 package ymcris.rogex.c.dtos.enterprises.users;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import java.time.LocalDate;
-import ymcris.rogex.e.models.enterprise.Enterprise;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 
 /**
@@ -16,6 +18,8 @@ public class NewEnterpriseUserRequest extends GenericNewObjectRequest {
     private String email;//<- PK
     private String name;
     private String password;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthDate;
     private String enterpriseName;
 

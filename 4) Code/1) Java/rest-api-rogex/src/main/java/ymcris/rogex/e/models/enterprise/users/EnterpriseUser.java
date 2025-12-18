@@ -22,7 +22,7 @@ public class EnterpriseUser {
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public EnterpriseUser(String email, String name, String password,
             LocalDate birthDate, String enterpriseName) {
-        
+
         this.email = email;
         this.name = name;
         this.password = password;
@@ -39,7 +39,7 @@ public class EnterpriseUser {
 
     // SPECIFIC METHODS --------------------------------------------------------
     public boolean isValid() {
-        return StringUtils.isAnyBlank(
+        return !StringUtils.isAnyBlank(
                 email,
                 name,
                 password,
