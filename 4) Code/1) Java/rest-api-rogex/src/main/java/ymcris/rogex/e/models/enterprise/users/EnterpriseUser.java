@@ -13,14 +13,16 @@ import ymcris.rogex.e.models.enterprise.Enterprise;
 public class EnterpriseUser {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String email;
+    private String email;//<- PK
     private String name;
     private String password;
     private LocalDate birthDate;
     private Enterprise enterprise;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public EnterpriseUser(String email, String name, String password, LocalDate birthDate, String enterpriseName) {
+    public EnterpriseUser(String email, String name, String password,
+            LocalDate birthDate, String enterpriseName) {
+        
         this.email = email;
         this.name = name;
         this.password = password;

@@ -1,5 +1,7 @@
 package ymcris.rogex.c.dtos.enterprises.users;
 
+import java.time.LocalDate;
+import ymcris.rogex.e.models.enterprise.Enterprise;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 
 /**
@@ -8,27 +10,55 @@ import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
  * @author YmCris
  * @since Dec 17, 2025
  */
-public class NewEnterpriseUserRequest extends GenericNewObjectRequest{
-    
+public class NewEnterpriseUserRequest extends GenericNewObjectRequest {
+
     // REFERENCE VARIABLES -----------------------------------------------------
-    
-
-    // PRIMITIVE VARIABLES -----------------------------------------------------
-    
-
-    // INSTANCES ---------------------------------------------------------------
-    
-
-    // CONSTRUCTOR METHOD ------------------------------------------------------
-    
-
-    // SPECIFIC METHODS --------------------------------------------------------
-    
+    private String email;//<- PK
+    private String name;
+    private String password;
+    private LocalDate birthDate;
+    private String enterpriseName;
 
     // GETTERS -----------------------------------------------------------------
-    
+    public String getEmail() {
+        return email;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
 
     // SETTERS -----------------------------------------------------------------
-    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setEnterprise(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
+    }
 
 }
