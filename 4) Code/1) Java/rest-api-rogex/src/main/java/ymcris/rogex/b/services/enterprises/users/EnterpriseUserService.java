@@ -30,7 +30,7 @@ public class EnterpriseUserService extends GenericService<EnterpriseUser> {
             throws InvalidUserParametersException {
 
         NewEnterpriseUserRequest newEnterpriseUserRequest = (NewEnterpriseUserRequest) newObjectRequest;
-        newEnterpriseUserRequest.setPrimaryKeys(new String[]{newEnterpriseUserRequest.getEmail()});
+        newEnterpriseUserRequest.setPrimaryKeysSQLs(new String[]{newEnterpriseUserRequest.getEmail()});
         EnterpriseDAO enterpriseDAO = new EnterpriseDAO();
         Validator validator = new Validator();
 

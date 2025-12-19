@@ -10,11 +10,12 @@ package ymcris.rogex.g.commons.dtos;
 public class GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String[] primaryKeys;
+    private String[] primaryKeysSQLs;
+    private String[] primaryKeysAdditionals;
 
     // CONSTRUCTOR -------------------------------------------------------------
     public GenericNewObjectRequest(String[] primaryKeys) {
-        this.primaryKeys = primaryKeys;
+        this.primaryKeysSQLs = primaryKeys;
     }
 
     public GenericNewObjectRequest() {
@@ -22,18 +23,26 @@ public class GenericNewObjectRequest {
     }
 
     // GETTERS -----------------------------------------------------------------
-    public String[] getPrimaryKeys() {
-        return primaryKeys;
+    public String[] getPrimaryKeysSQLs() {
+        return primaryKeysSQLs;
+    }
+
+    public String[] getPrimaryKeysAdditionals() {
+        return primaryKeysAdditionals;
     }
 
     // SETTERS -----------------------------------------------------------------
     /**
      * Setter all primary keys
      *
-     * @param primaryKeys array of primary keys
+     * @param primaryKeysSQLs array of primary keys
      */
-    public void setPrimaryKeys(String[] primaryKeys) {
-        this.primaryKeys = primaryKeys;
+    public void setPrimaryKeysSQLs(String[] primaryKeysSQLs) {
+        this.primaryKeysSQLs = primaryKeysSQLs;
+    }
+
+    public void setPrimaryKeysAdditionals(String[] primaryKeysAdditionals) {
+        this.primaryKeysAdditionals = primaryKeysAdditionals;
     }
 
 }

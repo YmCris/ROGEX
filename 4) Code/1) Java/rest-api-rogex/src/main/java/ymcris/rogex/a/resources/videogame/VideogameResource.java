@@ -19,7 +19,6 @@ import ymcris.rogex.c.dtos.videogame.UpdateVideogameRequest;
 import ymcris.rogex.c.dtos.videogame.VideogameResponse;
 import ymcris.rogex.d.daos.videogame.VideogameDAO;
 import ymcris.rogex.e.models.videogame.Videogame;
-import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericResource;
 import ymcris.rogex.g.commons.response.GenericJSONResponse;

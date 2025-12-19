@@ -227,6 +227,7 @@ CREATE TABLE videogame_installation (-- (1FN, 2FN, 3FN)
 CREATE TABLE family_group (-- (1FN, 2FN, 3FN)
     name VARCHAR(100) NOT NULL,
     members_limit INT NOT NULL DEFAULT 6,
+    quantity INT NOT NULL,
     CONSTRAINT pk_family_group PRIMARY KEY (name)
 );
 

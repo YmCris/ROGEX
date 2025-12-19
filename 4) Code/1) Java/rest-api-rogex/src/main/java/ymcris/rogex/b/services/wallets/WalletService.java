@@ -30,7 +30,7 @@ public class WalletService extends GenericService<Wallet> {
 
         NewWalletRequest newWalletRequest = (NewWalletRequest) newObjectRequest;
 
-        newWalletRequest.setPrimaryKeys(new String[]{
+        newWalletRequest.setPrimaryKeysSQLs(new String[]{
             newWalletRequest.getName(),
             newWalletRequest.getBanck().name()
         });

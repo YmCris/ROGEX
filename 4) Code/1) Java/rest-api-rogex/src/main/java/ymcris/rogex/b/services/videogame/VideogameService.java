@@ -34,7 +34,7 @@ public class VideogameService extends GenericService<Videogame> {
             throws InvalidUserParametersException {
 
         NewVideogameRequest newVideogameRequest = (NewVideogameRequest) newObjectRequest;
-        newVideogameRequest.setPrimaryKeys(new String[]{newVideogameRequest.getTitle(),
+        newVideogameRequest.setPrimaryKeysSQLs(new String[]{newVideogameRequest.getTitle(),
             newVideogameRequest.getEnterpriseName()});
 
         EnterpriseDAO enterpriseDAO = new EnterpriseDAO();
@@ -177,7 +177,7 @@ public class VideogameService extends GenericService<Videogame> {
 
         Videogame videogame = (Videogame) extractEntity(newObjectRequest);
 
-        if (genericDAO.entityExists(newObjectRequest.getPrimaryKeys())) {
+        if (genericDAO.entityExists(newObjectRequest.getPrimaryKeysSQLs())) {
 
             throw new ObjectAlreadyExistsException("This already exists");
 

@@ -28,7 +28,7 @@ public class CategoryService extends GenericService<Category> {
             throws InvalidUserParametersException {
 
         NewCategoryRequest newCategoryRequest = (NewCategoryRequest) newObjectRequest;
-        newCategoryRequest.setPrimaryKeys(new String[]{newCategoryRequest.getName()});
+        newCategoryRequest.setPrimaryKeysSQLs(new String[]{newCategoryRequest.getName()});
 
         Category category = new Category(newCategoryRequest.getName());
 
