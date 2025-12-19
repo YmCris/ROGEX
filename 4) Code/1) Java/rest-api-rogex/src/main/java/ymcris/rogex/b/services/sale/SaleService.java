@@ -72,11 +72,11 @@ public class SaleService extends GenericService<Sale> {
             commission = enterprise.getSpecificCommission();
         }
 
-        double profit = (videogame.getPrice() - (videogame.getPrice() * commission));
+        double profit = (videogame.getPrice() - (videogame.getPrice() * (commission / 100)));
 
         Sale sale = new Sale(
                 videogame.getPrice(),
-                LocalDate.now(),
+                newSaleRequest.getSaleDate(),
                 commission,
                 profit,
                 newSaleRequest.getUserEmail(),
@@ -84,11 +84,13 @@ public class SaleService extends GenericService<Sale> {
                 videogame.getEnterpriseName()
         );
 
+        System.out.println(sale.getVideogamePrice() + " " + sale.getSaleDate() + " " + sale.getCommissionPercentage() + " " + sale.getProfit()
+                + " " + sale.getUserEmail() + " " + sale.getVideogameTitle() + " " + sale.getEnterpriseName());
         if (!sale.isValid()) {
             throw new InvalidUserParametersException(
                     "Data sent to the sale isn't valid");
         }
-        return null;
+        return sale;
     }
 
     @Override
