@@ -16,7 +16,6 @@ import java.util.List;
 import ymcris.rogex.b.services.sale.SaleService;
 import ymcris.rogex.c.dtos.sale.NewSaleRequest;
 import ymcris.rogex.c.dtos.sale.SaleResponse;
-import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.e.models.sale.Sale;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericResource;
