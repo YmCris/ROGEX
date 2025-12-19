@@ -30,7 +30,7 @@ public class EnterpriseService extends GenericService<Enterprise> {
             throws InvalidUserParametersException {
 
         NewEnterpriseRequest newEnterpriseRequest = (NewEnterpriseRequest) newObjectRequest;
-        newEnterpriseRequest.setPrimaryKeys(new String[]{newEnterpriseRequest.getName()});
+        newEnterpriseRequest.setPrimaryKeysSQLs(new String[]{newEnterpriseRequest.getName()});
 
         byte[] coverBytes = null;
         byte[] logoBytes = null;

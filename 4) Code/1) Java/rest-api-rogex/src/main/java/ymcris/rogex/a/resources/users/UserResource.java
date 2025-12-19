@@ -85,7 +85,7 @@ public class UserResource extends GenericResource<User> {
     public Response deleteUser(@PathParam("email") String email) {
 
         GenericNewObjectRequest pk = new GenericNewObjectRequest();
-        pk.setPrimaryKeys(new String[]{email});
+        pk.setPrimaryKeysSQLs(new String[]{email});
 
         return deleteObjectInternal(pk);
     }

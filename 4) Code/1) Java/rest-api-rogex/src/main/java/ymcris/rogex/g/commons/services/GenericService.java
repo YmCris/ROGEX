@@ -21,9 +21,11 @@ public abstract class GenericService<T> {
 
     // REFERENCE VARIABLES -----------------------------------------------------
     protected GenericDAO<T> genericDAO;
+    protected String[] params;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public GenericService(GenericDAO<T> genericDAO) {
+        this.params = new String[10];
         this.genericDAO = genericDAO;
     }
 
@@ -42,7 +44,7 @@ public abstract class GenericService<T> {
 
         T entity = extractEntity(newObjectRequest);
 
-        if (genericDAO.entityExists(newObjectRequest.getPrimaryKeys())) {
+        if (genericDAO.entityExists(newObjectRequest.getPrimaryKeysSQLs())) {
 
             throw new ObjectAlreadyExistsException("This already exists");
 
@@ -106,7 +108,7 @@ public abstract class GenericService<T> {
      * @param primaryKeys unique id of the entity
      * @throws ObjectNotFoundException if the eentity doesnot exists
      */
-    public final void deleteEntity(String[] primaryKeys)
+    public void deleteEntity(String[] primaryKeys)
             throws ObjectNotFoundException {
 
         getEntity(primaryKeys);
@@ -122,7 +124,7 @@ public abstract class GenericService<T> {
      * @return CRUD type
      * @throws ObjectNotFoundException if the entity was not found
      */
-    public final T getEntity(String[] primaryKeys) throws ObjectNotFoundException {
+    public T getEntity(String[] primaryKeys) throws ObjectNotFoundException {
         Optional<T> entityOptional = genericDAO.getEntityByPrimaryKeys(primaryKeys);
 
         if (entityOptional.isEmpty()) {
@@ -169,4 +171,13 @@ public abstract class GenericService<T> {
      */
     protected abstract void updateEntity(T entity,
             GenericUpdateObjectRequest updateObjectRequest) throws InvalidUserParametersException;
+
+    public String[] getParams() {
+        return params;
+    }
+
+    public void setParams(String[] params) {
+        this.params = params;
+    }
+
 }

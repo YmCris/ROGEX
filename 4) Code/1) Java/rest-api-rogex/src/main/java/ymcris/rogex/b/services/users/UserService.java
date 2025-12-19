@@ -38,7 +38,7 @@ public class UserService extends GenericService<User> {
             photoBytes = Base64.getDecoder().decode(base64);
         }
 
-        newUserRequest.setPrimaryKeys(new String[]{newUserRequest.getEmail()});
+        newUserRequest.setPrimaryKeysSQLs(new String[]{newUserRequest.getEmail()});
 
         User user = new User(
                 photoBytes,

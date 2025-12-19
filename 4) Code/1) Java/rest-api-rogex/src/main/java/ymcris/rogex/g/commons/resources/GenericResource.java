@@ -115,7 +115,7 @@ public abstract class GenericResource<T> {
 
         try {
 
-            deleteObject.deleteEntity(genericNewObjectRequest.getPrimaryKeys());
+            deleteObject.deleteEntity(genericNewObjectRequest.getPrimaryKeysSQLs());
 
             return jSONResponse.sendJSONResponse("Deleted",
                     Response.Status.OK);
