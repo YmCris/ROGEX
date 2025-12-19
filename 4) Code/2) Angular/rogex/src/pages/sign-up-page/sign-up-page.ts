@@ -37,11 +37,14 @@ export class SignUpPage implements OnInit {
 
   ngOnInit(): void {
     this.newUserForm = this.formBuilder.group({
-      username: [null, [Validators.required, Validators.maxLength(100)]],
-      email: [null, [Validators.required, Validators.email]],
-      location: [null, [Validators.required, Validators.maxLength(100)]],
       photo: [null, [Validators.maxLength(255)]],
-      password: [null, [Validators.required, Validators.maxLength(100)]]
+      nickname: [null, [Validators.required, Validators.maxLength(100)]],
+      password: [null, [Validators.required, Validators.maxLength(100)]],
+      birthDate: [null, Validators.required],
+      email: [null, [Validators.required, Validators.email]],
+      phoneNumber: [null, Validators.required],
+      country: [null, Validators.required],
+      publicLibrary: [false]
     });
     this.reset();
   }

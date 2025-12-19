@@ -37,7 +37,7 @@ public abstract class GenericService<T> {
      * @throws InvalidUserParametersException if the parameters are invalids
      * @throws ObjectAlreadyExistsException if the entity already exists
      */
-    public final T createObject(GenericNewObjectRequest newObjectRequest)
+    public T createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException, ObjectAlreadyExistsException {
 
         T entity = extractEntity(newObjectRequest);
@@ -60,7 +60,7 @@ public abstract class GenericService<T> {
      * @return CRUD type
      * @throws InvalidUserParametersException if the entity is incorrect
      */
-    private T extractEntity(GenericNewObjectRequest newObjectRequest)
+    protected T extractEntity(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         try {
@@ -86,7 +86,7 @@ public abstract class GenericService<T> {
      * @throws InvalidUserParametersException if the parameters are invalid
      * @throws ObjectNotFoundException if the object does'nt exists
      */
-    public final T updateObject(String[] primaryKeys,
+    public T updateObject(String[] primaryKeys,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException, ObjectNotFoundException {
 
