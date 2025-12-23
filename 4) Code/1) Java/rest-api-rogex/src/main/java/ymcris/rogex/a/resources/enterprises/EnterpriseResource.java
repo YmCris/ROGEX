@@ -83,7 +83,7 @@ public class EnterpriseResource extends GenericResource<Enterprise> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Enterprise> createCRUD() {
+    protected GenericService<Enterprise> getService() {
         return new EnterpriseService();
     }
 

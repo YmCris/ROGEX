@@ -80,7 +80,7 @@ public class SaleResource extends GenericResource<Sale> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Sale> createCRUD() {
+    protected GenericService<Sale> getService() {
         return new SaleService();
     }
 

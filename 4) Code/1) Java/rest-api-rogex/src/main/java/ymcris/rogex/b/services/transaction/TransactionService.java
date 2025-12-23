@@ -34,7 +34,7 @@ public class TransactionService extends GenericService<Transaction> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Transaction createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Transaction createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
         try {
             NewTransactionRequest newTransactionRequest = (NewTransactionRequest) newObjectRequest;
@@ -68,7 +68,7 @@ public class TransactionService extends GenericService<Transaction> {
     }
 
     @Override
-    protected void updateEntity(Transaction entity,
+    protected void updateObject(Transaction entity,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 

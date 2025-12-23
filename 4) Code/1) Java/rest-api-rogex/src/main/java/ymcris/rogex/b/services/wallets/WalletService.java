@@ -25,7 +25,7 @@ public class WalletService extends GenericService<Wallet> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Wallet createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Wallet createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewWalletRequest newWalletRequest = (NewWalletRequest) newObjectRequest;
@@ -52,7 +52,7 @@ public class WalletService extends GenericService<Wallet> {
     }
 
     @Override
-    protected void updateEntity(Wallet wallet,
+    protected void updateObject(Wallet wallet,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 

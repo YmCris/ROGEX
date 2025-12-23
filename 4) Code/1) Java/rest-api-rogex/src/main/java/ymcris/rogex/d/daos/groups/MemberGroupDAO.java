@@ -83,7 +83,7 @@ public class MemberGroupDAO extends GenericDAO<MemberGroup> {
     }
 
     @Override
-    protected MemberGroup createEntity(ResultSet resultSet) {
+    protected MemberGroup getEntity(ResultSet resultSet) {
         try {
 
             return new MemberGroup(

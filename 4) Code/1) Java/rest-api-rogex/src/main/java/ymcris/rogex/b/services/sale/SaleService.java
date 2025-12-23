@@ -31,7 +31,7 @@ public class SaleService extends GenericService<Sale> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Sale createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Sale createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewSaleRequest newSaleRequest = (NewSaleRequest) newObjectRequest;
@@ -94,7 +94,7 @@ public class SaleService extends GenericService<Sale> {
     }
 
     @Override
-    protected void updateEntity(Sale entity,
+    protected void updateObject(Sale entity,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
         throw new UnsupportedOperationException("YOU CANT UPDATE A SALE.");

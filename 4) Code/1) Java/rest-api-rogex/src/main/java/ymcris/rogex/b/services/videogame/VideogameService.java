@@ -30,7 +30,7 @@ public class VideogameService extends GenericService<Videogame> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Videogame createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Videogame createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewVideogameRequest newVideogameRequest = (NewVideogameRequest) newObjectRequest;
@@ -83,7 +83,7 @@ public class VideogameService extends GenericService<Videogame> {
     }
 
     @Override
-    protected void updateEntity(Videogame videogame,
+    protected void updateObject(Videogame videogame,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 
@@ -121,7 +121,7 @@ public class VideogameService extends GenericService<Videogame> {
     }
 
     @Override
-    public Videogame updateObject(String[] primaryKeys,
+    public Videogame updateEntity(String[] primaryKeys,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException, ObjectNotFoundException {
 
@@ -132,7 +132,7 @@ public class VideogameService extends GenericService<Videogame> {
 
         Videogame videogame = getEntity(primaryKeys);
 
-        updateEntity(videogame, updateObjectRequest);
+        updateObject(videogame, updateObjectRequest);
 
         genericDAO.updateEntity(primaryKeys, videogame);
 
@@ -172,10 +172,10 @@ public class VideogameService extends GenericService<Videogame> {
     }
 
     @Override
-    public Videogame createObject(GenericNewObjectRequest newObjectRequest)
+    public Videogame insertObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException, ObjectAlreadyExistsException {
 
-        Videogame videogame = (Videogame) extractEntity(newObjectRequest);
+        Videogame videogame = (Videogame) extractObject(newObjectRequest);
 
         if (genericDAO.entityExists(newObjectRequest.getPrimaryKeysSQLs())) {
 

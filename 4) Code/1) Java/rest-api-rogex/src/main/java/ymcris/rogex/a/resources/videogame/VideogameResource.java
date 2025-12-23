@@ -114,7 +114,7 @@ public class VideogameResource extends GenericResource<Videogame> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Videogame> createCRUD() {
+    protected GenericService<Videogame> getService() {
         return new VideogameService();
     }
 

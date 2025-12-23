@@ -84,7 +84,7 @@ public class GroupResource extends GenericResource<Group> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Group> createCRUD() {
+    protected GenericService<Group> getService() {
         return new GroupService();
     }
 

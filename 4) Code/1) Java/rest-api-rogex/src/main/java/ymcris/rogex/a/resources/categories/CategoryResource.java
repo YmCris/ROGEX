@@ -83,7 +83,7 @@ public class CategoryResource extends GenericResource<Category> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Category> createCRUD() {
+    protected GenericService<Category> getService() {
         return new CategoryService();
     }
 

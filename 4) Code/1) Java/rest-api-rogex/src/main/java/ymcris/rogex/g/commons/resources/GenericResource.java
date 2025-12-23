@@ -5,6 +5,7 @@ import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
 import ymcris.rogex.g.commons.services.GenericService;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.response.GenericJSONResponse;
@@ -39,11 +40,11 @@ public abstract class GenericResource<T> {
             GenericNewObjectRequest genericNewObjectRequest) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
-        GenericService<T> objectCreator = createCRUD();
+        GenericService<T> objectCreator = getService();
 
         try {
 
-            objectCreator.createObject(genericNewObjectRequest);
+            objectCreator.insertObject(genericNewObjectRequest);
 
             return jSONResponse.sendJSONResponse("Created",
                     Response.Status.CREATED);
@@ -58,6 +59,11 @@ public abstract class GenericResource<T> {
             return jSONResponse.sendJSONResponse(ex.getMessage(),
                     Response.Status.CONFLICT);
 
+        } catch (DAOException exc) {
+
+            return jSONResponse.sendJSONResponse(exc.getMessage(),
+                    Response.Status.INTERNAL_SERVER_ERROR);
+
         }
     }
 
@@ -68,11 +74,23 @@ public abstract class GenericResource<T> {
      * @return Response with the list of objects respornse
      */
     public final Response getAllObjectsInternal() {
-        GenericService<T> objectsGetter = createCRUD();
 
-        List<GenericObjectResponse> objects = getObjects(objectsGetter);
+        GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
-        return Response.ok(objects).build();
+        try {
+
+            GenericService<T> objectsGetter = getService();
+
+            List<GenericObjectResponse> objects = getObjects(objectsGetter);
+
+            return Response.ok(objects).build();
+
+        } catch (DAOException exc) {
+
+            return jSONResponse.sendJSONResponse(exc.getMessage(),
+                    Response.Status.INTERNAL_SERVER_ERROR);
+
+        }
     }
 
     /**
@@ -83,8 +101,8 @@ public abstract class GenericResource<T> {
      */
     public final Response getObjectInternal(String[] primaryKeys) {
 
-        GenericJSONResponse jsonResponse = new GenericJSONResponse();
-        GenericService<T> service = createCRUD();
+        GenericJSONResponse jSONResponse = new GenericJSONResponse();
+        GenericService<T> service = getService();
 
         try {
 
@@ -93,10 +111,15 @@ public abstract class GenericResource<T> {
 
         } catch (ObjectNotFoundException e) {
 
-            return jsonResponse.sendJSONResponse(
+            return jSONResponse.sendJSONResponse(
                     e.getMessage(),
-                    Response.Status.NOT_FOUND
-            );
+                    Response.Status.NOT_FOUND);
+
+        } catch (DAOException exc) {
+
+            return jSONResponse.sendJSONResponse(exc.getMessage(),
+                    Response.Status.INTERNAL_SERVER_ERROR);
+
         }
     }
 
@@ -111,7 +134,7 @@ public abstract class GenericResource<T> {
             GenericNewObjectRequest genericNewObjectRequest) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
-        GenericService<T> deleteObject = createCRUD();
+        GenericService<T> deleteObject = getService();
 
         try {
 
@@ -124,6 +147,12 @@ public abstract class GenericResource<T> {
 
             return jSONResponse.sendJSONResponse(e.getMessage(),
                     Response.Status.BAD_REQUEST);
+
+        } catch (DAOException exc) {
+
+            return jSONResponse.sendJSONResponse(exc.getMessage(),
+                    Response.Status.INTERNAL_SERVER_ERROR);
+
         }
     }
 
@@ -139,27 +168,33 @@ public abstract class GenericResource<T> {
             String[] primaryKeys,
             GenericUpdateObjectRequest updateRequest) {
 
-        GenericJSONResponse jsonResponse = new GenericJSONResponse();
-        GenericService<T> service = createCRUD();
+        GenericJSONResponse jSONResponse = new GenericJSONResponse();
+        GenericService<T> service = getService();
 
         try {
 
-            T updated = service.updateObject(primaryKeys, updateRequest);
+            T updated = service.updateEntity(primaryKeys, updateRequest);
             return Response.ok(toResponse(updated)).build();
 
         } catch (InvalidUserParametersException e) {
 
-            return jsonResponse.sendJSONResponse(
+            return jSONResponse.sendJSONResponse(
                     e.getMessage(),
                     Response.Status.BAD_REQUEST
             );
 
         } catch (ObjectNotFoundException e) {
 
-            return jsonResponse.sendJSONResponse(
+            return jSONResponse.sendJSONResponse(
                     e.getMessage(),
                     Response.Status.NOT_FOUND
             );
+
+        } catch (DAOException exc) {
+
+            return jSONResponse.sendJSONResponse(exc.getMessage(),
+                    Response.Status.INTERNAL_SERVER_ERROR);
+
         }
     }
 
@@ -169,7 +204,7 @@ public abstract class GenericResource<T> {
      *
      * @return specific service of the entity
      */
-    protected abstract GenericService<T> createCRUD();
+    protected abstract GenericService<T> getService();
 
     /**
      * Get the list of the objects to sent in the respose | objectsGetter

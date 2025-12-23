@@ -252,7 +252,7 @@ public class VideogameDAO extends GenericDAO<Videogame> {
     }
 
     @Override
-    protected Videogame createEntity(ResultSet resultSet) {
+    protected Videogame getEntity(ResultSet resultSet) {
         try {
             Videogame videogame = new Videogame(
                     resultSet.getString("title"),

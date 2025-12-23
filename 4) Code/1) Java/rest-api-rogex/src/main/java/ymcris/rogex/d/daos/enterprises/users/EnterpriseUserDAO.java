@@ -95,7 +95,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
     }
 
     @Override
-    protected EnterpriseUser createEntity(ResultSet resultSet) {
+    protected EnterpriseUser getEntity(ResultSet resultSet) {
         try {
 
             return new EnterpriseUser(

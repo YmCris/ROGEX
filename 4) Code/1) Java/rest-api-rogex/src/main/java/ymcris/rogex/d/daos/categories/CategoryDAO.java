@@ -82,7 +82,7 @@ public class CategoryDAO extends GenericDAO<Category> {
     }
 
     @Override
-    protected Category createEntity(ResultSet resultSet) {
+    protected Category getEntity(ResultSet resultSet) {
         try {
             return new Category(
                     resultSet.getString("name")

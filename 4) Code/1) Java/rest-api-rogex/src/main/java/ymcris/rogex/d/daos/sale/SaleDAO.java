@@ -75,7 +75,7 @@ public class SaleDAO extends GenericDAO<Sale> {
     }
 
     @Override
-    protected Sale createEntity(ResultSet resultSet) {
+    protected Sale getEntity(ResultSet resultSet) {
         try {
             return new Sale(
                     resultSet.getDouble("videogame_price"),

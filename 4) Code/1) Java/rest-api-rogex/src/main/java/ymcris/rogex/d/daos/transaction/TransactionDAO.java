@@ -87,7 +87,7 @@ public class TransactionDAO extends GenericDAO<Transaction> {
     }
 
     @Override
-    protected Transaction createEntity(ResultSet resultSet) {
+    protected Transaction getEntity(ResultSet resultSet) {
         try {
             return new Transaction(
                     resultSet.getTimestamp("transaction_date").toLocalDateTime(),

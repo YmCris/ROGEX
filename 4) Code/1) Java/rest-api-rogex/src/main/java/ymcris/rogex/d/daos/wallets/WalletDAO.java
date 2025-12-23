@@ -120,7 +120,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
     }
 
     @Override
-    protected Wallet createEntity(ResultSet resultSet) {
+    protected Wallet getEntity(ResultSet resultSet) {
         try {
             Wallet wallet = new Wallet(
                     resultSet.getString("name"),
@@ -160,7 +160,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                wallets.add(createEntity(resultSet));
+                wallets.add(getEntity(resultSet));
             }
 
         } catch (SQLException e) {
@@ -186,7 +186,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                wallet = createEntity(resultSet);
+                wallet = getEntity(resultSet);
             }
 
         } catch (SQLException e) {

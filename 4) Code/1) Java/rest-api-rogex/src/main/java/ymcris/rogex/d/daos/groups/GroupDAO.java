@@ -90,7 +90,7 @@ public class GroupDAO extends GenericDAO<Group> {
     }
 
     @Override
-    protected Group createEntity(ResultSet resultSet) {
+    protected Group getEntity(ResultSet resultSet) {
         try {
             Group group = new Group(
                     resultSet.getString("name"),

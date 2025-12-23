@@ -117,7 +117,7 @@ public abstract class GenericDAO<T> {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                T entity = createEntity(resultSet);
+                T entity = getEntity(resultSet);
 
                 return Optional.of(entity);
             }
@@ -144,7 +144,7 @@ public abstract class GenericDAO<T> {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                T entity = createEntity(resultSet);
+                T entity = getEntity(resultSet);
                 entities.add(entity);
             }
 
@@ -181,6 +181,6 @@ public abstract class GenericDAO<T> {
      * @param resultSet retult set
      * @return entity type
      */
-    protected abstract T createEntity(ResultSet resultSet);
+    protected abstract T getEntity(ResultSet resultSet);
 
 }

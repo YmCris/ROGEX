@@ -78,7 +78,7 @@ public class TransactionResource extends GenericResource<Transaction> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Transaction> createCRUD() {
+    protected GenericService<Transaction> getService() {
         return new TransactionService();
     }
 

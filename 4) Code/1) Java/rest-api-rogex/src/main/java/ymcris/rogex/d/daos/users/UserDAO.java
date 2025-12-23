@@ -54,7 +54,7 @@ public class UserDAO extends GenericDAO<User> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected User createEntity(ResultSet resultSet) {
+    protected User getEntity(ResultSet resultSet) {
         try {
             return new User(
                     resultSet.getBytes("photo"),

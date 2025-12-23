@@ -26,7 +26,7 @@ public class EnterpriseUserService extends GenericService<EnterpriseUser> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected EnterpriseUser createEntity(GenericNewObjectRequest newObjectRequest)
+    protected EnterpriseUser createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewEnterpriseUserRequest newEnterpriseUserRequest = (NewEnterpriseUserRequest) newObjectRequest;
@@ -56,7 +56,7 @@ public class EnterpriseUserService extends GenericService<EnterpriseUser> {
     }
 
     @Override
-    protected void updateEntity(EnterpriseUser enterpriseUser,
+    protected void updateObject(EnterpriseUser enterpriseUser,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 

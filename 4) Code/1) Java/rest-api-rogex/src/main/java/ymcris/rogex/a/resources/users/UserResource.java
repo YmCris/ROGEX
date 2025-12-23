@@ -103,7 +103,7 @@ public class UserResource extends GenericResource<User> {
 
         try {
 
-            User userUpdated = userSerivicer.updateObject(new String[]{email}, updateUserRequest);
+            User userUpdated = userSerivicer.updateEntity(new String[]{email}, updateUserRequest);
 
             return Response.ok(new UserResponse(userUpdated)).build();
 
@@ -123,7 +123,7 @@ public class UserResource extends GenericResource<User> {
 
     // PATCH -------------------------------------------------------------------
     @Override
-    protected GenericService<User> createCRUD() {
+    protected GenericService<User> getService() {
         return new UserService();
     }
 

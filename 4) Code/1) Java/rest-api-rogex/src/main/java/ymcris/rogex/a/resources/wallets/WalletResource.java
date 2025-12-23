@@ -110,7 +110,7 @@ public class WalletResource extends GenericResource<Wallet> {
 
         try {
 
-            Wallet walletUpdated = walletService.updateObject(new String[]{name, banck},
+            Wallet walletUpdated = walletService.updateEntity(new String[]{name, banck},
                     updateWalletRequest);
 
             return Response.ok(new WalletResponse(walletUpdated)).build();
@@ -131,7 +131,7 @@ public class WalletResource extends GenericResource<Wallet> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Wallet> createCRUD() {
+    protected GenericService<Wallet> getService() {
         return new WalletService();
     }
 
