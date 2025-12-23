@@ -61,7 +61,7 @@ public class SaleResource extends GenericResource<Sale> {
     // DELETE ------------------------------------------------------------------
     @DELETE
     @Path("{userEmail}/{videogameTitle}/{enterpriseName}")
-    public Response deleteCategory(@PathParam("userEmail") String userEmail,
+    public Response deleteSale(@PathParam("userEmail") String userEmail,
             @PathParam("videogameTitle") String videogameTitle,
             @PathParam("enterpriseName") String enterpriseName) {
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
@@ -72,7 +72,7 @@ public class SaleResource extends GenericResource<Sale> {
     @Path("{userEmail}/{videogameTitle}/{enterpriseName}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateCategory(@PathParam("userEmail") String userEmail,
+    public Response updateSale(@PathParam("userEmail") String userEmail,
             @PathParam("videogameTitle") String videogameTitle,
             @PathParam("enterpriseName") String enterpriseName) {
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();

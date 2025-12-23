@@ -1,0 +1,102 @@
+{
+	"info": {
+		"_postman_id": "3e7dd960-d4d8-42b8-b6d6-1b68cdc265ae",
+		"name": "TESTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50784089",
+		"_collection_link": "https://ymcris-7910544.postman.co/workspace/Sale~02ff7d58-0a64-4ef8-835b-a33ac244ec72/collection/50784089-3e7dd960-d4d8-42b8-b6d6-1b68cdc265ae?action=share&source=collection_link&creator=50784089"
+	},
+	"item": [
+		{
+			"name": "SALES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"videogamePrice\": 13.00,\n  \"saleDate\": \"2025-12-18\",\n  \"userEmail\": \"xxx1@gmail.com\",\n  \"videogameTitle\": \"game1\",\n  \"enterpriseName\": \"enterprise1\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest-api-rogex-1.0-SNAPSHOT",
+								"api",
+								"v1",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest-api-rogex-1.0-SNAPSHOT",
+								"api",
+								"v1",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales/enterprise1/game1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"rest-api-rogex-1.0-SNAPSHOT",
+								"api",
+								"v1",
+								"sales",
+								"enterprise1",
+								"game1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

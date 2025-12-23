@@ -43,6 +43,9 @@ public class WalletDAO extends GenericDAO<Wallet> {
     private static final String SQL_GET_WALLET_BY_EMAIL
             = "SELECT * FROM wallet WHERE user_email = ?";
 
+    private static final String SQL_GET_WALLET_BY_EMAIL_AND_WALLET
+            = "SELECT * FROM wallet WHERE user_email = ?";
+
     // CONSTRUCTOR -------------------------------------------------------------
     public WalletDAO() {
         super(
@@ -88,6 +91,24 @@ public class WalletDAO extends GenericDAO<Wallet> {
                 = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
 
             statement.setDouble(1, wallet.getFund());
+            statement.setString(2, primaryKeys[0]);
+            statement.setString(3, primaryKeys[1]);
+
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Error updating wallet: " + e.getMessage());
+        }
+    }
+
+    public void updateEntity(String[] primaryKeys, Double less) {
+
+        try (
+                Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
+
+            statement.setDouble(1, less);
             statement.setString(2, primaryKeys[0]);
             statement.setString(3, primaryKeys[1]);
 
@@ -147,6 +168,32 @@ public class WalletDAO extends GenericDAO<Wallet> {
         }
 
         return wallets;
+    }
+
+    public Wallet getWalletByUserEmailAndWallet(String email, String walletName,
+            String walletBanck) {
+
+        Wallet wallet = null;
+
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_GET_WALLET_BY_EMAIL_AND_WALLET)) {
+
+            statement.setString(1, email);
+            statement.setString(2, walletName);
+            statement.setString(3, walletBanck);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                wallet = createEntity(resultSet);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error getting wallets by user: " + e.getMessage());
+        }
+
+        return wallet;
     }
 
 }

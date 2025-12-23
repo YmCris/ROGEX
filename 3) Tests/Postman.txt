@@ -1,0 +1,170 @@
+USERS:
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users
+        {
+        "photo": null,
+        "nickname": "cris3",
+        "password": "12345",
+        "birthDate": "2025-08-15",
+        "email": "xxx@gmail.com",
+        "phoneNumber": "52525",
+        "country": "Guatemala",
+        "publicLibrary": true
+        }
+
+    GET some: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/xxx@gmail.com
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/xxx@gmail.com
+        {
+        "phoneNumber": "3232323232",
+        "country": "XELA",
+        "publicLibrary": true
+        }
+
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/xxx@gmail.com
+
+
+SYSTEM_CONFIG:
+
+    GET: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/system/config
+    PUT (Patch): GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users
+        {
+            "description": "ESTE ES UN PROGRAMA PARA DEFINIR EL PROGRAMA DE IPC 2 VAQUERAS"
+        }
+
+
+ENTERPRISE:
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/enterprises
+        {
+        "name": "enterprise3",
+        "description": "ho9la",
+        "specificCommission": 12,
+        "logo": null,
+        "cover": null,
+        "hiddenAllComments": 1
+        }
+
+
+    GET some: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/enterprises/e1
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/enterprises
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/enterprises/e1
+        {
+            "specificCommission" :0.5
+        }
+
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/enterprises/e1
+
+
+ENTERPRISE_USER:
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/enterprises
+        {
+            "email" : "user1@gmail.com",
+            "name" : "Usuario1",
+            "password" : "usuario12345",
+            "birthDate" : "2025-08-15",
+            "enterpriseName" : "enterprise2"
+        }
+
+    GET some: hhttp://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/enterprises/user1@gmail.com
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/enterprises
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/enterprises/user1@gmail.com
+
+        {
+        "name" : "user11",
+        "birthDate" : "2024-12-12"
+        }
+
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/users/enterprises/user1@gmail.com
+
+
+WALLETS:
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/wallets
+        {
+            "banck" : "BANRURAL",
+            "name" : "YmCard3",
+            "fund": 12.35,
+            "userEmail" : "xxx@gmail.com"
+        }
+
+    GET some: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/wallets/YmCard3/BANRURAL
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/wallets
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/wallets/YmCard3/BANRURAL
+        {
+            "fund" : 50
+        }
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/wallets/YmCard3/BANRURAL
+
+
+CATEGORIES
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/categories
+        {
+            "name": "RPG"
+        }
+
+    GET some:http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/categories/RPG
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/categories
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/categories/RPG
+        {
+            "name" :"Action"
+        }
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/categories/Action
+
+VIDEOGAMES
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/videogames
+        {
+        "title": "game4",
+        "description": "game2 description",
+        "price": "1000",
+        "minimumRequirements": "videogame13 RTX, Intel core i9 Ultra",
+        "ageRating": "M",
+        "enterpriseName": "enterprise1",
+        "suspensionOfSale": true,
+        "hiddenComments": true,
+        "hidden": true,
+        "categories": ["Action"]
+        }
+
+    GET some:http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/videogames/game4/enterprise1
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/videogames/
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/videogames/game4/enterprise1
+        {
+            "price" : 500
+        }
+
+
+GROUPS
+
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/groups
+        {
+            "name": "Group12",
+            "creatorEmail":"xxx@gmail.com"
+        }
+
+    GET some:http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/groups
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/groups/group12
+    PUT (Patch): http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/groups/group12
+        {
+            "userEmail": "xxx2@gmail.com",
+            "groupName" : "Group9"
+        }
+    DELETE: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/groups/Group12
+
+SALE
+    
+    POST: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales
+        {
+        "videogamePrice": 13.00,
+        "saleDate": "2025-12-18",
+        "userEmail": "cristiansanic202330389@cunoc.edu.gt",
+        "videogameTitle": "videogame13",
+        "enterpriseName": "enterprise1"
+        }
+
+
+    GET some:http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales
+    GET all: http://localhost:8080/rest-api-rogex-1.0-SNAPSHOT/api/v1/sales/enterprise1/game1

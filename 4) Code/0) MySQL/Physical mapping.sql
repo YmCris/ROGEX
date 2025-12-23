@@ -256,3 +256,4 @@ CREATE TABLE videogame_loan (-- (1FN, ...)
 );
 
 -- 2) Adding initial data for testing purposes
+INSERT INTO system_configuration (global_commission_percentage, description) VALUES (15.00, 'Default global commission percentage for all enterprises.');

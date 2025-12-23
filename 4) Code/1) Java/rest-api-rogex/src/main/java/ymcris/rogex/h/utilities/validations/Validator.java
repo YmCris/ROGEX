@@ -140,4 +140,9 @@ public class Validator {
         return !date.isBefore(LocalDate.now().minusYears(90))
                 && !date.isAfter(LocalDate.now());
     }
+
+    public boolean isValidLocalDateTime(LocalDateTime date) {
+        return !date.isBefore(LocalDateTime.now().minusYears(90))
+                && !date.isAfter(LocalDateTime.now());
+    }
 }
