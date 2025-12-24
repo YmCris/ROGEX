@@ -71,9 +71,10 @@ public abstract class GenericResource<T> {
     /**
      * Method responsible for send all objects
      *
+     * @param parameters
      * @return Response with the list of objects respornse
      */
-    public final Response getAllObjectsInternal() {
+    public final Response getAllObjectsInternal(String[] parameters) {
 
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
@@ -81,7 +82,7 @@ public abstract class GenericResource<T> {
 
             GenericService<T> objectsGetter = getService();
 
-            List<GenericObjectResponse> objects = getObjects(objectsGetter);
+            List<GenericObjectResponse> objects = getObjects(objectsGetter, parameters);
 
             return Response.ok(objects).build();
 
@@ -211,9 +212,11 @@ public abstract class GenericResource<T> {
      * .getAllEntities() .stream() .map(GenericObjectResponse::new) .toList()
      *
      * @param objectsGetter
+     * @param parameters
      * @return
      */
-    protected abstract List<GenericObjectResponse> getObjects(GenericService<T> objectsGetter);
+    protected abstract List<GenericObjectResponse> getObjects(
+            GenericService<T> objectsGetter, String[] parameters);
 
     /**
      * Method responsible for return a specific entity response

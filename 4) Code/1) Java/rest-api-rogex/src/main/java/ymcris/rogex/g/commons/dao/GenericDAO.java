@@ -132,14 +132,21 @@ public abstract class GenericDAO<T> {
     /**
      * Function responsible for deliver all entities
      *
+     * @param parameters
      * @return list of all entities
      */
-    public final List<T> getAllEntities() {
+    public final List<T> getAllEntities(String[] parameters) {
         List<T> entities = new ArrayList<>();
 
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ALL_ENTITIES)) {
+
+            if (parameters != null) {
+                for (int i = 0; i < parameters.length; i++) {
+                    statement.setString(i + 1, parameters[i]);
+                }
+            }
 
             ResultSet resultSet = statement.executeQuery();
 

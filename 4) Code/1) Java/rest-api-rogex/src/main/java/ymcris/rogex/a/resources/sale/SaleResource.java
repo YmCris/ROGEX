@@ -43,9 +43,10 @@ public class SaleResource extends GenericResource<Sale> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{userEmail}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSales() {
-        return getAllObjectsInternal();
+    public Response getAllSales(@PathParam("userEmail") String userEmail) {
+        return getAllObjectsInternal(new String[]{userEmail});
     }
 
     @GET
@@ -85,8 +86,10 @@ public class SaleResource extends GenericResource<Sale> {
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Sale> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Sale> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(sale -> (GenericObjectResponse) new SaleResponse(sale))
                 .toList();

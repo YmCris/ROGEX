@@ -135,10 +135,11 @@ public abstract class GenericService<T> {
     /**
      * Function responsible for deliver all entities
      *
+     * @param parameters to get some entities
      * @return List of entities
      */
-    public final List<T> getAllEntities() {
-        return genericDAO.getAllEntities();
+    public final List<T> getAllEntities(String[] parameters) {
+        return genericDAO.getAllEntities(parameters);
     }
 
     // ABSTRACT METHODS --------------------------------------------------------

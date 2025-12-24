@@ -45,9 +45,10 @@ public class WalletResource extends GenericResource<Wallet> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllWallets() {
-        return getAllObjectsInternal();
+    public Response getAllUserWallets(@PathParam("email") String email) {
+        return getAllObjectsInternal(new String[]{email});
     }
 
     @GET
@@ -57,24 +58,6 @@ public class WalletResource extends GenericResource<Wallet> {
             @PathParam("banck") String banck) {
 
         return getObjectInternal(new String[]{banck, name});
-
-        /*
-        WalletService walletSerivice = new WalletService();
-        GenericJSONResponse jSONResponse = new GenericJSONResponse();
-
-        try {
-
-            Wallet existingWallet = walletSerivice.getEntity(new String[]{name, banck});
-
-            return Response.ok(new WalletResponse(existingWallet)).build();
-
-        } catch (ObjectNotFoundException e) {
-
-            return jSONResponse.sendJSONResponse(e.getMessage(),
-                    Response.Status.NOT_FOUND);
-
-        }
-         */
     }
 
     // DELETE ------------------------------------------------------------------
@@ -82,11 +65,6 @@ public class WalletResource extends GenericResource<Wallet> {
     @Path("{name}/{banck}")
     public Response deleteWallet(@PathParam("name") String name,
             @PathParam("banck") String banck) {
-        /*
-        GenericNewObjectRequest pk = new GenericNewObjectRequest();
-        pk.setPrimaryKeys(new String[]{name, banck});
-
-        return deleteObjectInternal(pk);*/
         return deleteObjectInternal(
                 new GenericNewObjectRequest(new String[]{banck, name})
         );
@@ -104,29 +82,6 @@ public class WalletResource extends GenericResource<Wallet> {
                 new String[]{banck, name},
                 updateWalletRequest
         );
-        /*
-        WalletService walletService = new WalletService();
-        GenericJSONResponse jSONResponse = new GenericJSONResponse();
-
-        try {
-
-            Wallet walletUpdated = walletService.updateEntity(new String[]{name, banck},
-                    updateWalletRequest);
-
-            return Response.ok(new WalletResponse(walletUpdated)).build();
-
-        } catch (InvalidUserParametersException e) {
-
-            return jSONResponse.sendJSONResponse(e.getMessage(),
-                    Response.Status.BAD_REQUEST);
-
-        } catch (ObjectNotFoundException ex) {
-
-            return jSONResponse.sendJSONResponse(ex.getMessage(),
-                    Response.Status.NOT_FOUND);
-
-        }
-         */
     }
 
     // OVERRIDE METHODS --------------------------------------------------------
@@ -136,8 +91,10 @@ public class WalletResource extends GenericResource<Wallet> {
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Wallet> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Wallet> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(wallet -> (GenericObjectResponse) new WalletResponse(wallet))
                 .toList();

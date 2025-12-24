@@ -39,8 +39,8 @@ public class MemberGroupDAO extends GenericDAO<MemberGroup> {
     private static final String SQL_UPDATE_MEMBER_GROUP
             = null;
 
-    private static final String SQL_GET_ALL_MEMBER_GROUPS
-            = "SELECT * FROM group_member";
+    private static final String SQL_GET_ALL_MEMBERS_OF_SOME_GROUP
+            = "SELECT * FROM group_member WHERE family_group_name = ?";
 
     private static final String SQL_DELETE_MEMBER_GROUP
             = "DELETE FROM group_member WHERE group_member_email = ?"
@@ -53,7 +53,7 @@ public class MemberGroupDAO extends GenericDAO<MemberGroup> {
                 SQL_EXISTS_MEMBER_GROUP,
                 SQL_GET_MEMBER_GROUP,
                 SQL_UPDATE_MEMBER_GROUP,
-                SQL_GET_ALL_MEMBER_GROUPS,
+                SQL_GET_ALL_MEMBERS_OF_SOME_GROUP,
                 SQL_DELETE_MEMBER_GROUP
         );
     }

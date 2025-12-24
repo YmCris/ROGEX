@@ -154,16 +154,17 @@ CREATE TABLE user (-- (1FN, 2FN, 3FN)
     CONSTRAINT uq_user_email UNIQUE (nickname)
 );
 
-CREATE TABLE message (-- (1FN, 2FN, 3FN)
-    message_text TEXT NOT NULL,
+CREATE TABLE invitation (-- (1FN, 2FN, 3FN)
+    invitation_text TEXT NOT NULL,
     sent_date DATETIME NOT NULL,
-    multimedia BLOB,
+    group_name VARCHAR(100) NOT NULL,
     sender_email VARCHAR(100) NOT NULL,
     receiver_email VARCHAR(100) NOT NULL,
     id INT NOT NULL AUTO_INCREMENT,
-    CONSTRAINT pk_message PRIMARY KEY (id),
-    CONSTRAINT fk_message_sender FOREIGN KEY (sender_email) REFERENCES user(email),
-    CONSTRAINT fk_message_receiver FOREIGN KEY (receiver_email) REFERENCES user(email)
+    CONSTRAINT pk_invitation PRIMARY KEY (id),
+    CONSTRAINT fk_invitation_group FOREIGN KEY (group_name) REFERENCES family_group(name),
+    CONSTRAINT fk_invitation_sender FOREIGN KEY (sender_email) REFERENCES user(email),
+    CONSTRAINT fk_invitation_receiver FOREIGN KEY (receiver_email) REFERENCES user(email)
 );
 
 CREATE TABLE wallet (-- (1FN, 2FN, 3FN)

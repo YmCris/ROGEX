@@ -5,9 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.e.models.videogame.AgeRating;
 import ymcris.rogex.e.models.videogame.Videogame;
@@ -34,10 +31,7 @@ public class VideogameDAO extends GenericDAO<Videogame> {
             = "SELECT 1 FROM videogame WHERE title = ? AND enterprise_name = ?";
 
     private static final String SQL_GET_VIDEOGAME
-            = "SELECT title, description, price, minimum_requirements, "
-            + "age_rating, release_date, downloads, enterprise_name, "
-            + "suspension_of_sale, hidden_comments, hidden FROM videogame "
-            + "WHERE title = ? AND enterprise_name = ?";
+            = "SELECT * FROM videogame WHERE title = ? AND enterprise_name = ?";
 
     private static final String SQL_UPDATE_VIDEOGAME
             = "UPDATE videogame SET description = ?, price = ?, "
@@ -45,10 +39,11 @@ public class VideogameDAO extends GenericDAO<Videogame> {
             + "downloads = ?, suspension_of_sale = ?, hidden_comments = ?, "
             + "hidden = ? WHERE title = ? AND enterprise_name = ?";
 
+    private static final String SQL_GET_ALL_ENTERPRISE_VIDEOGAMES
+            = "SELECT * FROM videogame WHERE enterprise_name = ?";
+
     private static final String SQL_GET_ALL_VIDEOGAMES
-            = "SELECT title, description, price, minimum_requirements, age_rating,"
-            + " release_date, downloads, enterprise_name, suspension_of_sale, "
-            + "hidden_comments, hidden FROM videogame";
+            = "SELECT * FROM videogame";
 
     private static final String SQL_DELETE_VIDEOGAME
             = "DELETE FROM videogame WHERE title = ? AND enterprise_name = ?";
@@ -81,7 +76,7 @@ public class VideogameDAO extends GenericDAO<Videogame> {
                 SQL_EXISTS_VIDEOGAME,
                 SQL_GET_VIDEOGAME,
                 SQL_UPDATE_VIDEOGAME,
-                SQL_GET_ALL_VIDEOGAMES,
+                SQL_GET_ALL_ENTERPRISE_VIDEOGAMES,
                 SQL_DELETE_VIDEOGAME
         );
     }
@@ -276,5 +271,5 @@ public class VideogameDAO extends GenericDAO<Videogame> {
             throw new RuntimeException("ERRORR creating videogame");
         }
     }
-
+    
 }

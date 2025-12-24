@@ -1,55 +1,28 @@
-package ymcris.rogex.c.dtos.messages;
+package ymcris.rogex.c.dtos.invitations;
 
-import java.time.LocalDateTime;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 
 /**
- * The NewMesssageRequest class is the class responsible for
+ * The NewInvitationRequest class is the class responsible for
  *
  * @author YmCris
  * @since Dec 23, 2025
  */
-public class NewMesssageRequest extends GenericNewObjectRequest {
+public class NewInvitationRequest extends GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String messageText;
-    private LocalDateTime sentDate;
-    private byte[] multimedia;
+    private String invitationText;
+    private String groupName;
     private String senderEmail;
     private String receiverEmail;
 
     // GETTERS -----------------------------------------------------------------
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public String getInvitationText() {
+        return invitationText;
     }
 
-    public void setSentDate(LocalDateTime sentDate) {
-        this.sentDate = sentDate;
-    }
-
-    public void setMultimedia(byte[] multimedia) {
-        this.multimedia = multimedia;
-    }
-
-    public void setSenderEmail(String senderEmail) {
-        this.senderEmail = senderEmail;
-    }
-
-    public void setReceiverEmail(String receiverEmail) {
-        this.receiverEmail = receiverEmail;
-    }
-
-    // SETTERS -----------------------------------------------------------------
-    public String getMessageText() {
-        return messageText;
-    }
-
-    public LocalDateTime getSentDate() {
-        return sentDate;
-    }
-
-    public byte[] getMultimedia() {
-        return multimedia;
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getSenderEmail() {
@@ -58,6 +31,23 @@ public class NewMesssageRequest extends GenericNewObjectRequest {
 
     public String getReceiverEmail() {
         return receiverEmail;
+    }
+
+    // SETTERS -----------------------------------------------------------------
+    public void setInvitationText(String invitationText) {
+        this.invitationText = invitationText;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void setSenderEmail(String senderEmail) {
+        this.senderEmail = senderEmail;
+    }
+
+    public void setReceiverEmail(String receiverEmail) {
+        this.receiverEmail = receiverEmail;
     }
 
 }

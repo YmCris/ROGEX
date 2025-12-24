@@ -33,8 +33,8 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
             = "UPDATE enterprise_user SET name = ?, password = ?, birth_date = ?, "
             + "enterprise_name = ? WHERE email = ?";
 
-    private static final String SQL_GET_ALL_ENTERPRISE_USERS
-            = "SELECT * FROM enterprise_user";
+    private static final String SQL_GET_ALL_ENTERPRISE_USERS_OF_ENTERPRISE
+            = "SELECT * FROM enterprise_user WHERE enterprise_name = ?";
 
     private static final String SQL_DELETE_ENTERPRISE_USER
             = "DELETE FROM enterprise_user WHERE email = ?";
@@ -46,7 +46,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
                 SQL_EXISTS_ENTERPRISE_USER,
                 SQL_GET_ENTERPRISE_USER,
                 SQL_UPDATE_ENTERPRISE_USER,
-                SQL_GET_ALL_ENTERPRISE_USERS,
+                SQL_GET_ALL_ENTERPRISE_USERS_OF_ENTERPRISE,
                 SQL_DELETE_ENTERPRISE_USER
         );
     }

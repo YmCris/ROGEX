@@ -1,30 +1,32 @@
-package ymcris.rogex.e.models.messages;
+package ymcris.rogex.e.models.invitations;
 
 import java.time.LocalDateTime;
 import org.apache.commons.lang3.StringUtils;
 import ymcris.rogex.h.utilities.validations.Validator;
 
 /**
- * The Message class is the class responsible for
+ * The Invitation class is the class responsible for
  *
  * @author YmCris
  * @since Dec 23, 2025
  */
-public class Message {
+public class Invitation {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String messageText;
+    private String invitationText;
     private LocalDateTime sentDate;
-    private byte[] multimedia;
+    private String groupName;
     private String senderEmail;
     private String receiverEmail;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
-    public Message(String messageText, LocalDateTime sentDate, byte[] multimedia,
-            String senderEmail, String receiverEmail) {
-        this.messageText = messageText;
+    public Invitation(String invitationText, LocalDateTime sentDate,
+            String groupName, String senderEmail,
+            String receiverEmail) {
+
+        this.invitationText = invitationText;
         this.sentDate = sentDate;
-        this.multimedia = multimedia;
+        this.groupName = groupName;
         this.senderEmail = senderEmail;
         this.receiverEmail = receiverEmail;
     }
@@ -32,8 +34,8 @@ public class Message {
     // SPECIFIC METHODS --------------------------------------------------------
     public boolean isValid() {
         Validator validator = new Validator();
-        return !StringUtils.isAnyBlank(
-                messageText,
+        return !StringUtils.isAnyBlank(invitationText,
+                groupName,
                 senderEmail,
                 receiverEmail)
                 && sentDate != null
@@ -43,16 +45,16 @@ public class Message {
     }
 
     // GETTERS -----------------------------------------------------------------
-    public String getMessageText() {
-        return messageText;
+    public String getInvitationText() {
+        return invitationText;
     }
 
     public LocalDateTime getSentDate() {
         return sentDate;
     }
 
-    public byte[] getMultimedia() {
-        return multimedia;
+    public String getGroupName() {
+        return groupName;
     }
 
     public String getSenderEmail() {
@@ -64,16 +66,16 @@ public class Message {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
+    public void setInvitationText(String invitationText) {
+        this.invitationText = invitationText;
     }
 
     public void setSentDate(LocalDateTime sentDate) {
         this.sentDate = sentDate;
     }
 
-    public void setMultimedia(byte[] multimedia) {
-        this.multimedia = multimedia;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
 
     public void setSenderEmail(String senderEmail) {

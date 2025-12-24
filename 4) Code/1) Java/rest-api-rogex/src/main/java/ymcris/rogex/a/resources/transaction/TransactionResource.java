@@ -44,9 +44,10 @@ public class TransactionResource extends GenericResource<Transaction> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTransactions() {
-        return getAllObjectsInternal();
+    public Response getAllTransactions(@PathParam("email") String email) {
+        return getAllObjectsInternal(new String[]{email});
     }
 
     @GET
@@ -83,8 +84,10 @@ public class TransactionResource extends GenericResource<Transaction> {
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Transaction> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Transaction> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(transaction -> (GenericObjectResponse) new TransactionResponse(transaction))
                 .toList();

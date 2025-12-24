@@ -1,4 +1,4 @@
-package ymcris.rogex.a.resources.groups.members;
+package ymcris.rogex.a.resources.invitations;
 
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -13,23 +13,23 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.UriInfo;
 import java.util.List;
-import ymcris.rogex.b.services.groups.MemberGroupService;
-import ymcris.rogex.c.dtos.groups.members.MemberGroupResponse;
-import ymcris.rogex.c.dtos.groups.members.NewMemberGroupRequest;
-import ymcris.rogex.e.models.groups.MemberGroup;
+import ymcris.rogex.b.services.invitations.InvitationService;
+import ymcris.rogex.c.dtos.invitations.InvitationResponse;
+import ymcris.rogex.c.dtos.invitations.NewInvitationRequest;
+import ymcris.rogex.e.models.invitations.Invitation;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericResource;
 import ymcris.rogex.g.commons.services.GenericService;
 
 /**
- * The MemberGroupResource class is the class responsible for
+ * The InvitationResource class is the class responsible for
  *
  * @author YmCris
- * @since Dec 19, 2025
+ * @since Dec 23, 2025
  */
-@Path("groups/members")
-public class MemberGroupResource extends GenericResource<MemberGroup> {
+@Path("invitations")
+public class InvitationResource extends GenericResource<Invitation> {
 
     // CONTEXT INFO ------------------------------------------------------------
     @Context
@@ -39,66 +39,67 @@ public class MemberGroupResource extends GenericResource<MemberGroup> {
     // POST --------------------------------------------------------------------
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createMemberGroup(NewMemberGroupRequest newMemberGroupRequest) {
-        return createObjectInternal(newMemberGroupRequest);
+    public Response createInvitation(NewInvitationRequest newInvitationRequest) {
+        return createObjectInternal(newInvitationRequest);
     }
 
     // GET ---------------------------------------------------------------------
     @GET
-    @Path("{groupName}")
+    @Path("{receiverEmail}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMembersOfSomeGroup(@PathParam("groupName") String groupName) {
-        return getAllObjectsInternal(new String[]{groupName});
+    public Response getAllInvitations(@PathParam("receiverEmail") String receiverEmail) {
+        return getAllObjectsInternal(new String[]{receiverEmail});
     }
 
     @GET
-    @Path("{email}/{name}")
+    @Path("{groupName}/{receiverEmail}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getGroup(@PathParam("email") String email,
-            @PathParam("name") String name) {
-        return getObjectInternal(new String[]{email, name});
+    public Response getInvitationForUserToGroup(@PathParam("groupName") String groupName,
+            @PathParam("receiverEmail") String receiverEmail) {
+        return getObjectInternal(new String[]{groupName, receiverEmail});
     }
 
     // DELETE ------------------------------------------------------------------
     @DELETE
-    @Path("{email}/{name}")
-    public Response deleteMemberGroup(@PathParam("email") String email,
-            @PathParam("name") String name) {
+    @Path("{groupName}/{receiverEmail}")
+    public Response deleteInvitation(@PathParam("groupName") String groupName,
+            @PathParam("receiverEmail") String receiverEmail) {
+
         return deleteObjectInternal(
-                new GenericNewObjectRequest(new String[]{email, name})
+                new GenericNewObjectRequest(new String[]{groupName, receiverEmail})
         );
     }
 
     // PUT ---------------------------------------------------------------------
     @PUT
-    @Path("{name}")
+    @Path("{groupName}/{receiverEmail}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateGroup(@PathParam("name") String name
-    ) {
+    public Response updateTransaction(@PathParam("groupName") String groupName,
+            @PathParam("receiverEmail") String receiverEmail) {
 
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
     }
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<MemberGroup> getService() {
-        return new MemberGroupService();
+    protected GenericService<Invitation> getService() {
+        return new InvitationService();
     }
 
     @Override
     protected List<GenericObjectResponse> getObjects(
-            GenericService<MemberGroup> objectsGetter, String[] parameters) {
+            GenericService<Invitation> objectsGetter, String[] parameters) {
 
         return objectsGetter.getAllEntities(parameters)
                 .stream()
-                .map(memberGroup -> (GenericObjectResponse) new MemberGroupResponse(memberGroup))
+                .map(invitation -> (GenericObjectResponse) new InvitationResponse(invitation))
                 .toList();
     }
 
     @Override
-    protected GenericObjectResponse toResponse(MemberGroup memberGroup) {
-        return new MemberGroupResponse(memberGroup);
+    protected GenericObjectResponse toResponse(Invitation Invitation) {
+        return new InvitationResponse(Invitation);
     }
 
 }

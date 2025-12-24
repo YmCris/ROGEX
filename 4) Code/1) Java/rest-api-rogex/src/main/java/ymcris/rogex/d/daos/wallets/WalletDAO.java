@@ -34,8 +34,8 @@ public class WalletDAO extends GenericDAO<Wallet> {
     private static final String SQL_UPDATE_WALLET
             = "UPDATE wallet SET fund = ? WHERE banck = ? AND name = ?";
 
-    private static final String SQL_GET_ALL_WALLETS
-            = "SELECT * FROM wallet";
+    private static final String SQL_GET_ALL_USER_WALLETS
+            = "SELECT * FROM wallet WHERE user_email = ?";
 
     private static final String SQL_DELETE_WALLET
             = "DELETE FROM wallet WHERE banck = ? AND name = ?";
@@ -53,7 +53,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
                 SQL_EXISTS_WALLET,
                 SQL_GET_BY_PK,
                 SQL_UPDATE_WALLET,
-                SQL_GET_ALL_WALLETS,
+                SQL_GET_ALL_USER_WALLETS,
                 SQL_DELETE_WALLET
         );
     }

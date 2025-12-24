@@ -54,7 +54,7 @@ public class UserResource extends GenericResource<User> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        return getAllObjectsInternal();
+        return getAllObjectsInternal(null);
     }
 
     @GET
@@ -128,8 +128,10 @@ public class UserResource extends GenericResource<User> {
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<User> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<User> objectsGetter, String[] parameters) {
+        
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(user -> (GenericObjectResponse) new UserResponse(user))
                 .toList();

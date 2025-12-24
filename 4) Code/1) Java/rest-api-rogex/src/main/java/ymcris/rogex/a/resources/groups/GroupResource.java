@@ -48,7 +48,7 @@ public class GroupResource extends GenericResource<Group> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllGroups() {
-        return getAllObjectsInternal();
+        return getAllObjectsInternal(null);
     }
 
     @GET
@@ -89,8 +89,10 @@ public class GroupResource extends GenericResource<Group> {
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Group> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Group> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(group -> (GenericObjectResponse) new GroupResponse(group))
                 .toList();
