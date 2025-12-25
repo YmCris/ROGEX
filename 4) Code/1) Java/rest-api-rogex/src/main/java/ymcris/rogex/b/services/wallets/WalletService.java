@@ -5,6 +5,7 @@ import ymcris.rogex.e.models.wallets.Wallet;
 import ymcris.rogex.c.dtos.wallets.NewWalletRequest;
 import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.c.dtos.wallets.UpdateWalletRequest;
+import ymcris.rogex.d.daos.users.UserDAO;
 import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
@@ -35,6 +36,8 @@ public class WalletService extends GenericService<Wallet> {
             newWalletRequest.getBanck().name()
         });
 
+        verifyUserExistance(newWalletRequest.getUserEmail());
+        
         Wallet wallet = new Wallet(
                 newWalletRequest.getName(),
                 newWalletRequest.getFund(),
@@ -67,6 +70,15 @@ public class WalletService extends GenericService<Wallet> {
             throw new InvalidUserParametersException("Invalid data to update the wallet");
         }
 
+    }
+
+    private void verifyUserExistance(String email)
+            throws InvalidUserParametersException {
+
+        UserDAO userDAO = new UserDAO();
+        if (!userDAO.entityExists(new String[]{email})) {
+            throw new InvalidUserParametersException("User does'nt exist");
+        }
     }
 
 }

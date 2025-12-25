@@ -44,7 +44,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
             = "SELECT * FROM wallet WHERE user_email = ?";
 
     private static final String SQL_GET_WALLET_BY_EMAIL_AND_WALLET
-            = "SELECT * FROM wallet WHERE user_email = ?";
+            = "SELECT * FROM wallet WHERE user_email = ? AND name  = ? AND banck = ?";
 
     // CONSTRUCTOR -------------------------------------------------------------
     public WalletDAO() {
@@ -106,7 +106,7 @@ public class WalletDAO extends GenericDAO<Wallet> {
         try (
                 Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
-                = connection.prepareStatement(SQL_UPDATE_ENTITY)) {
+                = connection.prepareStatement(SQL_UPDATE_WALLET)) {
 
             statement.setDouble(1, less);
             statement.setString(2, primaryKeys[0]);

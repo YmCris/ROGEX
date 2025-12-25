@@ -62,7 +62,7 @@ public abstract class GenericResource<T> {
         } catch (DAOException exc) {
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
-                    Response.Status.INTERNAL_SERVER_ERROR);
+                    Response.Status.EXPECTATION_FAILED);
 
         }
     }
@@ -89,7 +89,7 @@ public abstract class GenericResource<T> {
         } catch (DAOException exc) {
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
-                    Response.Status.INTERNAL_SERVER_ERROR);
+                    Response.Status.EXPECTATION_FAILED);
 
         }
     }
@@ -119,7 +119,7 @@ public abstract class GenericResource<T> {
         } catch (DAOException exc) {
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
-                    Response.Status.INTERNAL_SERVER_ERROR);
+                    Response.Status.EXPECTATION_FAILED);
 
         }
     }
@@ -152,7 +152,7 @@ public abstract class GenericResource<T> {
         } catch (DAOException exc) {
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
-                    Response.Status.INTERNAL_SERVER_ERROR);
+                    Response.Status.EXPECTATION_FAILED);
 
         }
     }
@@ -194,7 +194,7 @@ public abstract class GenericResource<T> {
         } catch (DAOException exc) {
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
-                    Response.Status.INTERNAL_SERVER_ERROR);
+                    Response.Status.EXPECTATION_FAILED);
 
         }
     }

@@ -1,14 +1,15 @@
 package ymcris.rogex.b.services.sale;
 
-import java.time.LocalDate;
 import ymcris.rogex.c.dtos.sale.NewSaleRequest;
 import ymcris.rogex.d.daos.enterprises.EnterpriseDAO;
 import ymcris.rogex.d.daos.sale.SaleDAO;
 import ymcris.rogex.d.daos.system.SystemConfigDAO;
 import ymcris.rogex.d.daos.users.UserDAO;
+import ymcris.rogex.d.daos.users.videogames.UserVideogameDAO;
 import ymcris.rogex.d.daos.videogame.VideogameDAO;
 import ymcris.rogex.e.models.enterprise.Enterprise;
 import ymcris.rogex.e.models.sale.Sale;
+import ymcris.rogex.e.models.users.videogames.UserVideogame;
 import ymcris.rogex.e.models.videogame.Videogame;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
@@ -84,12 +85,13 @@ public class SaleService extends GenericService<Sale> {
                 videogame.getEnterpriseName()
         );
 
-        System.out.println(sale.getVideogamePrice() + " " + sale.getSaleDate() + " " + sale.getCommissionPercentage() + " " + sale.getProfit()
-                + " " + sale.getUserEmail() + " " + sale.getVideogameTitle() + " " + sale.getEnterpriseName());
         if (!sale.isValid()) {
             throw new InvalidUserParametersException(
                     "Data sent to the sale isn't valid");
         }
+
+        addVideogame(sale.getUserEmail(), sale.getVideogameTitle(), sale.getEnterpriseName());
+        
         return sale;
     }
 
@@ -100,4 +102,13 @@ public class SaleService extends GenericService<Sale> {
         throw new UnsupportedOperationException("YOU CANT UPDATE A SALE.");
     }
 
+    // AUXILIAR METHODS --------------------------------------------------------
+    private void addVideogame(String userEmail, String videogameTitle, String enterpriseName) {
+        UserVideogameDAO userVideogameDAO = new UserVideogameDAO();
+        UserVideogame userVideogame = new UserVideogame(
+                userEmail, videogameTitle, enterpriseName, false
+        );
+
+        userVideogameDAO.createEntity(userVideogame);
+    }
 }

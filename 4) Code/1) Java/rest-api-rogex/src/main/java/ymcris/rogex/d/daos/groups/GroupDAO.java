@@ -4,9 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import ymcris.rogex.d.daos.users.UserDAO;
 import ymcris.rogex.e.models.groups.Group;
-import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
 

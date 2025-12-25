@@ -82,6 +82,26 @@ public class VideogameDAO extends GenericDAO<Videogame> {
     }
 
     // SPECIFIC METHODS --------------------------------------------------------
+    public void insertCategories(Videogame videogame) {
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_INSERT_VIDEOGAME_CATEGORY)) {
+
+            for (Category category : videogame.getCategories()) {
+                statement.setString(1, category.getName());
+                statement.setString(2, videogame.getTitle());
+                statement.setString(3, videogame.getEnterpriseName());
+                statement.addBatch();
+            }
+
+            statement.executeBatch();
+        } catch (SQLException e) {
+            System.out.println("An exception of type " + e.getClass().getName()
+                    + " occurred while performing videogameCategory "
+                    + "because " + e.getMessage());
+        }
+    }
+
     public void addCategoryToVideogame(String title, String enterpriseName,
             String categoryName) {
 
@@ -144,7 +164,7 @@ public class VideogameDAO extends GenericDAO<Videogame> {
         }
     }
 
-    public void addCategories(Videogame videogame) {
+    public void loadCategoriesFromDB(Videogame videogame) {
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_VIDEOGAME_CATEGORY)) {
@@ -261,7 +281,7 @@ public class VideogameDAO extends GenericDAO<Videogame> {
                     resultSet.getBoolean("suspension_of_sale"),
                     resultSet.getBoolean("hidden_comments"),
                     resultSet.getBoolean("hidden"));
-            addCategories(videogame);
+            loadCategoriesFromDB(videogame);
 
             return videogame;
         } catch (SQLException ex) {
@@ -271,5 +291,5 @@ public class VideogameDAO extends GenericDAO<Videogame> {
             throw new RuntimeException("ERRORR creating videogame");
         }
     }
-    
+
 }

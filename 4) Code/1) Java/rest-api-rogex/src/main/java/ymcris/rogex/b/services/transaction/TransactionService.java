@@ -38,6 +38,8 @@ public class TransactionService extends GenericService<Transaction> {
             throws InvalidUserParametersException {
         try {
             NewTransactionRequest newTransactionRequest = (NewTransactionRequest) newObjectRequest;
+            newTransactionRequest.setPrimaryKeysSQLs(new String[]{newTransactionRequest.getWalletName(),
+                newTransactionRequest.getWalletBanck().name(), newTransactionRequest.getUserEmail()});
 
             Wallet wallet = getWallet(
                     newTransactionRequest.getUserEmail(),
@@ -111,7 +113,7 @@ public class TransactionService extends GenericService<Transaction> {
                     + " of the banck " + wallet.getBanck() + " has'nt sufficient funds");
         } else {
             Double fund = wallet.getFund() - price;
-            walletDAO.updateEntity(new String[]{wallet.getName(), String.valueOf(wallet.getBanck())}, fund);
+            walletDAO.updateEntity(new String[]{String.valueOf(wallet.getBanck()), wallet.getName()}, fund);
         }
     }
 

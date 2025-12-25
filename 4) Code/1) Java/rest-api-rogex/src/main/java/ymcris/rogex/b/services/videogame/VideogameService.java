@@ -166,7 +166,7 @@ public class VideogameService extends GenericService<Videogame> {
             );
         }
 
-        videogameDAO.addCategories(videogame);
+        videogameDAO.loadCategoriesFromDB(videogame);
 
         return videogame;
     }
@@ -184,10 +184,8 @@ public class VideogameService extends GenericService<Videogame> {
         }
 
         genericDAO.createEntity(videogame);
-        
-        
 
-        new VideogameDAO().addCategories(videogame);
+        new VideogameDAO().insertCategories(videogame);
 
         return videogame;
     }

@@ -43,7 +43,7 @@ public class GroupService extends GenericService<Group> {
                 1
         );
 
-        System.out.println("Ejecuntando CREATE ENTITY");
+        userExits(newGroupRequest.getCreatorEmail());
 
         if (!group.isValid()) {
             throw new InvalidUserParametersException(
@@ -126,6 +126,15 @@ public class GroupService extends GenericService<Group> {
         }
         genericDAO.deleteEntity(primaryKeys);
 
+    }
+
+    public void userExits(String userEmail) throws InvalidUserParametersException {
+        UserDAO userDAO = new UserDAO();
+
+        if (!userDAO.entityExists(new String[]{userEmail})) {
+            throw new InvalidUserParametersException("The user creator does'nt exists");
+
+        }
     }
 
 }
