@@ -45,9 +45,10 @@ public class MemberGroupResource extends GenericResource<MemberGroup> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{groupName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllMembersGroups() {
-        return getAllObjectsInternal();
+    public Response getAllMembersOfSomeGroup(@PathParam("groupName") String groupName) {
+        return getAllObjectsInternal(new String[]{groupName});
     }
 
     @GET
@@ -81,13 +82,15 @@ public class MemberGroupResource extends GenericResource<MemberGroup> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<MemberGroup> createCRUD() {
+    protected GenericService<MemberGroup> getService() {
         return new MemberGroupService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<MemberGroup> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<MemberGroup> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(memberGroup -> (GenericObjectResponse) new MemberGroupResponse(memberGroup))
                 .toList();

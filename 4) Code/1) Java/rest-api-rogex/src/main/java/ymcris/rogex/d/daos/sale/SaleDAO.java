@@ -30,8 +30,8 @@ public class SaleDAO extends GenericDAO<Sale> {
     private static final String SQL_GET_VIDEOGAME_SALE
             = "SELECT * FROM sale WHERE videogame_title = ? AND enterprise_name = ?";
 
-    private static final String SQL_GET_ALL_SALES
-            = "SELECT * FROM sale";
+    private static final String SQL_GET_ALL_USER_SALES
+            = "SELECT * FROM sale WHERE user_email = ?";
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public SaleDAO() {
@@ -40,7 +40,7 @@ public class SaleDAO extends GenericDAO<Sale> {
                 SQL_EXISTS_SALE,
                 SQL_GET_VIDEOGAME_SALE,
                 null,
-                SQL_GET_ALL_SALES,
+                SQL_GET_ALL_USER_SALES,
                 null
         );
     }
@@ -75,7 +75,7 @@ public class SaleDAO extends GenericDAO<Sale> {
     }
 
     @Override
-    protected Sale createEntity(ResultSet resultSet) {
+    protected Sale getEntity(ResultSet resultSet) {
         try {
             return new Sale(
                     resultSet.getDouble("videogame_price"),

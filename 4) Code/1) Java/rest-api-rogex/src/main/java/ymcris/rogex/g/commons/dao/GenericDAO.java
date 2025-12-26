@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import ymcris.rogex.f.database.DBConnectionSingleton;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 
 /**
@@ -66,9 +67,7 @@ public abstract class GenericDAO<T> {
             statement.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("An exception of type " + e.getClass().getName()
-                    + " occurred while performing deleting entity (GenericDAO) "
-                    + "because " + e.getMessage());
+            throw new DAOException("Deleting entity by pks", e);
         }
     }
 
@@ -79,7 +78,7 @@ public abstract class GenericDAO<T> {
      * @param primaryKeys unique id of the entity
      * @return true if it exists
      */
-    public boolean entityExists(String[] primaryKeys) {
+    public final boolean entityExists(String[] primaryKeys) {
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_ENTITY_EXISTS)) {
@@ -92,12 +91,9 @@ public abstract class GenericDAO<T> {
             return resultSet.next();
 
         } catch (SQLException e) {
-            System.out.println("An exception of type " + e.getClass().getName()
-                    + " occurred while performing if the entity exists "
-                    + "(GenericDAO)" + " because " + e.getMessage());
+            throw new DAOException("Checking if an entity exists by pks", e);
         }
 
-        return false;
     }
 
     /**
@@ -107,7 +103,7 @@ public abstract class GenericDAO<T> {
      * @return Entity
      * @throws ObjectNotFoundException if this does'nt exists
      */
-    public Optional<T> getEntityByPrimaryKeys(String[] primaryKeys)
+    public final Optional<T> getEntityByPrimaryKeys(String[] primaryKeys)
             throws ObjectNotFoundException {
 
         try (Connection connection
@@ -121,15 +117,13 @@ public abstract class GenericDAO<T> {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                T entity = createEntity(resultSet);
+                T entity = getEntity(resultSet);
 
                 return Optional.of(entity);
             }
 
         } catch (SQLException e) {
-            System.out.println("An exception of type " + e.getClass().getName()
-                    + " occurred while performing getEntity by PK (GeneriDAO)"
-                    + "because " + e.getMessage());
+            throw new DAOException("Getting entity by pks", e);
         }
 
         throw new ObjectNotFoundException("The entity has not exists");
@@ -138,26 +132,31 @@ public abstract class GenericDAO<T> {
     /**
      * Function responsible for deliver all entities
      *
+     * @param parameters
      * @return list of all entities
      */
-    public List<T> getAllEntities() {
+    public final List<T> getAllEntities(String[] parameters) {
         List<T> entities = new ArrayList<>();
 
         try (Connection connection
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_GET_ALL_ENTITIES)) {
 
+            if (parameters != null) {
+                for (int i = 0; i < parameters.length; i++) {
+                    statement.setString(i + 1, parameters[i]);
+                }
+            }
+
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                T entity = createEntity(resultSet);
+                T entity = getEntity(resultSet);
                 entities.add(entity);
             }
 
         } catch (SQLException e) {
-            System.out.println("An exception of type " + e.getClass().getName()
-                    + " occurred while performing getAllEntities (GenericDAO)"
-                    + "because " + e.getMessage());
+            throw new DAOException("getting all entities by pks", e);
         }
 
         return entities;
@@ -189,6 +188,6 @@ public abstract class GenericDAO<T> {
      * @param resultSet retult set
      * @return entity type
      */
-    protected abstract T createEntity(ResultSet resultSet);
+    protected abstract T getEntity(ResultSet resultSet);
 
 }

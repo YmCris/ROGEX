@@ -30,7 +30,7 @@ public class GroupService extends GenericService<Group> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Group createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Group createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewGroupRequest newGroupRequest = (NewGroupRequest) newObjectRequest;
@@ -43,7 +43,7 @@ public class GroupService extends GenericService<Group> {
                 1
         );
 
-        System.out.println("Ejecuntando CREATE ENTITY");
+        userExits(newGroupRequest.getCreatorEmail());
 
         if (!group.isValid()) {
             throw new InvalidUserParametersException(
@@ -54,7 +54,7 @@ public class GroupService extends GenericService<Group> {
     }
 
     @Override
-    protected void updateEntity(Group entity,
+    protected void updateObject(Group entity,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 
@@ -70,11 +70,11 @@ public class GroupService extends GenericService<Group> {
     }
 
     @Override
-    public Group createObject(GenericNewObjectRequest newObjectRequest)
+    public Group insertObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException, ObjectAlreadyExistsException {
 
         NewGroupRequest newGroupRequest = (NewGroupRequest) newObjectRequest;
-        Group group = (Group) extractEntity(newObjectRequest);
+        Group group = (Group) extractObject(newObjectRequest);
 
         if (genericDAO.entityExists(newObjectRequest.getPrimaryKeysSQLs())) {
 
@@ -126,6 +126,15 @@ public class GroupService extends GenericService<Group> {
         }
         genericDAO.deleteEntity(primaryKeys);
 
+    }
+
+    public void userExits(String userEmail) throws InvalidUserParametersException {
+        UserDAO userDAO = new UserDAO();
+
+        if (!userDAO.entityExists(new String[]{userEmail})) {
+            throw new InvalidUserParametersException("The user creator does'nt exists");
+
+        }
     }
 
 }

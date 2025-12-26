@@ -11,8 +11,8 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
  */
 @ApplicationPath("api/v1")
 public class JakartaRestConfiguration extends ResourceConfig {
-
     public JakartaRestConfiguration() {
-        packages("ymcris.rogex.a.resources").register(MultiPartFeature.class);
+        packages("ymcris.rogex.a.resources");
     }
 }
+

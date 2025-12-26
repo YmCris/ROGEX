@@ -109,7 +109,7 @@ public class EnterpriseDAO extends GenericDAO<Enterprise> {
     }
 
     @Override
-    protected Enterprise createEntity(ResultSet resultSet) {
+    protected Enterprise getEntity(ResultSet resultSet) {
         try {
             Double comission = null;
             if (resultSet.getDouble("specific_commission") != 0) {

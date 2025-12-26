@@ -46,13 +46,14 @@ public class EnterpriseUserResource extends GenericResource<EnterpriseUser> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{enterpriseName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllUsersEnterprise() {
-        return getAllObjectsInternal();
+    public Response getAllUsersEnterprise(@PathParam("enterpriseName") String enterpriseName) {
+        return getAllObjectsInternal(new String[]{enterpriseName});
     }
 
     @GET
-    @Path("{email}")
+    @Path("enterprises/{email}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getUserEnterprise(@PathParam("email") String email) {
 
@@ -84,13 +85,15 @@ public class EnterpriseUserResource extends GenericResource<EnterpriseUser> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<EnterpriseUser> createCRUD() {
+    protected GenericService<EnterpriseUser> getService() {
         return new EnterpriseUserService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<EnterpriseUser> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<EnterpriseUser> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(userEnterprise -> (GenericObjectResponse) new EnterpriseUserResponse(userEnterprise))
                 .toList();

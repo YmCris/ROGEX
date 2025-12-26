@@ -25,7 +25,7 @@ public class MemberGroupService extends GenericService<MemberGroup> {
 
     // SPECIFIC METHODS --------------------------------------------------------
     @Override
-    protected MemberGroup createEntity(GenericNewObjectRequest newObjectRequest)
+    protected MemberGroup createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewMemberGroupRequest newMemberGroupRequest = (NewMemberGroupRequest) newObjectRequest;
@@ -58,7 +58,7 @@ public class MemberGroupService extends GenericService<MemberGroup> {
     }
 
     @Override
-    protected void updateEntity(MemberGroup entity,
+    protected void updateObject(MemberGroup entity,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
         throw new UnsupportedOperationException("YOU CAN'T UPDATE THIS");

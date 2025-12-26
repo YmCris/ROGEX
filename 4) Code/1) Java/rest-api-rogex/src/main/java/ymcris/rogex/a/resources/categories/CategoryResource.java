@@ -47,7 +47,7 @@ public class CategoryResource extends GenericResource<Category> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllCategories() {
-        return getAllObjectsInternal();
+        return getAllObjectsInternal(null);
     }
 
     @GET
@@ -83,13 +83,15 @@ public class CategoryResource extends GenericResource<Category> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Category> createCRUD() {
+    protected GenericService<Category> getService() {
         return new CategoryService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Category> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Category> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(category -> (GenericObjectResponse) new CategoryResponse(category))
                 .toList();

@@ -30,11 +30,11 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
             = "SELECT * FROM enterprise_user WHERE email = ?";
 
     private static final String SQL_UPDATE_ENTERPRISE_USER
-            = "UPDATE enterprise_user SET name = ?, password = ?, birth_date = ?, "
-            + "enterprise_name = ? WHERE email = ?";
+            = "UPDATE enterprise_user SET name = ?, password = ?, birth_date = ? "
+            + "WHERE email = ?";
 
-    private static final String SQL_GET_ALL_ENTERPRISE_USERS
-            = "SELECT * FROM enterprise_user";
+    private static final String SQL_GET_ALL_ENTERPRISE_USERS_OF_ENTERPRISE
+            = "SELECT * FROM enterprise_user WHERE enterprise_name = ?";
 
     private static final String SQL_DELETE_ENTERPRISE_USER
             = "DELETE FROM enterprise_user WHERE email = ?";
@@ -46,7 +46,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
                 SQL_EXISTS_ENTERPRISE_USER,
                 SQL_GET_ENTERPRISE_USER,
                 SQL_UPDATE_ENTERPRISE_USER,
-                SQL_GET_ALL_ENTERPRISE_USERS,
+                SQL_GET_ALL_ENTERPRISE_USERS_OF_ENTERPRISE,
                 SQL_DELETE_ENTERPRISE_USER
         );
     }
@@ -80,9 +80,9 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_UPDATE_ENTERPRISE_USER)) {
 
-            statement.setString(1, "name");
-            statement.setString(2, "password");
-            statement.setString(3, "birth_date");
+            statement.setString(1, enterpriseUser.getName());
+            statement.setString(2, enterpriseUser.getPassword());
+            statement.setDate(3, Date.valueOf(enterpriseUser.getBirthDate()));
             statement.setString(4, primaryKeys[0]);
 
             statement.executeUpdate();
@@ -95,7 +95,7 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
     }
 
     @Override
-    protected EnterpriseUser createEntity(ResultSet resultSet) {
+    protected EnterpriseUser getEntity(ResultSet resultSet) {
         try {
 
             return new EnterpriseUser(

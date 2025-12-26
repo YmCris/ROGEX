@@ -16,7 +16,6 @@ import java.util.List;
 import ymcris.rogex.b.services.sale.SaleService;
 import ymcris.rogex.c.dtos.sale.NewSaleRequest;
 import ymcris.rogex.c.dtos.sale.SaleResponse;
-import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.e.models.sale.Sale;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericResource;
@@ -44,9 +43,10 @@ public class SaleResource extends GenericResource<Sale> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{userEmail}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllSales() {
-        return getAllObjectsInternal();
+    public Response getAllSales(@PathParam("userEmail") String userEmail) {
+        return getAllObjectsInternal(new String[]{userEmail});
     }
 
     @GET
@@ -62,7 +62,7 @@ public class SaleResource extends GenericResource<Sale> {
     // DELETE ------------------------------------------------------------------
     @DELETE
     @Path("{userEmail}/{videogameTitle}/{enterpriseName}")
-    public Response deleteCategory(@PathParam("userEmail") String userEmail,
+    public Response deleteSale(@PathParam("userEmail") String userEmail,
             @PathParam("videogameTitle") String videogameTitle,
             @PathParam("enterpriseName") String enterpriseName) {
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
@@ -73,7 +73,7 @@ public class SaleResource extends GenericResource<Sale> {
     @Path("{userEmail}/{videogameTitle}/{enterpriseName}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response updateCategory(@PathParam("userEmail") String userEmail,
+    public Response updateSale(@PathParam("userEmail") String userEmail,
             @PathParam("videogameTitle") String videogameTitle,
             @PathParam("enterpriseName") String enterpriseName) {
         return Response.status(Response.Status.METHOD_NOT_ALLOWED).build();
@@ -81,13 +81,15 @@ public class SaleResource extends GenericResource<Sale> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Sale> createCRUD() {
+    protected GenericService<Sale> getService() {
         return new SaleService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Sale> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Sale> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(sale -> (GenericObjectResponse) new SaleResponse(sale))
                 .toList();

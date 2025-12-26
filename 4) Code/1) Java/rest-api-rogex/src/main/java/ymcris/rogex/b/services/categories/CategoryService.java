@@ -24,7 +24,7 @@ public class CategoryService extends GenericService<Category> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected Category createEntity(GenericNewObjectRequest newObjectRequest)
+    protected Category createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewCategoryRequest newCategoryRequest = (NewCategoryRequest) newObjectRequest;
@@ -41,7 +41,7 @@ public class CategoryService extends GenericService<Category> {
     }
 
     @Override
-    protected void updateEntity(Category category,
+    protected void updateObject(Category category,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 

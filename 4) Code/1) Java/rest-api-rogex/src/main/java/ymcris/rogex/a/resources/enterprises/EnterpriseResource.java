@@ -47,7 +47,7 @@ public class EnterpriseResource extends GenericResource<Enterprise> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllEnterprises() {
-        return getAllObjectsInternal();
+        return getAllObjectsInternal(null);
     }
 
     @GET
@@ -83,13 +83,15 @@ public class EnterpriseResource extends GenericResource<Enterprise> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Enterprise> createCRUD() {
+    protected GenericService<Enterprise> getService() {
         return new EnterpriseService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Enterprise> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Enterprise> objectsGetter, String[] parameters) {
+        
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(enterprise -> (GenericObjectResponse) new EnterpriseResponse(enterprise))
                 .toList();

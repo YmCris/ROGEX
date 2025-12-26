@@ -48,9 +48,10 @@ public class VideogameResource extends GenericResource<Videogame> {
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{enterpriseName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllVideogames() {
-        return getAllObjectsInternal();
+    public Response getAllVideogames(@PathParam("enterpriseName") String enterpriseName) {
+        return getAllObjectsInternal(new String[]{enterpriseName});
     }
 
     @GET
@@ -114,13 +115,15 @@ public class VideogameResource extends GenericResource<Videogame> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericService<Videogame> createCRUD() {
+    protected GenericService<Videogame> getService() {
         return new VideogameService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<Videogame> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<Videogame> objectsGetter, String[] parameters) {
+
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(videogame -> (GenericObjectResponse) new VideogameResponse(videogame))
                 .toList();

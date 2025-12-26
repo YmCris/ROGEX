@@ -26,7 +26,7 @@ public class UserService extends GenericService<User> {
 
     // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected User createEntity(GenericNewObjectRequest newObjectRequest)
+    protected User createObject(GenericNewObjectRequest newObjectRequest)
             throws InvalidUserParametersException {
 
         NewUserRequest newUserRequest = (NewUserRequest) newObjectRequest;
@@ -60,7 +60,7 @@ public class UserService extends GenericService<User> {
     }
 
     @Override
-    protected void updateEntity(User user,
+    protected void updateObject(User user,
             GenericUpdateObjectRequest updateObjectRequest)
             throws InvalidUserParametersException {
 

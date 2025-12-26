@@ -1,0 +1,1544 @@
+{
+	"info": {
+		"_postman_id": "3e7dd960-d4d8-42b8-b6d6-1b68cdc265ae",
+		"name": "TESTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50784089",
+		"_collection_link": "https://ymcris-7910544.postman.co/workspace/Sale~02ff7d58-0a64-4ef8-835b-a33ac244ec72/collection/50784089-3e7dd960-d4d8-42b8-b6d6-1b68cdc265ae?action=share&source=collection_link&creator=50784089"
+	},
+	"item": [
+		{
+			"name": "USERS",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"photo\": null,\n  \"nickname\": \"gamer3\",\n  \"password\": \"password2\",\n  \"birthDate\": \"2026-08-10\",\n  \"email\": \"gamer3@gmail.com\",\n  \"phoneNumber\": \"52525\",\n  \"country\": \"Guatemala\",\n  \"publicLibrary\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users",
+							"host": [
+								"{{baseURL}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users",
+							"host": [
+								"{{baseURL}}users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}users/gamer1@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"gamer1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"phoneNumber\": \"3232323232\",\n  \"country\": \"Salcajá XELA\",\n  \"publicLibrary\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users/gamer1@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"gamer1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"primaryKeys\": [\"automata.king@example.com\"]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users/gamer3@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"gamer3@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SYSTEM/CONFIG",
+			"item": [
+				{
+					"name": "Get config",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}system/config",
+							"host": [
+								"{{baseURL}}system"
+							],
+							"path": [
+								"config"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update config",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"globalCommissionPercentage\": 20\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}system/config",
+							"host": [
+								"{{baseURL}}system"
+							],
+							"path": [
+								"config"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ENTERPRISES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"enterprise2\",\n  \"description\": \"description2\",\n  \"specificCommission\": 15,\n  \"logo\": null,\n  \"cover\": null,\n  \"hiddenAllComments\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}enterprises",
+							"host": [
+								"{{baseURL}}enterprises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}enterprises",
+							"host": [
+								"{{baseURL}}enterprises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}enterprises/enterprise1",
+							"host": [
+								"{{baseURL}}enterprises"
+							],
+							"path": [
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"specificCommission\" :0.5\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}enterprises/enterprise1",
+							"host": [
+								"{{baseURL}}enterprises"
+							],
+							"path": [
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}enterprises/enterprise2",
+							"host": [
+								"{{baseURL}}enterprises"
+							],
+							"path": [
+								"enterprise2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "USERS/ENTERPRISES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"employee3@gmail.com\",\n    \"name\" : \"employee3\",\n    \"password\" : \"password3\",\n    \"birthDate\" : \"2025-08-15\",\n    \"enterpriseName\" : \"enterprise1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users/enterprises",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"enterprises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}users/enterprises/enterprise1",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"enterprises",
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}users/enterprises/enterprises/employee1@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"enterprises",
+								"enterprises",
+								"employee1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"name\" : \"trabajador3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}users/enterprises/employee3@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"enterprises",
+								"employee3@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}users/enterprises/employee3@gmail.com",
+							"host": [
+								"{{baseURL}}users"
+							],
+							"path": [
+								"enterprises",
+								"employee3@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WALLETS",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"banck\" : \"BI\",\n    \"name\" : \"gamer2Wallet\",\n    \"fund\": 10000,\n    \"userEmail\" : \"gamer2@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}wallets",
+							"host": [
+								"{{baseURL}}wallets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}wallets/gamer1Wallet/BANRURAL",
+							"host": [
+								"{{baseURL}}wallets"
+							],
+							"path": [
+								"gamer1Wallet",
+								"BANRURAL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}wallets/gamer2@gmail.com",
+							"host": [
+								"{{baseURL}}wallets"
+							],
+							"path": [
+								"gamer2@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fund\" : 100000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}wallets/gamer1Wallet/BANRURAL",
+							"host": [
+								"{{baseURL}}wallets"
+							],
+							"path": [
+								"gamer1Wallet",
+								"BANRURAL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}wallets/gamer2Wallet/BI",
+							"host": [
+								"{{baseURL}}wallets"
+							],
+							"path": [
+								"gamer2Wallet",
+								"BI"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CATEGORIES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Action\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}categories",
+							"host": [
+								"{{baseURL}}categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}categories",
+							"host": [
+								"{{baseURL}}categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}categories/RPG",
+							"host": [
+								"{{baseURL}}categories"
+							],
+							"path": [
+								"RPG"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" :\"RPG survival\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}categories/RPG",
+							"host": [
+								"{{baseURL}}categories"
+							],
+							"path": [
+								"RPG"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}categories/Action",
+							"host": [
+								"{{baseURL}}categories"
+							],
+							"path": [
+								"Action"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "VIDEOGAMES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Red Dead Redemption II\",\n  \"description\": \"RDD II description\",\n  \"price\": \"100\",\n  \"minimumRequirements\": \"RTX 5060 TI, Intel core i9 Ultra, 4 Teras de almacenamiento SSD, 48 GB RAM Nmv\",\n  \"ageRating\": \"M\",\n  \"enterpriseName\": \"enterprise2\",\n  \"suspensionOfSale\": false,\n  \"hiddenComments\": false,\n  \"hidden\": false,\n  \"categories\": [\"Adventure\",\"Action\",\"RPG survival\"]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}videogames",
+							"host": [
+								"{{baseURL}}videogames"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}videogames/enterprise1",
+							"host": [
+								"{{baseURL}}videogames"
+							],
+							"path": [
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}videogames/videogame1/enterprise1",
+							"host": [
+								"{{baseURL}}videogames"
+							],
+							"path": [
+								"videogame1",
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"hiddenComments\" : true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}videogames/videogame1/enterprise1",
+							"host": [
+								"{{baseURL}}videogames"
+							],
+							"path": [
+								"videogame1",
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some Category",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}videogames/videogame1/enterprise1/Action",
+							"host": [
+								"{{baseURL}}videogames"
+							],
+							"path": [
+								"videogame1",
+								"enterprise1",
+								"Action"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GROUPS",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Group3\",\n    \"creatorEmail\":\"gamer1@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}groups",
+							"host": [
+								"{{baseURL}}groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}groups/",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}groups/Group3",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"Group3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Member",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userEmail\": \"gamer2@gmail.com\",\n    \"groupName\" : \"Group3\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}groups/members",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}groups/group1",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"group1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GROUPS/MEMBERS",
+			"item": [
+				{
+					"name": "Add Member Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "app",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userEmail\": \"gamer1@gmail.com\",\n    \"groupName\": \"group2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}groups/members",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"members"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Members Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}groups/members/group3",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"members",
+								"group3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Exists in some group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}groups/members/gamer1@gmail.com/group2",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"members",
+								"gamer1@gmail.com",
+								"group2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Member Group",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseURL}}groups/members/gamer1@gmail.com/group2",
+							"host": [
+								"{{baseURL}}groups"
+							],
+							"path": [
+								"members",
+								"gamer1@gmail.com",
+								"group2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SALES",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"videogamePrice\": 13.00,\n  \"saleDate\": \"2025-12-18\",\n  \"userEmail\": \"gamer1@gmail.com\",\n  \"videogameTitle\": \"videogame1\",\n  \"enterpriseName\": \"enterprise1\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}sales",
+							"host": [
+								"{{baseURL}}sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}sales/gamer1@gmail.com",
+							"host": [
+								"{{baseURL}}sales"
+							],
+							"path": [
+								"gamer1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get some",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}sales/gamer1@gmail.com/videogame1/enterprise1",
+							"host": [
+								"{{baseURL}}sales"
+							],
+							"path": [
+								"gamer1@gmail.com",
+								"videogame1",
+								"enterprise1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TRANSACTION",
+			"item": [
+				{
+					"name": "Do transaction",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n    \"transactionDate\": \"2024-08-10T00:00:00\",\n    \"walletName\": \"gamer2Wallet\",\n    \"description\": \"Buying videogame\",\n    \"walletBanck\": \"BI\",\n    \"userEmail\": \"gamer2@gmail.com\",\n    \"amount\":500\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}transactions",
+							"host": [
+								"{{baseURL}}transactions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All User Transections",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}transactions/gamer1@gmail.com",
+							"host": [
+								"{{baseURL}}transactions"
+							],
+							"path": [
+								"gamer1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Transaction",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}transactions/gamer11Wallet/BANRURAL/gamer1@gmail.com",
+							"host": [
+								"{{baseURL}}transactions"
+							],
+							"path": [
+								"gamer11Wallet",
+								"BANRURAL",
+								"gamer1@gmail.com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "INVITATIONS",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"invitationText\" : \"YOU ARE INVITED TO MY GROUP\",\n    \"groupName\": \"Group2\",\n    \"senderEmail\": \"gamer1@gmail.com\",\n    \"receiverEmail\": \"gamer2@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}invitations",
+							"host": [
+								"{{baseURL}}invitations"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

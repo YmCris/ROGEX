@@ -54,7 +54,7 @@ public class UserResource extends GenericResource<User> {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllUsers() {
-        return getAllObjectsInternal();
+        return getAllObjectsInternal(null);
     }
 
     @GET
@@ -103,7 +103,7 @@ public class UserResource extends GenericResource<User> {
 
         try {
 
-            User userUpdated = userSerivicer.updateObject(new String[]{email}, updateUserRequest);
+            User userUpdated = userSerivicer.updateEntity(new String[]{email}, updateUserRequest);
 
             return Response.ok(new UserResponse(userUpdated)).build();
 
@@ -123,13 +123,15 @@ public class UserResource extends GenericResource<User> {
 
     // PATCH -------------------------------------------------------------------
     @Override
-    protected GenericService<User> createCRUD() {
+    protected GenericService<User> getService() {
         return new UserService();
     }
 
     @Override
-    protected List<GenericObjectResponse> getObjects(GenericService<User> objectsGetter) {
-        return objectsGetter.getAllEntities()
+    protected List<GenericObjectResponse> getObjects(
+            GenericService<User> objectsGetter, String[] parameters) {
+        
+        return objectsGetter.getAllEntities(parameters)
                 .stream()
                 .map(user -> (GenericObjectResponse) new UserResponse(user))
                 .toList();

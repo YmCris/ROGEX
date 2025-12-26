@@ -18,12 +18,11 @@ public class SystemConfigDAO extends GenericSingletonDAO<SystemConfig> {
 
     // CONSTATNS ---------------------------------------------------------------
     private static final String SQL_GET_CONFIG
-            = "SELECT * FROM system_configuration WHERE id = 1";
+            = "SELECT * FROM system_configuration";
 
     private static final String SQL_UPDATE_CONFIG
             = "UPDATE system_configuration "
-            + "SET description = ?, global_commission_percentage = ? "
-            + "WHERE id = 1";
+            + "SET description = ?, global_commission_percentage = ? ";
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public SystemConfigDAO() {
