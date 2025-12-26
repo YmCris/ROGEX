@@ -28,6 +28,12 @@ public class GenericJSONResponse {
                 .type(MediaType.APPLICATION_JSON)
                 .build();
     }
-    
+
+    public Response sendJSONObjectResponse(Object object, Status status) {
+        return Response.status(status)
+                .entity(object)
+                .type(MediaType.APPLICATION_JSON)
+                .build();
+    }
 
 }
