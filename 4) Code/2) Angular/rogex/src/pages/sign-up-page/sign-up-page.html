@@ -16,10 +16,9 @@
                             <br>
                             @if (actionDone) {
                             @if (operationDone) {
-                            <successful-action message="Usuario creado correctamente"></successful-action>
+                            <successful-action-component [message]="responseMessage"></successful-action-component>
                             } @else {
-                            <app-unsuccessful-action-component
-                                message="Error al crear el usuario"></app-unsuccessful-action-component>
+                            <unsuccessful-action-component [message]="responseMessage"></unsuccessful-action-component>
                             }
                             }
                             <div class="col-12">
@@ -32,7 +31,7 @@
                                     newUserForm.controls['nickname'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar un nombre con 100 caracteres como maximo
+                                            Se debe ingresar un nombre con 100 caracteres como máximo
                                         </div>
                                     </div>
                                     }
@@ -79,7 +78,7 @@
                                     newUserForm.controls['country'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una ciudad con 100 caracteres como maximo
+                                            Se debe ingresar una ciudad con 100 caracteres como máximo
                                         </div>
                                     </div>
                                     }
@@ -89,7 +88,7 @@
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="phoneNumber" class="form-label">Numéro telefónico:</label>
+                                    <label for="phoneNumber" class="form-label">Número telefónico:</label>
                                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber"
                                         formControlName="phoneNumber">
 
@@ -115,7 +114,7 @@
                                     newUserForm.controls['birthDate'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una fecha de cumpleaños con 100 caracteres como maximo
+                                            Se debe ingresar una fecha de cumpleaños con 100 caracteres como máximo
                                         </div>
                                     </div>
                                     }
@@ -127,14 +126,6 @@
                                 <div class="form-group">
                                     <label for="photo" class="form-label">Foto de perfil:</label>
                                     <input type="file" class="form-control" (change)="onFileSelected($event)">
-                                    @if (newUserForm.controls['photo'].invalid && newUserForm.controls['photo'].dirty) {
-                                    <div class="invalid-feedback">
-                                        <div>
-                                            Se debe ingresar una foto con 100 caracteres como maximo
-                                        </div>
-                                    </div>
-                                    }
-
                                 </div>
                             </div>
 
@@ -148,7 +139,7 @@
                                     newUserForm.controls['password'].dirty) {
                                     <div class="invalid-feedback">
                                         <div>
-                                            Se debe ingresar una contraseña con 100 caracteres como maximo
+                                            Se debe ingresar una contraseña con 100 caracteres como máximo
                                         </div>
                                     </div>
                                     }

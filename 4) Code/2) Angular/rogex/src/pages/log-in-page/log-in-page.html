@@ -2,15 +2,42 @@
   <div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
     <h1 class="mb-4 text-center">Log In</h1>
 
-    <form>
+    @if (actionDone) {
+    @if (operationDone) {
+    <successful-action-component [message]="responseMessage"></successful-action-component>
+    }@else {
+    <unsuccessful-action-component [message]="responseMessage"></unsuccessful-action-component>
+    }
+
+    }
+    <form [formGroup]="logInForm" (ngSubmit)="submit()">
       <div class="mb-3">
         <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" required>
+        <input type="email" class="form-control" formControlName="email" required>
+
+        @if (logInForm.controls['email'].invalid &&
+        logInForm.controls['email'].dirty) {
+        <div class="invalid-feedback">
+          <div>
+            El correo electrónico no es válido
+          </div>
+        </div>
+        }
+
       </div>
 
       <div class="mb-3">
         <label for="password" class="form-label">Password:</label>
-        <input type="password" class="form-control" id="password" name="password" required>
+        <input type="password" class="form-control" formControlName="password" required>
+
+        @if (logInForm.controls['password'].invalid &&
+        logInForm.controls['password'].dirty) {
+        <div class="invalid-feedback">
+          <div>
+            El password es inválido
+          </div>
+        </div>
+        }
       </div>
 
       <button type="submit" class="btn btn-primary w-100">Log In</button>

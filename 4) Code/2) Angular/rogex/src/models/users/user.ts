@@ -1,5 +1,5 @@
 export interface User {
-    photo: string;
+    photo: File | null;
     nickname: string;
     password: string;
     birthDate: Date;

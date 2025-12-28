@@ -182,7 +182,7 @@ public abstract class GenericImageService<T extends Visualizable> {
 
         }
 
-        entity.setMultimedia(image);
+        entity.setPhoto(image);
         entity.setImage(true);
     }
 
@@ -191,7 +191,7 @@ public abstract class GenericImageService<T extends Visualizable> {
 
         T entity = getEntity(primaryKeys);
 
-        byte[] image = entity.getMultimedia();
+        byte[] image = entity.getPhoto();
 
         if (image == null || image.length == 0) {
             throw new ObjectNotFoundException("Entity has no image");

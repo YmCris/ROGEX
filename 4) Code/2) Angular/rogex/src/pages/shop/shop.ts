@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { User } from '../../models/users/user';
 
 @Component({
   selector: 'app-shop',
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './shop.html',
   styleUrl: './shop.css',
 })
-export class Shop {
+export class Shop implements OnInit {
+
+  user!: User;
+
+  ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user')!);
+  }
+
 
 }

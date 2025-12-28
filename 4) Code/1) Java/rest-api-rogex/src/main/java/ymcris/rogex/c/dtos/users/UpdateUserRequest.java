@@ -16,7 +16,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 public class UpdateUserRequest extends GenericUpdateObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String photo;
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate birthDate;
@@ -25,10 +24,6 @@ public class UpdateUserRequest extends GenericUpdateObjectRequest {
     private Boolean publicLibrary;
 
     // GETTERS -----------------------------------------------------------------
-    public String getPhoto() {
-        return photo;
-    }
-
     public LocalDate getBirthDate() {
         return birthDate;
     }
@@ -46,10 +41,6 @@ public class UpdateUserRequest extends GenericUpdateObjectRequest {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }

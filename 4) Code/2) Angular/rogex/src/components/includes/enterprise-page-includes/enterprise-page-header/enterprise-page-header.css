@@ -1,0 +1,24 @@
+.navbar {
+    .nav-link {
+        color: #ddd !important;
+        margin: 0 0.5rem;
+        position: relative;
+        transition: color 0.1s ease;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #ff4b2b;
+            transition: width 0.3s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+    }
+
+}

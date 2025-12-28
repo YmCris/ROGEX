@@ -82,4 +82,14 @@ public class EnterpriseUserService extends GenericService<EnterpriseUser> {
         }
     }
 
+    public EnterpriseUser logInEnterpriseUser(String email, String password) {
+        EnterpriseUserDAO enterpriseUserDAO = new EnterpriseUserDAO();
+
+        if (!enterpriseUserDAO.logIn(email, password).isEmpty()) {
+            return enterpriseUserDAO.logIn(email, password).get();
+        }
+
+        return null;
+    }
+
 }
