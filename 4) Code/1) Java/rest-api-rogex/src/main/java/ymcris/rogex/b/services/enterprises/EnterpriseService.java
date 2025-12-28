@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 import ymcris.rogex.c.dtos.enterprises.NewEnterpriseRequest;
 import ymcris.rogex.c.dtos.enterprises.UpdateEnterpriseRequest;
 import ymcris.rogex.d.daos.enterprises.EnterpriseDAO;
+import ymcris.rogex.d.daos.system.SystemConfigDAO;
 import ymcris.rogex.e.models.enterprise.Enterprise;
+import ymcris.rogex.e.models.system.SystemConfig;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
 import ymcris.rogex.g.commons.services.GenericService;
@@ -45,9 +47,12 @@ public class EnterpriseService extends GenericService<Enterprise> {
             logoBytes = Base64.getDecoder().decode(base64Logo);
         }
 
-        if (newEnterpriseRequest.getHiddenAllComments() == null
-                || newEnterpriseRequest.getSpecificCommission() == null) {
+        if (newEnterpriseRequest.getHiddenAllComments() == null) {
             throw new InvalidUserParametersException("Invalid data sent to create the enterprise");
+        }
+        
+        if (newEnterpriseRequest.getSpecificCommission() == null) {
+            newEnterpriseRequest.setSpecificCommission(getGlobalCommission());
         }
 
         Enterprise enterprise = new Enterprise(
@@ -112,6 +117,12 @@ public class EnterpriseService extends GenericService<Enterprise> {
             throw new InvalidUserParametersException("Invalid data to update the enterprise");
         }
 
+    }
+    
+    public double getGlobalCommission() {
+        SystemConfigDAO configDAO = new SystemConfigDAO();
+        SystemConfig config = configDAO.getSystemConfig();
+        return config.getGlobalCommissionPercentage();
     }
 
 }

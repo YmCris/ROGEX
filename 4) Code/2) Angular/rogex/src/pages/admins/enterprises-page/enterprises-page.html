@@ -2,32 +2,133 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
 
-            <form>
+
+            @if (actionDone) {
+            @if (operationDone) {
+            <successful-action-component [message]="responseMessage"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="responseMessage"></unsuccessful-action-component>
+            }
+            }
+
+            <h1>Crear empresas</h1>
+            <form [formGroup]="createEnterpriseForm" (ngSubmit)="createEnterprise()">
                 <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3">
+                        <input type="text" class="form-control" formControlName="createName">
                     </div>
                 </div>
+
                 <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Descripción</label>
                     <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword3">
+                        <input type="text" class="form-control" formControlName="createDescription">
                     </div>
                 </div>
+
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Comisión específica</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" formControlName="createSpecificCommission">
+                    </div>
+                </div>
+
                 <fieldset class="row mb-3">
-                    <legend class="col-form-label col-sm-2 pt-0">Radios</legend>
+                    <legend class="col-form-label col-sm-2 pt-0">Ocultar comentarios</legend>
                     <div class="col-sm-10">
                         <div class="form-check form-switch pt-2">
-                            <input class="form-check-input" type="checkbox" value="" id="checkNativeSwitch" switch>
-                            <label class="form-check-label" for="checkNativeSwitch">
-                                Native switch haptics
-                            </label>
+                            <input class="form-check-input" type="checkbox" formControlName="createHiddenAllComments">
+
                         </div>
                     </div>
                 </fieldset>
-                <button type="submit" class="btn btn-primary">Sign in</button>
+                <button type="submit" class="btn btn-primary">Crear</button>
             </form>
+            <br>
+
+
+            <h1>Editar Empresa</h1>
+            <form [formGroup]="updateEnterpriseForm" (ngSubmit)="updateEnterprise()">
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="updateName">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Descripción</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="updateDescription">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Comisión específica</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" formControlName="updateSpecificCommission">
+                    </div>
+                </div>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Ocultar comentarios</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check form-switch pt-2">
+                            <input class="form-check-input" type="checkbox" formControlName="updateHiddenAllComments">
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+            <br>
+
+
+            <h1>Eliminar Empresa</h1>
+            <p>No podrá eliminar la empresa si ya tiene creado videojuegos</p>
+            <form [formGroup]="deleteEnterpriseForm" (ngSubmit)="deleteEnterprise()">
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="deleteName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Eliminar</button>
+            </form>
+            <br>
+
+            <h1>Empresas</h1>
+            <div class="d-flex gap-2 justify-content-center py-5 flex-wrap">
+
+                @if (loadingEnterprises) {
+                <span class="text-muted">Cargando categorías...</span>
+                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Comisión por video juego</th>
+                            <th scope="col">Comentarios ocultos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (enterprise of enterprises; track enterprise.name) {
+                        <tr>
+                            <td>{{ enterprise.name }}</td>
+                            <td>{{ enterprise.description }}</td>
+                            <td>{{ enterprise.specificCommission }}</td>
+                            <td>{{ enterprise.hiddenAllComments ? 'Sí' : 'No' }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (!loadingEnterprises && enterprises.length === 0) {
+                <span class="text-muted">No hay categorías registradas</span>
+                }
+
+            </div>
+
 
         </div>
     </div>

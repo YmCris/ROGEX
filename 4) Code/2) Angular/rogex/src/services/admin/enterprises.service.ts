@@ -17,8 +17,8 @@ export class EnterpriseService {
     constructor(private httpClient: HttpClient) { }
 
     // METHODS -----------------------------------------------------------------
-    public createEnterprise(formData: FormData): Observable<void> {
-        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}enterprises`, formData);
+    public createEnterprise(formValue: any): Observable<void> {
+        return this.httpClient.post<void>(`${this.restConstants.getApiURL()}enterprises`, formValue);
     }
 
     public updateEnterprise(name: string, update: UpdateEnterpriseRequest): Observable<Enterprise> {
