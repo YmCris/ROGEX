@@ -5,9 +5,11 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+import java.util.Optional;
 import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.g.commons.dao.GenericDAO;
 import ymcris.rogex.f.database.DBConnectionSingleton;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 
 /**
  * The UsersDAO class is the class responsible for be the Data Access Object of
@@ -26,6 +28,9 @@ public class UserDAO extends GenericDAO<User> {
 
     private static final String SQL_EXISTS_USER
             = "SELECT 1 FROM user WHERE email = ?";
+
+    private static final String SQL_LOG_IN
+            = "SELECT * FROM user WHERE email = ? and password = ?";
 
     private static final String SQL_GET_BY_EMAIL
             = "SELECT * FROM user WHERE email = ?";
@@ -56,8 +61,10 @@ public class UserDAO extends GenericDAO<User> {
     @Override
     protected User getEntity(ResultSet resultSet) {
         try {
+            byte[] photo = resultSet.getBytes("photo");
+            
             return new User(
-                    resultSet.getBytes("photo"),
+                    photo!=null? photo: null,
                     resultSet.getString("nickname"),
                     resultSet.getString("password"),
                     resultSet.getDate("birth_date").toLocalDate(),
@@ -112,4 +119,28 @@ public class UserDAO extends GenericDAO<User> {
         }
     }
 
+    public Optional<User> logIn(String email, String password) {
+
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_LOG_IN)) {
+
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                User user = getEntity(resultSet);
+
+                return Optional.of(user);
+            }
+
+            return Optional.empty();
+
+        } catch (SQLException e) {
+            throw new DAOException("Login in user DAO", e);
+        }
+
+    }
 }

@@ -151,7 +151,6 @@ CREATE TABLE user (-- (1FN, 2FN, 3FN)
     country VARCHAR(100) NOT NULL,
     public_library BOOLEAN NOT NULL DEFAULT TRUE,
     CONSTRAINT pk_user PRIMARY KEY (email),
-    CONSTRAINT uq_user_email UNIQUE (nickname)
 );
 
 CREATE TABLE invitation (-- (1FN, 2FN, 3FN)
@@ -258,3 +257,4 @@ CREATE TABLE videogame_loan (-- (1FN, ...)
 
 -- 2) Adding initial data for testing purposes
 INSERT INTO system_configuration (global_commission_percentage, description) VALUES (15.00, 'Default global commission percentage for all enterprises.');
+INSERT INTO user (photo, nickname, password, birth_date, email, phone_number, country, public_library) VALUES (NULL, 'admin', 'admin123', '2000-01-01', 'admin@gmail.com', '77925015', 'XELA', FALSE);

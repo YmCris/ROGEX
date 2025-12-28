@@ -57,7 +57,7 @@ public class MainBannerDAO extends GenericDAO<MainBanner> {
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_INSERT_GAME_TO_BANNER)) {
 
-            statement.setBytes(1, banner.getMultimedia());
+            statement.setBytes(1, banner.getPhoto());
             statement.setBoolean(2, banner.isImage());
             statement.setString(3, banner.getLink());
 
@@ -74,7 +74,7 @@ public class MainBannerDAO extends GenericDAO<MainBanner> {
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_UPDATE_GAME_IN_BANNER_WITH_LINK)) {
 
-            statement.setBytes(1, banner.getMultimedia());
+            statement.setBytes(1, banner.getPhoto());
             statement.setBoolean(2, banner.isImage());
             statement.setString(3, banner.getLink());
             statement.setString(4, primaryKeys[0]);

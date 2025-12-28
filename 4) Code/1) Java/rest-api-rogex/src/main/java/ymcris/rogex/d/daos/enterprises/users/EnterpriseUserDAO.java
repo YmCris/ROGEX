@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 import ymcris.rogex.e.models.enterprise.users.EnterpriseUser;
 import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 
 /**
  * The EnterpriseUserDAO class is the class responsible for
@@ -32,6 +34,9 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
     private static final String SQL_UPDATE_ENTERPRISE_USER
             = "UPDATE enterprise_user SET name = ?, password = ?, birth_date = ? "
             + "WHERE email = ?";
+
+    private static final String SQL_LOG_IN
+            = "SELECT * FROM enterprise_user WHERE email = ? and password = ?";
 
     private static final String SQL_GET_ALL_ENTERPRISE_USERS_OF_ENTERPRISE
             = "SELECT * FROM enterprise_user WHERE enterprise_name = ?";
@@ -112,6 +117,31 @@ public class EnterpriseUserDAO extends GenericDAO<EnterpriseUser> {
                     + "because " + e.getMessage());
             throw new RuntimeException("Error creating enterprise user");
         }
+    }
+
+    public Optional<EnterpriseUser> logIn(String email, String password) {
+
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_LOG_IN)) {
+
+            statement.setString(1, email);
+            statement.setString(2, password);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                EnterpriseUser enterpriseUser = getEntity(resultSet);
+
+                return Optional.of(enterpriseUser);
+            }
+
+            return Optional.empty();
+            
+        } catch (SQLException e) {
+            throw new DAOException("Login in enterprise user DAO", e);
+        }
+
     }
 
 }

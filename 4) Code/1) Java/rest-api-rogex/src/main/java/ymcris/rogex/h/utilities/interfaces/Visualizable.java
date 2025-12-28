@@ -11,9 +11,9 @@ package ymcris.rogex.h.utilities.interfaces;
 public interface Visualizable {
 
     // ABSTRACT METHODS --------------------------------------------------------
-    public byte[] getMultimedia();
+    public byte[] getPhoto();
 
-    public void setMultimedia(byte[] multimedia);
+    public void setPhoto(byte[] photo);
 
     public boolean isImage();
 

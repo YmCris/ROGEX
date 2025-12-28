@@ -32,7 +32,7 @@ public class MainBanner implements Visualizable {
 
     // GETTERS -----------------------------------------------------------------
     @Override
-    public byte[] getMultimedia() {
+    public byte[] getPhoto() {
         return multimedia;
     }
 
@@ -47,7 +47,7 @@ public class MainBanner implements Visualizable {
 
     // SETTERS -----------------------------------------------------------------
     @Override
-    public void setMultimedia(byte[] multimedia) {
+    public void setPhoto(byte[] multimedia) {
         this.multimedia = multimedia;
     }
 

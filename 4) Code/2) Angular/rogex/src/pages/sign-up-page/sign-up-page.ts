@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { User } from '../../models/users/user';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users/users.service';
-import { SuccessfulActionComponent } from "../../components/response-elements/successful-action/successful-action.component";
+import { SuccessfulActionComponent } from "../../components/response-elements/successful-action-component/successful-action.component";
 import { UnsuccessfulActionComponent } from "../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
 
 
@@ -23,6 +23,8 @@ export class SignUpPage implements OnInit {
   newUser!: User;
   actionDone: boolean = false;
   operationDone: boolean = false;
+  selectedFile: File | null = null;
+  responseMessage: string = '';
 
   constructor(private formBuilder: FormBuilder,
     private usersService: UsersService
@@ -30,13 +32,18 @@ export class SignUpPage implements OnInit {
 
   }
 
+
+
   onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
   }
+
 
   ngOnInit(): void {
     this.newUserForm = this.formBuilder.group({
-      photo: [null, [Validators.maxLength(255)]],
       nickname: [null, [Validators.required, Validators.maxLength(100)]],
       password: [null, [Validators.required, Validators.maxLength(100)]],
       birthDate: [null, Validators.required],
@@ -66,8 +73,6 @@ export class SignUpPage implements OnInit {
     } else {
       this.resetOnCreate();
     }
-    this.operationDone = false;
-    this.actionDone = false;
   }
 
   private resetOnCreate(): void {
@@ -81,22 +86,44 @@ export class SignUpPage implements OnInit {
   }
 
   private saveNewUser(): void {
-    this.newUser = this.newUserForm.value as User;
 
-    this.usersService.createNewUser(this.newUser).subscribe({
-      next: () => {
+    const formData = new FormData();
+
+    const userData = {
+      nickname: this.newUserForm.value.nickname,
+      password: this.newUserForm.value.password,
+      birthDate: this.newUserForm.value.birthDate,
+      email: this.newUserForm.value.email,
+      phoneNumber: this.newUserForm.value.phoneNumber,
+      country: this.newUserForm.value.country,
+      publicLibrary: this.newUserForm.value.publicLibrary
+    };
+
+    formData.append(
+      'data',
+      new Blob([JSON.stringify(userData)], { type: 'application/json' })
+    );
+
+    if (this.selectedFile) {
+      formData.append('fileObject', this.selectedFile);
+    }
+
+    this.usersService.createNewUser(formData).subscribe({
+      next: (response: any) => {
         this.operationDone = true;
         this.actionDone = true;
+        this.responseMessage = response.message;
         this.reset();
       },
-      error: (error: any) => {
+      error: err => {
+        console.error(err);
         this.operationDone = false;
         this.actionDone = true;
-        console.log(error);
+        this.responseMessage = err.error.message;
       }
     });
-    console.log(this.newUser);
   }
+
 
   private updateUser(): void {
     this.userToUpdate = this.newUserForm.value as User;

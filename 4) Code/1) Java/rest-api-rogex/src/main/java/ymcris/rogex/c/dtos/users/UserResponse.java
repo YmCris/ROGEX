@@ -18,7 +18,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 public class UserResponse implements GenericObjectResponse {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String photoUrl;
     private String nickname;
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -33,7 +32,6 @@ public class UserResponse implements GenericObjectResponse {
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public UserResponse(User user) {
-        this.photoUrl = "/api/v1/users/" + user.getEmail() + "/photo";
         this.nickname = user.getNickname();
         this.password = user.getPassword();
         this.birthDate = user.getBirthDate();
@@ -44,10 +42,6 @@ public class UserResponse implements GenericObjectResponse {
     }
 
     // GETTERS -----------------------------------------------------------------
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -77,10 +71,6 @@ public class UserResponse implements GenericObjectResponse {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

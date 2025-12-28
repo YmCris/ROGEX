@@ -1,5 +1,5 @@
 export interface UserToUpdateRequest {
-    photo: string;
+    photo: File | null;
     birthDate: Date;
     phoneNumber: string;
     country: string;

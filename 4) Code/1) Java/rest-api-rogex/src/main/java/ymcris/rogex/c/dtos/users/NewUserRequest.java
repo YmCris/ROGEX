@@ -16,7 +16,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 public class NewUserRequest extends GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private String photo;
     private String nickname;
     private String password;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -30,10 +29,6 @@ public class NewUserRequest extends GenericNewObjectRequest {
     private boolean publicLibrary;
 
     // GETTERS -----------------------------------------------------------------
-    public String getPhoto() {
-        return photo;
-    }
-
     public String getNickname() {
         return nickname;
     }
@@ -63,10 +58,6 @@ public class NewUserRequest extends GenericNewObjectRequest {
     }
 
     // SETTERS -----------------------------------------------------------------
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }

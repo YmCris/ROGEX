@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 import ymcris.rogex.e.models.wallets.Wallet;
+import ymcris.rogex.h.utilities.interfaces.Visualizable;
 
 /**
  * The User class is the class responsible for represent a final user
@@ -12,7 +13,7 @@ import ymcris.rogex.e.models.wallets.Wallet;
  * @author YmCris
  * @since Dec 11, 2025
  */
-public class User {
+public class User implements Visualizable {
 
     // REFERENCE VARIABLES -----------------------------------------------------
     private byte[] photo;
@@ -26,6 +27,7 @@ public class User {
 
     // PRIMITIVE VARIABLES -----------------------------------------------------
     private boolean publicLibrary;
+    private boolean imagen;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public User(byte[] photo, String nickname, String password, LocalDate birthDate,
@@ -52,7 +54,19 @@ public class User {
         ) && birthDate != null;
     }
 
+    //OVERRIDE METHODS ---------------------------------------------------------
+    @Override
+    public boolean isImage() {
+        return imagen;
+    }
+
+    @Override
+    public void setImage(boolean isImage) {
+        this.imagen = isImage;
+    }
+
     // GETTERS -----------------------------------------------------------------
+    @Override
     public byte[] getPhoto() {
         return photo;
     }
@@ -90,6 +104,7 @@ public class User {
     }
 
     // SETTERS -----------------------------------------------------------------
+    @Override
     public void setPhoto(byte[] photo) {
         this.photo = photo;
     }

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-unsuccessful-action-component',
+  selector: 'unsuccessful-action-component',
   imports: [],
   templateUrl: './unsuccessful-action-component.html',
 })
