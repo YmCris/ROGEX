@@ -1,0 +1,74 @@
+<div class="container mt-5">
+    <h1 class="text-2xl font-bold mb-5">Categorías</h1>
+    <br>
+
+    @if (actionDone) {
+    @if (operationDone) {
+    <successful-action-component [message]="responseMessage"></successful-action-component>
+    }@else {
+    <unsuccessful-action-component [message]="responseMessage"></unsuccessful-action-component>
+    }
+    }
+
+    <form [formGroup]="createCategoryForm" (ngSubmit)="createCategory()">
+        <h2 class="text-xl font-semibold mb-4">Crear nueva categoría</h2>
+        <div class="mb-10">
+            <label for="exampleFormControlTextarea1" class="form-label">Nombre de la categoría</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary w-100"
+            [disabled]="createCategoryForm.invalid || createCategoryForm.pristine">Crear</button>
+    </form>
+    <br>
+
+
+    <form [formGroup]="updateCategoryForm" (ngSubmit)="updateCategory()">
+        <h2 class="text-xl font-semibold mb-4">Editar categoría</h2>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Nombre actual</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+        <div class="mb-10">
+            <label for="exampleFormControlTextarea1" class="form-label">Nuevo nombre de la categoría</label>
+            <input type="text" class="form-control" formControlName="newName">
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary w-100"
+            [disabled]="updateCategoryForm.invalid || updateCategoryForm.pristine">Actualizar</button>
+    </form>
+    <br>
+
+    <form [formGroup]="deleteCategoryForm" (ngSubmit)="deleteCategory()">
+        <h2 class="text-xl font-semibold mb-4">Eliminar categoría</h2>
+        <div class="mb-10">
+            <label for="exampleFormControlTextarea1" class="form-label">Nombre de la categoría a eliminar</label>
+            <input type="text" class="form-control" formControlName="name">
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary w-100"
+            [disabled]="deleteCategoryForm.invalid || deleteCategoryForm.pristine">Eliminar</button>
+    </form>
+
+    <div class="d-flex gap-2 justify-content-center py-5 flex-wrap">
+
+        @if (loadingCategories) {
+        <span class="text-muted">Cargando categorías...</span>
+        }
+
+        @for (category of categories; track category.name) {
+        <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2">
+            {{ category.name }}
+        </span>
+        }
+
+        @if (!loadingCategories && categories.length === 0) {
+        <span class="text-muted">No hay categorías registradas</span>
+        }
+
+    </div>
+
+</div>

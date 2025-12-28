@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <h1 class="text-2xl font-bold mb-5">Configuraciones Globales</h1>
+    <br>
+
+    @if (actionDone) {
+    @if (operationDone) {
+    <successful-action-component [message]="responseMessage"></successful-action-component>
+    }@else {
+    <unsuccessful-action-component [message]="responseMessage"></unsuccessful-action-component>
+    }
+    }
+
+    <form [formGroup]="updateConfigForm" (ngSubmit)="submit()">
+
+        <div class="mb-10">
+            <label for="exampleFormControlInput1" class="form-label">Actualizar comisión global</label>
+            <input type="number" id="commission" class="form-control" formControlName="commission">
+        </div>
+        <br>
+
+        <div class="mb-10">
+            <label for="exampleFormControlTextarea1" class="form-label">Actualizar descripción</label>
+            <textarea class="form-control" formControlName="description" rows="5"></textarea>
+        </div>
+
+        <br>
+        <button type="submit" class="btn btn-primary w-100"
+            [disabled]="updateConfigForm.invalid || updateConfigForm.pristine">Actualizar</button>
+    </form>
+</div>

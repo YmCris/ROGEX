@@ -1,0 +1,1 @@
+type CRUDAction = 'CREATE' | 'UPDATE' | 'DELETE';

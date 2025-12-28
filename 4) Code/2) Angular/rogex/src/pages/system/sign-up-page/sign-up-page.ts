@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from '../../models/users/user';
+import { User } from '../../../models/users/user';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsersService } from '../../services/users/users.service';
-import { SuccessfulActionComponent } from "../../components/response-elements/successful-action-component/successful-action.component";
-import { UnsuccessfulActionComponent } from "../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
+import { UsersService } from '../../../services/users/users.service';
+import { SuccessfulActionComponent } from "../../../components/response-elements/successful-action-component/successful-action.component";
+import { UnsuccessfulActionComponent } from "../../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
 
 
 @Component({
