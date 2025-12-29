@@ -1,0 +1,39 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <h1>Empleados de la empresa</h1>
+            <div class="d-flex gap-2 justify-content-center py-5 flex-wrap">
+
+                @if (this.state.loading) {
+                <span class="text-muted">Cargando empleados...</span>
+                }
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Fecha de nacimiento</th>
+                            <th scope="col">Empresa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (enterprise of this.state.data; track enterprise.name) {
+                        <tr>
+                            <td>{{ enterprise.email }}</td>
+                            <td>{{ enterprise.name }}</td>
+                            <td>{{ enterprise.birthDate }}</td>
+                            <td>{{ enterprise.enterpriseName }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+                @if (!this.state.loading && this.state.data.length === 0) {
+                <span class="text-muted">No hay usuarios de empresas registrados</span>
+                }
+
+            </div>
+
+        </div>
+    </div>
+</div>

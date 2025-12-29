@@ -13,6 +13,9 @@ public class LogInResponse {
     private String name;
     private Role role;
 
+    // OPTIONALS ---------------------------------------------------------------
+    private String enterpriseName;
+
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public LogInResponse(String email, String name, Role role) {
         this.email = email;
@@ -33,6 +36,10 @@ public class LogInResponse {
         return role;
     }
 
+    public String getEnterpriseName() {
+        return enterpriseName;
+    }
+
     // SETTERS -----------------------------------------------------------------
     public void setEmail(String email) {
         this.email = email;
@@ -44,6 +51,10 @@ public class LogInResponse {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public void setEnterpriseName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
 }

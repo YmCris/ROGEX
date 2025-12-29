@@ -5,6 +5,7 @@ import ymcris.rogex.b.services.users.UserService;
 import ymcris.rogex.c.dtos.login.LogInRequest;
 import ymcris.rogex.c.dtos.login.LogInResponse;
 import ymcris.rogex.c.dtos.login.Role;
+import ymcris.rogex.d.daos.enterprises.users.EnterpriseUserDAO;
 import ymcris.rogex.e.models.enterprise.users.EnterpriseUser;
 import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
@@ -57,13 +58,27 @@ public class LogInService {
 
         if (existingEnterpriseUser != null) {
             //Return an enterprise role
-            return new LogInResponse(
+            LogInResponse enterprise = new LogInResponse(
                     existingEnterpriseUser.getEmail(),
                     existingEnterpriseUser.getName(),
                     Role.ENTERPRISE
             );
+
+            String enterpriseName = getEnterprise(enterprise.getEmail());
+
+            enterprise.setEnterpriseName(enterpriseName);
+
+            return enterprise;
         }
         throw new ObjectNotFoundException("The user does'nt exist");
+    }
+
+    private String getEnterprise(String email) throws ObjectNotFoundException {
+        EnterpriseUserDAO dao = new EnterpriseUserDAO();
+
+        EnterpriseUser user = dao.getEntityByPrimaryKeys(new String[]{email}).get();
+
+        return user.getEnterpriseName();
     }
 
 }

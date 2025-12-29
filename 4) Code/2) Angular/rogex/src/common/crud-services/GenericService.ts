@@ -103,7 +103,7 @@ export abstract class GenericService<T> {
     public getAllByKeys(primaryKeys: string[]): Observable<T[]> {
 
         const path = primaryKeys.join("/");
-
+        console.log( this.apiBaseUrl+this.resource+path);
         return this.httpClient.get<T[]>(
             `${this.apiBaseUrl}${this.resource}/${path}`
         );

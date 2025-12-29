@@ -7,6 +7,7 @@ import { RouterOutlet } from "@angular/router";
   selector: 'app-enterprise-layout-component',
   imports: [EnterprisePageHeader, EnterprisePageFooter, RouterOutlet],
   templateUrl: './enterprise-layout-component.html',
+  styleUrl: './enterprise-layout-component.css',
 })
 export class EnterpriseLayoutComponent {
 
