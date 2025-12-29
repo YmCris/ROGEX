@@ -1,0 +1,56 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            @if (!this.state.error&&this.state.success) {
+            <successful-action-component [message]="this.state.message"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
+            }
+
+            <h1>Crear usuario de una empresa</h1>
+            <form [formGroup]="createObjectForm" (ngSubmit)="createObject()">
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Correo electrónico:</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" formControlName="email">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Contraseña:</label>
+                    <div class="col-sm-10">
+                        <input type="password" class="form-control" formControlName="password">
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Fecha de nacimiento:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" formControlName="birthDate">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre de la empresa:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="enterpriseName">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Crear</button>
+            </form>
+            <br>
+
+        </div>
+    </div>
+</div>

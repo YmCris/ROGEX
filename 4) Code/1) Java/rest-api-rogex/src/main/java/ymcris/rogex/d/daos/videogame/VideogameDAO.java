@@ -10,6 +10,7 @@ import ymcris.rogex.e.models.videogame.AgeRating;
 import ymcris.rogex.e.models.videogame.Videogame;
 import ymcris.rogex.f.database.DBConnectionSingleton;
 import ymcris.rogex.g.commons.dao.GenericDAO;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 
 /**
@@ -60,6 +61,9 @@ public class VideogameDAO extends GenericDAO<Videogame> {
     private static final String SQL_GET_VIDEOGAME_CATEGORIES
             = "SELECT COUNT(*) FROM videogame_category WHERE videogame_title = ? "
             + "AND enterprise_name = ?";
+
+    private static final String SQL_CATEGORY_IS_USED
+            = "SELECT 1 FROM videogame_category WHERE category_name = ?";
 
     private static final String SQL_UPDATE_VIDEOGAME_CATEGORY
             = "UPDATE videogame_category SET category_name = ? WHERE "
@@ -290,6 +294,26 @@ public class VideogameDAO extends GenericDAO<Videogame> {
                     + "because " + ex.getMessage());
             throw new RuntimeException("ERRORR creating videogame");
         }
+    }
+
+    public boolean categoyIsUsed(String categoryName) {
+        try (Connection connnection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connnection.prepareStatement(SQL_CATEGORY_IS_USED)) {
+
+            statement.setString(1, categoryName);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            throw new DAOException("Verificating if the category is used", e);
+        }
+
+        return false;
     }
 
 }

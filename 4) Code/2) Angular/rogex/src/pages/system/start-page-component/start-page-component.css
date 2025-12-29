@@ -14,7 +14,7 @@ html, body {
   margin: 0;
   padding: 0;
 
-  background-image: url('../../assets/images/people.jpg');
+  background-image: url('../../../assets/images/people.jpg');
   background-size: cover;      /* cubrir todo el contenedor */
   background-position: center; /* centrar la imagen */
   background-repeat: no-repeat;

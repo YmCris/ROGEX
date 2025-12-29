@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SuccessfulActionComponent } from "../../components/response-elements/successful-action-component/successful-action.component";
-import { UnsuccessfulActionComponent } from "../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
+import { SuccessfulActionComponent } from "../../../components/response-elements/successful-action-component/successful-action.component";
+import { UnsuccessfulActionComponent } from "../../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../core/auth/auth.service';
-import { UserLog } from '../../models/log-in/user-log';
+import { AuthService } from '../../../core/auth/auth.service';
+import { UserLog } from '../../../models/log-in/user-log';
 
 @Component({
   selector: 'app-log-in-page',
@@ -31,6 +31,7 @@ export class LogInPage implements OnInit {
   ngOnInit(): void {
 
     this.authService.logout().catch(() => { });// Close Session where the user return to log in page
+    console.log('Session closed');
 
     this.logInForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.maxLength(50)]],
@@ -64,7 +65,7 @@ export class LogInPage implements OnInit {
       this.operationDone = true;
       this.responseMessage = 'Log in successful.';
       this.actionDone = true;
-
+      console.log('Logged as:', user.role);
       switch (user.role) {
         case 'USER':
           this.router.navigateByUrl('/gamer');

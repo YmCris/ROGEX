@@ -12,15 +12,15 @@ export const routes: Routes = [
                 .then(m => m.StartLayoutComponent),
         children: [
             {
-                path: '', loadComponent: () => import('../pages/start-page-component/start-page-component')
+                path: '', loadComponent: () => import('../pages/system/start-page-component/start-page-component')
                     .then(m => m.StartPageComponent)
             },
             {
-                path: 'sign-up', loadComponent: () => import('../pages/sign-up-page/sign-up-page')
+                path: 'sign-up', loadComponent: () => import('../pages/system/sign-up-page/sign-up-page')
                     .then(m => m.SignUpPage)
             },
             {
-                path: 'log-in', loadComponent: () => import('../pages/log-in-page/log-in-page')
+                path: 'log-in', loadComponent: () => import('../pages/system/log-in-page/log-in-page')
                     .then(m => m.LogInPage)
             }
         ],
@@ -36,11 +36,11 @@ export const routes: Routes = [
         data: { roles: ['USER'] },
         children: [
             {
-                path: '', loadComponent: () => import('../pages/user-page/user-page')
+                path: '', loadComponent: () => import('../pages/users/user-page/user-page')
                     .then(m => m.UserPage)
             },
             {
-                path: 'shop', loadComponent: () => import('../pages/shop/shop')
+                path: 'shop', loadComponent: () => import('../pages/users/shop/shop')
                     .then(m => m.Shop)
             }
         ]
@@ -59,11 +59,8 @@ export const routes: Routes = [
             {
                 path: '', loadComponent: () => import('../pages/enterprise-page/enterprise-page')
                     .then(m => m.EnterprisePage)
-            },
-            {
-                path: 'shop', loadComponent: () => import('../pages/shop/shop')
-                    .then(m => m.Shop)
             }
+            
         ]
     },
 
@@ -77,17 +74,38 @@ export const routes: Routes = [
         data: { roles: ['ADMIN'] },
         children: [
             {
-                path: '', loadComponent: () => import('../pages/admin-page/admin-page')
+                path: '', loadComponent: () => import('../pages/admins/admin-page/admin-page')
                     .then(m => m.AdminPage)
             },
             {
-                path: 'shop', loadComponent: () => import('../pages/shop/shop')
-                    .then(m => m.Shop)
+                path: 'commission/global', loadComponent: () => import('../pages/admins/global-configurations-page/global-configurations-page')
+                    .then(m => m.GlobalConfigurationsPage)
+            },
+            {
+                path: 'categories', loadComponent: () => import('../pages/admins/categories-page/categories-page')
+                    .then(m => m.CategoriesPage)
+            },
+            {
+                path: 'video-games/categories', loadComponent: () => import('../pages/admins/videogames-categories-page/videogames-categories-page')
+                    .then(m => m.VideogamesCategoriesPage)
+            },
+            {
+                path: 'main-banner', loadComponent: () => import('../pages/admins/main-banner-page/main-banner-page')
+                    .then(m => m.MainBannerPage)
+            },
+            {
+                path: 'enterprises', loadComponent: () => import('../pages/admins/enterprises-page/enterprises-page')
+                    .then(m => m.EnterprisesPage)
+            },
+            {
+                path: 'log-out', loadComponent: () => import('../pages/system/log-in-page/log-in-page')
+                    .then(m => m.LogInPage)
             }
+            
         ]
 
     },
 
-    { path: '**', redirectTo: '' }
+    //{ path: '**', redirectTo: '' }
 
 ];
