@@ -2,8 +2,8 @@ import { Directive, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 // Generics
-import { GenericUpdateObjectRequest } from './GenericUpdateObjectRequest';
-import { GenericService } from './GenericService';
+import { GenericUpdateObjectRequest } from '../dtos/GenericUpdateObjectRequest';
+import { GenericService } from '../crud-services/GenericService';
 
 /**
  * Generic class of the CRUD pages
@@ -17,6 +17,7 @@ export abstract class GenericCrud<T> implements OnInit {
     protected deleteObjectForm!: FormGroup;
     protected getObjectsForm!: FormGroup;
 
+    // UI STATE ----------------------------------------------------------------
     protected state: CrudState<T> = {
         loading: false,
         success: false,
