@@ -5,10 +5,11 @@ import { EnterpriseService } from '../../../services/admin/enterprises.service';
 import { SuccessfulActionComponent } from "../../../components/response-elements/successful-action-component/successful-action.component";
 import { UnsuccessfulActionComponent } from "../../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component";
 import { UpdateEnterpriseRequest } from '../../../models/enterprises/UpdateEnterpriseRequest';
+import { CreateEnterpriseUserComponent } from '../../../components/admins/create-enterprise-user-component/create-enterprise-user-component';
 
 @Component({
   selector: 'app-enterprises-page',
-  imports: [FormsModule, ReactiveFormsModule, ReactiveFormsModule, SuccessfulActionComponent, UnsuccessfulActionComponent],
+  imports: [FormsModule, ReactiveFormsModule, ReactiveFormsModule, SuccessfulActionComponent, UnsuccessfulActionComponent, CreateEnterpriseUserComponent],
   templateUrl: './enterprises-page.html',
   styleUrl: './enterprises-page.css',
 })

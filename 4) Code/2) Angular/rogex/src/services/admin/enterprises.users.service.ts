@@ -5,14 +5,14 @@ import { HttpClient } from "@angular/common/http";
 import { RestConstants } from "../../shared/restapi/rest-constants";
 
 @Injectable({
-    providedIn: "root",
+    providedIn: "root"
 })
 export class EnterpriseUsersService extends GenericService<EnterpriseUsers> {
 
     constructor(httpClient: HttpClient) {
         super(
             httpClient,
-            "users/enterprises",
+            'users/enterprises',
             new RestConstants().getApiURL(),
         );
     }

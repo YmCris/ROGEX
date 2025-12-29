@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { GenericUpdateObjectRequest } from "./GenericUpdateObjectRequest";
-import { RestConstants } from "../shared/restapi/rest-constants";
+import { GenericUpdateObjectRequest } from "../dtos/GenericUpdateObjectRequest";
+import { RestConstants } from "../../shared/restapi/rest-constants";
 
 /** 
  * GenericService is the class responsible of be the fatter class of all services
@@ -10,7 +10,7 @@ import { RestConstants } from "../shared/restapi/rest-constants";
  * Note: Only use this with the pks be "PathParam" and implement 
  * @Injectable({providedIn: "root",})
  */
-export class GenericService<T> {
+export abstract class GenericService<T> {
 
     // CONSTRUCTOR -------------------------------------------------------------
     /**
