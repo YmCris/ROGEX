@@ -1,63 +1,61 @@
-package ymcris.rogex.a.resources.users;
+package ymcris.rogex.a.resources.videogame.multimedia;
 
-import java.util.List;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.DELETE;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PathParam;
-import jakarta.ws.rs.core.UriInfo;
+import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.UriInfo;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import ymcris.rogex.e.models.users.User;
-import ymcris.rogex.c.dtos.users.UserResponse;
-import ymcris.rogex.c.dtos.users.NewUserRequest;
-import ymcris.rogex.b.services.users.UserService;
-import ymcris.rogex.c.dtos.users.UpdateUserRequest;
-import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
+import ymcris.rogex.b.services.videogame.multimedia.VideogameMultimediaService;
+import ymcris.rogex.c.dtos.videogame.multimedia.NewVideogameMultimediaRequest;
+import ymcris.rogex.c.dtos.videogame.multimedia.UpdateVideogameMultimediaRequest;
+import ymcris.rogex.c.dtos.videogame.multimedia.VideogameMultimediaResponse;
+import ymcris.rogex.e.models.videogame.multimedia.VideogameMultimedia;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
+import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericImageResource;
 import ymcris.rogex.g.commons.response.GenericJSONResponse;
 import ymcris.rogex.g.commons.services.GenericImageService;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 
 /**
- * The UsersResources class is the class responsible for be the "servlet" of the
- * CRUD users
+ * The VideogameMultimediaResource class is the class responsible for
  *
  * @author YmCris
- * @see UserResponse
- * @see NewUserRequest
- * @see UserService
- * @since Dec 11, 2025
+ * @since Dec 29, 2025
  */
-@Path("users")
-public class UserResource extends GenericImageResource<User> {
+@Path("videogames/multimedia")
+public class VideogameMultimediaResource extends GenericImageResource<VideogameMultimedia> {
 
-    // HTTP METHODS ------------------------------------------------------------
+    // CONTTEXT ----------------------------------------------------------------
     @Context
     UriInfo uriInfo;
 
+    // HTTP METHODS ------------------------------------------------------------
     // POST --------------------------------------------------------------------
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createUser(@FormDataParam("data") NewUserRequest newUserRequest,
+    public Response createVideogameMultimedia(
+            @FormDataParam("data") NewVideogameMultimediaRequest newRequest,
             @FormDataParam("fileObject") InputStream uploadedFileStream,
             @FormDataParam("fileObject") FormDataBodyPart bodyPart,
             @FormDataParam("fileObject") FormDataContentDisposition fileDetails) {
 
         byte[] fileBytes = null;
-        if (uploadedFileStream != null) {//<- In the sign up the photo is optional
+        if (uploadedFileStream != null) {
             try (InputStream inputStream = uploadedFileStream) {
 
                 fileBytes = inputStream.readAllBytes();
@@ -73,29 +71,40 @@ public class UserResource extends GenericImageResource<User> {
             }
         }
 
-        return createObjectInternal(newUserRequest, fileBytes);
+        return createObjectInternal(newRequest, fileBytes);
     }
 
     // GET ---------------------------------------------------------------------
     @GET
+    @Path("{title}/{enterprise}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllUsers() {
-        return getAllObjectsInternal(null);
+    public Response getAllVideogameMultimedia(
+            @PathParam("title") String title,
+            @PathParam("enterprise") String enterprise) {
+
+        return getAllObjectsInternal(new String[]{title, enterprise});
     }
 
     @GET
-    @Path("{email}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getUserByEmail(@PathParam("email") String email) {
+    @Path("{id}/image")
+    @Produces({"image/jpeg", "image/png"})
+    public Response getImage(@PathParam("id") String id) {
+        return getImage(new String[]{id});
+    }
 
-        UserService userSerivicer = new UserService();
+    @GET
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getVideogameMultimedia(@PathParam("id") String id) {
+
+        VideogameMultimediaService service = new VideogameMultimediaService();
         GenericJSONResponse jSONResponse = new GenericJSONResponse();
 
         try {
 
-            User existingUser = userSerivicer.getEntity(new String[]{email});
+            VideogameMultimedia existingVideogameMultimedia = service.getEntity(new String[]{id});
 
-            return Response.ok(new UserResponse(existingUser)).build();
+            return Response.ok(new VideogameMultimediaResponse(existingVideogameMultimedia)).build();
 
         } catch (ObjectNotFoundException e) {
 
@@ -107,55 +116,55 @@ public class UserResource extends GenericImageResource<User> {
 
     // DELETE ------------------------------------------------------------------
     @DELETE
-    @Path("{email}")
-    public Response deleteUser(@PathParam("email") String email) {
+    @Path("{id}")
+    public Response deleteMultimedia(@PathParam("id") String id) {
 
         GenericNewObjectRequest pk = new GenericNewObjectRequest();
-        pk.setPrimaryKeysSQLs(new String[]{email});
+        pk.setPrimaryKeysSQLs(new String[]{id});
 
         return deleteObjectInternal(pk);
     }
 
     // PUT ---------------------------------------------------------------------
     @PUT
-    @Path("{email}")
+    @Path("{id}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateUser(
             @FormDataParam("fileObject") InputStream uploadedFileStream,
             @FormDataParam("fileObject") FormDataBodyPart bodyPart,
             @FormDataParam("fileObject") FormDataContentDisposition fileDetails,
-            @FormDataParam("data") UpdateUserRequest updateUserRequest,
-            @PathParam("email") String email) {
+            @FormDataParam("data") UpdateVideogameMultimediaRequest update,
+            @PathParam("id") String id) {
 
         String mime = bodyPart.getMediaType().toString();
         if (!mime.startsWith("image/")) {
             return Response.status(400).build();
         }
 
-        return update(new String[]{email}, updateUserRequest, uploadedFileStream);
+        return update(new String[]{id}, update, uploadedFileStream);
 
     }
 
-    // PATCH -------------------------------------------------------------------
+    // OVERRIDE METHODS --------------------------------------------------------
     @Override
-    protected GenericImageService<User> getService() {
-        return new UserService();
+    protected GenericImageService<VideogameMultimedia> getService() {
+        return new VideogameMultimediaService();
     }
 
     @Override
     protected List<GenericObjectResponse> getObjects(
-            GenericImageService<User> objectsGetter, String[] parameters) {
+            GenericImageService<VideogameMultimedia> objectsGetter, String[] parameters) {
 
         return objectsGetter.getAllEntities(parameters)
                 .stream()
-                .map(user -> (GenericObjectResponse) new UserResponse(user))
+                .map(multimedia -> (GenericObjectResponse) new VideogameMultimediaResponse(multimedia))
                 .toList();
     }
 
     @Override
-    protected GenericObjectResponse toResponse(User user) {
-        return new UserResponse(user);
+    protected GenericObjectResponse toResponse(VideogameMultimedia multimedia) {
+        return new VideogameMultimediaResponse(multimedia);
     }
 
 }

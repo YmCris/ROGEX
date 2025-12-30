@@ -9,9 +9,8 @@
             <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
             }
             }
-            <h1>Crear usuario de una empresa</h1>
+            <h1>Agregar empleado</h1>
             <form [formGroup]="createObjectForm" (ngSubmit)="createObject()">
-
                 <div class="row mb-3">
                     <label for="inputEmail3" class="col-sm-2 col-form-label">Correo electrónico:</label>
                     <div class="col-sm-10">
@@ -38,13 +37,6 @@
                     <label for="inputPassword3" class="col-sm-2 col-form-label">Fecha de nacimiento:</label>
                     <div class="col-sm-10">
                         <input type="date" class="form-control" formControlName="birthDate">
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre de la empresa:</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" formControlName="enterpriseName">
                     </div>
                 </div>
 

@@ -6,7 +6,6 @@ import ymcris.rogex.c.dtos.videogame.UpdateVideogameRequest;
 import ymcris.rogex.d.daos.categories.CategoryDAO;
 import ymcris.rogex.d.daos.enterprises.EnterpriseDAO;
 import ymcris.rogex.d.daos.videogame.VideogameDAO;
-import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.e.models.videogame.Videogame;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
@@ -53,8 +52,7 @@ public class VideogameService extends GenericService<Videogame> {
                 newVideogameRequest.isHidden()
         );
 
-        CategoryDAO categoryDAO = new CategoryDAO();
-
+        //CategoryDAO categoryDAO = new CategoryDAO();
         if (!enterpriseDAO.entityExists(new String[]{newVideogameRequest.getEnterpriseName()})) {
             throw new InvalidUserParametersException(
                     "Enterprise does'nt exists");
@@ -64,7 +62,7 @@ public class VideogameService extends GenericService<Videogame> {
             throw new InvalidUserParametersException(
                     "Data sent to crate the videogame is invalid");
         }
-
+        /*
         if (newVideogameRequest.getCategories().isEmpty()) {
             throw new InvalidUserParametersException(
                     "Videogame may have categories");
@@ -78,7 +76,7 @@ public class VideogameService extends GenericService<Videogame> {
                         "The category does'nt exists");
             }
         }
-
+         */
         return videogame;
     }
 
@@ -94,7 +92,7 @@ public class VideogameService extends GenericService<Videogame> {
             videogame.setDescription(updateVideogameRequest.getDescription());
         }
 
-        if (updateVideogameRequest.getPrice() != null) {
+        if (updateVideogameRequest.getPrice() != null && updateVideogameRequest.getPrice() > 0) {
             videogame.setPrice(updateVideogameRequest.getPrice());
         }
         if (updateVideogameRequest.getMinimumRequirements() != null) {
@@ -103,14 +101,14 @@ public class VideogameService extends GenericService<Videogame> {
         if (updateVideogameRequest.getAgeRating() != null) {
             videogame.setAgeRating(updateVideogameRequest.getAgeRating());
         }
-        if (updateVideogameRequest.isSuspensionOfSale() != null) {
-            videogame.setSuspensionOfSale(updateVideogameRequest.isSuspensionOfSale());
+        if (updateVideogameRequest.getSuspensionOfSale() != null) {
+            videogame.setSuspensionOfSale(updateVideogameRequest.getSuspensionOfSale());
         }
-        if (updateVideogameRequest.isHiddenComments() != null) {
-            videogame.setHiddenComments(updateVideogameRequest.isHiddenComments());
+        if (updateVideogameRequest.getHiddenComments() != null) {
+            videogame.setHiddenComments(updateVideogameRequest.getHiddenComments());
         }
-        if (updateVideogameRequest.isHidden() != null) {
-            videogame.setHidden(updateVideogameRequest.isHidden());
+        if (updateVideogameRequest.getHidden() != null) {
+            videogame.setHidden(updateVideogameRequest.getHidden());
         }
 
         if (!videogame.isValid()) {

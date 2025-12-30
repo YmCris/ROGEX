@@ -19,7 +19,26 @@ export abstract class GenericGetWithoutForm<T> implements OnInit {
     ) { }
 
     ngOnInit(): void {
-        this.loadByPrimaryKeys(this.getPrimaryKeys());
+        this.defineLoad();
+    }
+
+    protected abstract defineLoad(): void;
+
+    protected loadByPrimaryKey(primaryKey: string): void {
+        this.resetState();
+        this.state.loading = true;
+
+        this.service.getAllByKey(primaryKey).subscribe({
+            next: data => {
+                this.state.data = data;
+                this.state.loading = false;
+            },
+            error: () => {
+                this.state.loading = false;
+                this.state.error = true;
+                this.state.message = 'Error cargando objetos';
+            }
+        });
     }
 
     protected loadByPrimaryKeys(primaryKeys: string[]): void {

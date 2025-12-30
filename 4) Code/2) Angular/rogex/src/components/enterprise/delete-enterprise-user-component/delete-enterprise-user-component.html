@@ -2,15 +2,15 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
 
-            @if (this.state.error && this.state.success) {
+            @if (this.state.error||this.state.success) {
             @if (!this.state.error&&this.state.success) {
             <successful-action-component [message]="this.state.message"></successful-action-component>
             }@else {
             <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
             }
             }
-
-            <h1>Eliminar usuario de una empresa</h1>
+            
+            <h1>Eliminar empleado</h1>
             <form [formGroup]="deleteObjectForm" (ngSubmit)="deleteObject()">
 
                 <div class="row mb-3">

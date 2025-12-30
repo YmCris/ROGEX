@@ -37,6 +37,8 @@ export abstract class GenericService<T> {
      * the response code 
      */
     public createObject(formValue: T): Observable<void> {
+        console.log("Creating object");
+
         return this.httpClient.post<void>(
             `${this.apiBaseUrl}${this.resource}`,
             formValue
@@ -54,6 +56,8 @@ export abstract class GenericService<T> {
     public updateObject(primaryKeys: string[],
         update: GenericUpdateObjectRequest): Observable<T> {
 
+        console.log("Updating object");
+
         const path = primaryKeys.join("/");
 
         return this.httpClient.put<T>(
@@ -70,6 +74,8 @@ export abstract class GenericService<T> {
      */
     public deleteWithPrimaryKeys(primaryKeys: string[]): Observable<void> {
 
+        console.log("Deleting object with pks");
+
         const path = primaryKeys.join("/");
 
         return this.httpClient.delete<void>(
@@ -84,6 +90,8 @@ export abstract class GenericService<T> {
      * @returns Object founded or a message indicating what happened
      */
     public getByPrimaryKeys(primaryKeys: string[]): Observable<T> {
+
+        console.log("Getting some entity by pks");
 
         const path = primaryKeys.join("/");
 
@@ -102,10 +110,28 @@ export abstract class GenericService<T> {
      */
     public getAllByKeys(primaryKeys: string[]): Observable<T[]> {
 
+        console.log("Get all by pks");
+
         const path = primaryKeys.join("/");
-        console.log( this.apiBaseUrl+this.resource+path);
+
         return this.httpClient.get<T[]>(
-            `${this.apiBaseUrl}${this.resource}/${path}`
+            `${this.apiBaseUrl}${this.resource}${path}`
+        );
+    }
+
+    /**
+    * Method responsible for get all objects with some restriction or conditions
+    * This is the pks array
+    * 
+    * @param primaryKeys Conditions or restrictions to get some response
+    * @returns array with the objects that comply with the conditions
+    */
+    public getAllByKey(primaryKey: string): Observable<T[]> {
+
+        console.log("Get all by one key");
+
+        return this.httpClient.get<T[]>(
+            `${this.apiBaseUrl}${this.resource}/${primaryKey}`
         );
     }
 
@@ -115,6 +141,8 @@ export abstract class GenericService<T> {
      * @returns array with all objects in the DB with this route
      */
     public getAllObjects(): Observable<T[]> {
+
+        console.log("Get all without keys");
 
         return this.httpClient.get<T[]>(
             `${this.apiBaseUrl}${this.resource}`
