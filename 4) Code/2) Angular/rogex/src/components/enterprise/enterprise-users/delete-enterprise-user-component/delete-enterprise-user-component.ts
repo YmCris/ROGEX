@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { GenericDelete } from '../../../common/crud-components/GenericDelete';
-import { EnterpriseUsers } from '../../../models/enterprise-users/EnterpriseUser';
+import { GenericDelete } from '../../../../common/crud-components/GenericDelete';
+import { EnterpriseUsers } from '../../../../models/enterprise-users/EnterpriseUser';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SuccessfulActionComponent } from '../../response-elements/successful-action-component/successful-action.component';
-import { UnsuccessfulActionComponent } from '../../response-elements/unsuccessful-action-component/unsuccessful-action-component';
-import { EnterpriseUsersService } from '../../../services/admin/enterprises.users.service';
+import { SuccessfulActionComponent } from '../../../response-elements/successful-action-component/successful-action.component';
+import { UnsuccessfulActionComponent } from '../../../response-elements/unsuccessful-action-component/unsuccessful-action-component';
+import { EnterpriseUsersService } from '../../../../services/admin/enterprises.users.service';
 
 @Component({
   selector: 'app-delete-enterprise-user-component',

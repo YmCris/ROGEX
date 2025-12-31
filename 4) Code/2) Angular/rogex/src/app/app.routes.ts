@@ -69,6 +69,10 @@ export const routes: Routes = [
                     .then(m => m.VideogamesPage)
             },
             {
+                path: 'videogames/videogame/:title/:enterprise', loadComponent: () => import('../pages/enterprises/videogame-page/videogame-page')
+                    .then(m => m.VideogamePage)
+            },
+            {
                 path: 'configurations', loadComponent: () => import('../pages/enterprises/configurations-page/configurations-page')
                     .then(m => m.ConfigurationsPage)
             },

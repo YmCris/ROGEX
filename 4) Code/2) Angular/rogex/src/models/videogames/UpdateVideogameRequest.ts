@@ -2,10 +2,10 @@ import { GenericUpdateObjectRequest } from "../../common/dtos/GenericUpdateObjec
 import { AgeRating } from "./AgeRating";
 
 export interface UpdateVideogameRequest extends GenericUpdateObjectRequest {
-    description: string;
-    price: number;
-    minimumRequirements: string;
-    ageRating: AgeRating;
+    description: string | null;
+    price: number | null;
+    minimumRequirements: string | null;
+    ageRating: AgeRating | null;
 
     suspensionOfSale: boolean | null;
     hiddenComments: boolean | null;

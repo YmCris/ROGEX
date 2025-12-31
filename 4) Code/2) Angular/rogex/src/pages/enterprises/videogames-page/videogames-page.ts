@@ -7,11 +7,12 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { SuccessfulActionComponent } from '../../../components/response-elements/successful-action-component/successful-action.component';
 import { UnsuccessfulActionComponent } from '../../../components/response-elements/unsuccessful-action-component/unsuccessful-action-component';
 import { UpdateVideogameRequest } from '../../../models/videogames/UpdateVideogameRequest';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-videogames-page',
   imports: [FormsModule, ReactiveFormsModule,
-    SuccessfulActionComponent, UnsuccessfulActionComponent],
+    SuccessfulActionComponent, UnsuccessfulActionComponent, RouterModule],
   templateUrl: './videogames-page.html',
   styleUrl: './videogames-page.css',
 })

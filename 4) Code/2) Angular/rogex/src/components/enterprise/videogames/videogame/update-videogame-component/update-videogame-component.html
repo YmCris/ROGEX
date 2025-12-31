@@ -1,0 +1,101 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            @if (this.state.error||this.state.success) {
+            @if (!this.state.error&&this.state.success) {
+            <successful-action-component [message]="this.state.message"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
+            }
+            }
+
+            <h1>Editar videojuego</h1>
+            <form [formGroup]="updateObjectForm" (ngSubmit)="updateObject()">
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Título del videojuego</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="title">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nueva descripción</label>
+                    <div class="col-sm-10">
+                        <textarea type="text" class="form-control" formControlName="description"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Nuevo precio</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" formControlName="price">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputPassword3" class="col-sm-2 col-form-label">Nuevos requerimientos mínimos</label>
+                    <div class="col-sm-10">
+                        <textarea type="text" class="form-control" formControlName="minimumRequirements"></textarea>
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label class="col-sm-2 col-form-label">
+                        Nueva restricción de edad
+                    </label>
+                    <div class="col-sm-10">
+                        <select class="form-select" formControlName="ageRating">
+                            <option [ngValue]="null">Seleccionar</option>
+                            <option value="E">E</option>
+                            <option value="T">T</option>
+                            <option value="M">M</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Suspensión de venta</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" formControlName="suspensionOfSale">
+                            <option [ngValue]="null">No modificar</option>
+                            <option [ngValue]="true">Sí</option>
+                            <option [ngValue]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Ocultar comentarios</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" formControlName="hiddenComments">
+                            <option [ngValue]=" null">No modificar</option>
+                            <option [ngValue]="true">Sí</option>
+                            <option [ngValue]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Ocultar videojuego</label>
+                    <div class="col-sm-10">
+                        <select class="form-select" formControlName="hidden">
+                            <option [ngValue]="null">No modificar</option>
+                            <option [ngValue]="true">Sí</option>
+                            <option [ngValue]="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

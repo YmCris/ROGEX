@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { EnterpriseUsers } from '../../../models/enterprise-users/EnterpriseUser';
-import { EnterpriseUsersService } from '../../../services/admin/enterprises.users.service';
-import { AuthService } from '../../../core/auth/auth.service';
-import { GenericGetWithoutForm } from '../../../common/crud-components/GenericGetWithoutForm';
+import { EnterpriseUsers } from '../../../../models/enterprise-users/EnterpriseUser';
+import { EnterpriseUsersService } from '../../../../services/admin/enterprises.users.service';
+import { AuthService } from '../../../../core/auth/auth.service';
+import { GenericGetWithoutForm } from '../../../../common/crud-components/GenericGetWithoutForm';
 
 @Component({
   selector: 'app-get-enterprise-user-component',

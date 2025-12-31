@@ -88,6 +88,8 @@
             </form>
             <br>
 
+            <!--
+
             <h1>Editar videojuego</h1>
             <form [formGroup]="updateObjectForm" (ngSubmit)="updateObject()">
 
@@ -174,48 +176,35 @@
                 </div>
             </form>
             <br>
+            -->
 
             <h1>Videojuegos de la empresa</h1>
-            <div class="d-flex gap-2 justify-content-center py-5 flex-wrap">
+            <div class="row mb-3">
 
-                @if (this.state.loading) {
-                <span class="text-muted">Cargando videojuegos...</span>
-                }
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Título</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Precio</th>
-                            <th scope="col">Requerimientos mínimos</th>
-                            <th scope="col">Restricción de edad</th>
-                            <th scope="col">Venta suspendida</th>
-                            <th scope="col">Comentarios ocultos</th>
-                            <th scope="col">Oculto</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (videogame of this.state.data; track videogame.title) {
-                        <tr>
-                            <td>{{ videogame.title }}</td>
-                            <td>{{ videogame.description }}</td>
-                            <td>{{ videogame.price }}</td>
-                            <td>{{ videogame.minimumRequirements }}</td>
-                            <td>{{ videogame.ageRating }}</td>
-                            <td>{{ videogame.suspensionOfSale }}</td>
-                            <td>{{ videogame.hiddenComments }}</td>
-                            <td>{{ videogame.hidden }}</td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
-                @if (!this.state.loading && this.state.data.length ==0) {
-                <span class="text-muted">No hay videojuegos registrados</span>
+                @for (videogame of this.state.data; track videogame.title) {
+                <div class="row mb-2">
+                    <div class="col-12">
+                        <nav class="navbar bg-body-tertiary px-3 rounded">
+                            <button class="btn btn-primary" [routerLink]="[
+                            '/employee/videogames/videogame',
+                            videogame.title,
+                            videogame.enterpriseName
+                            ]">
+                                Ver
+                            </button>
+                            <span class="navbar-brand ms-auto">
+                                {{ videogame.title }}
+                            </span>
+                        </nav>
+                    </div>
+                </div>
                 }
 
             </div>
 
 
         </div>
+
+
     </div>
 </div>
