@@ -1,5 +1,5 @@
 export interface UpdateEnterpriseRequest {
     description: string;
-    specificCommission: number;
+    specificCommission: number | null;
     hiddenAllComments: boolean;
 }
