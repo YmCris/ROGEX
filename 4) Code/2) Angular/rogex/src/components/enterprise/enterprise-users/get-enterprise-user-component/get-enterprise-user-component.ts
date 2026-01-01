@@ -32,6 +32,7 @@ export class GetEnterpriseUserComponent extends GenericGetWithoutForm<Enterprise
     this.loadByPrimaryKey(enterprise);
   }
 
+  /*
   protected override getPrimaryKeys(): string[] {
     const enterprise = this.getEnterpriseName();
     if (!enterprise) {
@@ -39,7 +40,7 @@ export class GetEnterpriseUserComponent extends GenericGetWithoutForm<Enterprise
     }
     return [enterprise];
   }
-
+*/
 
 
 

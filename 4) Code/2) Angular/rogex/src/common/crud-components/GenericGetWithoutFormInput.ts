@@ -2,7 +2,7 @@ import { Directive, OnInit } from "@angular/core";
 import { GenericService } from "../crud-services/GenericService";
 
 @Directive()
-export abstract class GenericGetWithoutForm<T> implements OnInit {
+export abstract class GenericGetWithoutFormInput<T> {
 
     // UI STATE ----------------------------------------------------------------
     protected state: CrudState<T> = {
@@ -17,10 +17,6 @@ export abstract class GenericGetWithoutForm<T> implements OnInit {
     constructor(
         protected service: GenericService<T>
     ) { }
-
-    ngOnInit(): void {
-        this.defineLoad();
-    }
 
     protected abstract defineLoad(): void;
 
@@ -64,5 +60,4 @@ export abstract class GenericGetWithoutForm<T> implements OnInit {
         this.state.message = '';
     }
 
-    //protected abstract getPrimaryKeys(): string[];
 }

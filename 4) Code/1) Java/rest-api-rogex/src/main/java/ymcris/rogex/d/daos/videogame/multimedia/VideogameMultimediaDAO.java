@@ -102,12 +102,16 @@ public class VideogameMultimediaDAO extends GenericDAO<VideogameMultimedia> {
 
         try {
 
-            return new VideogameMultimedia(
+            VideogameMultimedia multimedia = new VideogameMultimedia(
                     resultSet.getBytes("multimedia"),
                     resultSet.getBoolean("is_image"),
                     resultSet.getString("videogame_title"),
                     resultSet.getString("enterprise_name")
             );
+            
+            multimedia.setId(resultSet.getInt("id"));
+            
+            return multimedia;
 
         } catch (SQLException e) {
             throw new DAOException("Getting multimedia from DB", e);

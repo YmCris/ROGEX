@@ -1,5 +1,4 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
-import { GenericCreate } from '../../../../../common/crud-components/GenericCreate';
+import { Component } from '@angular/core';
 import { Videogame } from '../../../../../models/videogames/Videogame';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UnsuccessfulActionComponent } from '../../../../response-elements/unsuccessful-action-component/unsuccessful-action-component';

@@ -1,6 +1,7 @@
 package ymcris.rogex.c.dtos.videogame.multimedia;
 
 import ymcris.rogex.e.models.videogame.multimedia.VideogameMultimedia;
+import ymcris.rogex.g.commons.constants.RestConstants;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 
 /**
@@ -16,6 +17,7 @@ public class VideogameMultimediaResponse implements GenericObjectResponse {
     private String videogameTitle;
     private String enterpriseName;
     private int id;
+    private String imageUrl;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public VideogameMultimediaResponse(VideogameMultimedia multimedia) {
@@ -23,6 +25,7 @@ public class VideogameMultimediaResponse implements GenericObjectResponse {
         this.videogameTitle = multimedia.getVideogameTitle();
         this.enterpriseName = multimedia.getEnterpriseName();
         this.id = multimedia.getId();
+        this.imageUrl = RestConstants.API_URL+"videogames/multimedia/"+id+"/image";
     }
 
     // GETTERS -----------------------------------------------------------------
@@ -42,6 +45,10 @@ public class VideogameMultimediaResponse implements GenericObjectResponse {
         return id;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     // SETTERS -----------------------------------------------------------------
     public void setImage(boolean image) {
         this.image = image;
@@ -57,6 +64,10 @@ public class VideogameMultimediaResponse implements GenericObjectResponse {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
 }

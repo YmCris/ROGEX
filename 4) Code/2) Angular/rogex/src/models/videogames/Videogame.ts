@@ -1,3 +1,4 @@
+import { Category } from "../categories/Category";
 import { AgeRating } from "./AgeRating";
 
 export interface Videogame {
@@ -12,4 +13,5 @@ export interface Videogame {
     hiddenComments: boolean;
     hidden: boolean;
 
+    categories: Category[] | null;
 }

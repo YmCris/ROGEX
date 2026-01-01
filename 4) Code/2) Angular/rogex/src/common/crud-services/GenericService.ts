@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { GenericUpdateObjectRequest } from "../dtos/GenericUpdateObjectRequest";
-import { RestConstants } from "../../shared/restapi/rest-constants";
 
 /** 
  * GenericService is the class responsible of be the fatter class of all services
@@ -115,7 +114,7 @@ export abstract class GenericService<T> {
         const path = primaryKeys.join("/");
 
         return this.httpClient.get<T[]>(
-            `${this.apiBaseUrl}${this.resource}${path}`
+            `${this.apiBaseUrl}${this.resource}/${path}`
         );
     }
 

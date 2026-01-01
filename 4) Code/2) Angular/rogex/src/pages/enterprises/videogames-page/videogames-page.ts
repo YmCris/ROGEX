@@ -68,7 +68,8 @@ export class VideogamesPage extends GenericCrud<Videogame> {
       enterpriseName: this.getEnterpriseName(),
       suspensionOfSale: formValues.suspensionOfSale,
       hiddenComments: formValues.hiddenComments,
-      hidden: formValues.hidden
+      hidden: formValues.hidden,
+      categories : null
     };
 
     return videogame;

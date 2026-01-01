@@ -4,6 +4,8 @@ import jakarta.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.dtos.GenericUpdateObjectRequest;
@@ -24,7 +26,11 @@ import ymcris.rogex.h.utilities.interfaces.Visualizable;
  */
 public abstract class GenericImageResource<T extends Visualizable> {
 
-// POST --------------------------------------------------------------------
+    // LOOGER ------------------------------------------------------------------
+    private static final Logger logger
+            = LoggerFactory.getLogger(GenericImageResource.class);
+
+    // POST --------------------------------------------------------------------
     /**
      * Method responsible for create an object send the resonse via JSON
      *
@@ -56,6 +62,7 @@ public abstract class GenericImageResource<T extends Visualizable> {
                     Response.Status.CONFLICT);
 
         } catch (DAOException exc) {
+            logger.error("Error executing {}", exc.getOperation(), exc);
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);
@@ -87,6 +94,7 @@ public abstract class GenericImageResource<T extends Visualizable> {
             return Response.ok(objects).build();
 
         } catch (DAOException exc) {
+            logger.error("Error executing {}", exc.getOperation(), exc);
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);
@@ -117,6 +125,8 @@ public abstract class GenericImageResource<T extends Visualizable> {
                     Response.Status.NOT_FOUND);
 
         } catch (DAOException exc) {
+
+            logger.error("Error executing {}", exc.getOperation(), exc);
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);
@@ -150,6 +160,8 @@ public abstract class GenericImageResource<T extends Visualizable> {
                     Response.Status.BAD_REQUEST);
 
         } catch (DAOException exc) {
+
+            logger.error("Error executing {}", exc.getOperation(), exc);
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);
@@ -193,6 +205,8 @@ public abstract class GenericImageResource<T extends Visualizable> {
             );
 
         } catch (DAOException exc) {
+            
+            logger.error("Error executing {}", exc.getOperation(), exc);
 
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);

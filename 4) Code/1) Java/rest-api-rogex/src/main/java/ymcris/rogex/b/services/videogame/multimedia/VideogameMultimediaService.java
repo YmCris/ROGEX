@@ -27,6 +27,7 @@ public class VideogameMultimediaService extends GenericImageService<VideogameMul
             throws InvalidUserParametersException {
 
         NewVideogameMultimediaRequest request = (NewVideogameMultimediaRequest) newObjectRequest;
+        request.setPrimaryKeysSQLs(new String[]{"10000"});
 
         VideogameMultimedia multimedia = new VideogameMultimedia(
                 null,

@@ -1,25 +1,27 @@
 <div class="container-lg pt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 col-lg-8">
-            <h2>Categorías del videojuego</h2>
+
+            <h2>Categorías existentes</h2>
+
             <div class="d-flex gap-2 justify-content-center py-5 flex-wrap">
 
-                @if (this.state.loading) {
+                @if (loadingCategories) {
                 <span class="text-muted">Cargando categorías...</span>
                 }
 
-                @for (category of this.state.data; track category) {
+                @for (category of categories; track category.name) {
                 <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill px-3 py-2">
                     {{ category.name }}
                 </span>
                 }
 
-
-                @if (!this.state.loading && this.state.data.length ==0) {
+                @if (!loadingCategories && categories.length === 0) {
                 <span class="text-muted">No hay categorías registradas</span>
                 }
 
             </div>
+
         </div>
     </div>
 </div>

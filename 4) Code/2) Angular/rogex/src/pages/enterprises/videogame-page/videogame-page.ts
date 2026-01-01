@@ -13,13 +13,14 @@ import { UpdateVideogameComponent } from '../../../components/enterprise/videoga
 import { VideogameService } from '../../../services/enterprise/videogame.service';
 
 import { Videogame } from '../../../models/videogames/Videogame';
+import { GetCategoriesComponent } from "../../../components/admins/get-categories-component/get-categories-component";
 
 @Component({
   selector: 'app-videogame-page',
   imports: [CreateVideogameCategoryComponent, UpdateVideogameCategoryComponent,
     DeleteVideogameCategoryComponent, GetVideogameCategoriesComponent,
-    AddVideogameMultimediaComponent, DeleteVideogameMultimediaComponent,
-    GetVideogameMultimediaComponent, UpdateVideogameComponent],
+    AddVideogameMultimediaComponent,/* DeleteVideogameMultimediaComponent,*/
+    GetVideogameMultimediaComponent, UpdateVideogameComponent, GetCategoriesComponent],
   templateUrl: './videogame-page.html',
   styleUrl: './videogame-page.css',
 })
