@@ -42,7 +42,27 @@ export const routes: Routes = [
             {
                 path: 'shop', loadComponent: () => import('../pages/users/shop/shop')
                     .then(m => m.Shop)
-            }
+            },
+            {
+                path: 'library', loadComponent: () => import('../pages/users/library-page/library-page')
+                    .then(m => m.LibraryPage)
+            },
+            {
+                path: 'perfil', loadComponent: () => import('../pages/users/perfil-page/perfil-page')
+                    .then(m => m.PerfilPage)
+            },
+            {
+                path: 'wallets', loadComponent: () => import('../pages/users/wallet-page/wallet-page')
+                    .then(m => m.WalletPage)
+            },
+            {
+                path: 'groups', loadComponent: () => import('../pages/users/groups-page/groups-page')
+                    .then(m => m.GroupsPage)
+            },
+            {
+                path: 'invitations', loadComponent: () => import('../pages/users/invitations-page/invitations-page')
+                    .then(m => m.InvitationsPage)
+            },
         ]
     },
 
