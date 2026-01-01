@@ -1,6 +1,7 @@
 package ymcris.rogex.c.dtos.sale;
 
 import java.time.LocalDate;
+import ymcris.rogex.e.models.wallets.BanckType;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
 
 /**
@@ -9,20 +10,18 @@ import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
  * @author YmCris
  * @since Dec 19, 2025
  */
-public class NewSaleRequest extends GenericNewObjectRequest{
+public class NewSaleRequest extends GenericNewObjectRequest {
 
     // REFERENCE VARIABLES -----------------------------------------------------
-    private double videogamePrice;
     private LocalDate saleDate;
     private String userEmail;
     private String videogameTitle;
     private String enterpriseName;
 
-    // GETTERS -----------------------------------------------------------------
-    public double getVideogamePrice() {
-        return videogamePrice;
-    }
+    private String walletName;
+    private BanckType walletBanck;
 
+    // GETTERS -----------------------------------------------------------------
     public LocalDate getSaleDate() {
         return saleDate;
     }
@@ -39,11 +38,15 @@ public class NewSaleRequest extends GenericNewObjectRequest{
         return enterpriseName;
     }
 
-    // SETTERS -----------------------------------------------------------------
-    public void setVideogamePrice(double videogamePrice) {
-        this.videogamePrice = videogamePrice;
+    public String getWalletName() {
+        return walletName;
     }
 
+    public BanckType getWalletBanck() {
+        return walletBanck;
+    }
+
+    // SETTERS -----------------------------------------------------------------
     public void setSaleDate(LocalDate saleDate) {
         this.saleDate = saleDate;
     }
@@ -58,6 +61,14 @@ public class NewSaleRequest extends GenericNewObjectRequest{
 
     public void setEnterpriseName(String enterpriseName) {
         this.enterpriseName = enterpriseName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
+
+    public void setWalletBanck(BanckType walletBanck) {
+        this.walletBanck = walletBanck;
     }
 
 }

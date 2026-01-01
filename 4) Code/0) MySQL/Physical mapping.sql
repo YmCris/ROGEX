@@ -194,9 +194,12 @@ CREATE TABLE sale ( -- Include commission details ( 1FN, )
     commission_percentage DECIMAL(5,2) NOT NULL,
     profit DECIMAL(10,2) NOT NULL,
     user_email VARCHAR(50) NOT NULL,
+    wallet_name VARCHAR(100) NOT NULL,
+    wallet_banck ENUM('BANRURAL', 'BI', 'AZTECA','PROMERICA','G&T','BANTRAB', 'BAC') NOT NULL,
     videogame_title VARCHAR(150) NOT NULL,
     enterprise_name VARCHAR(150) NOT NULL,
     CONSTRAINT pk_sale PRIMARY KEY (user_email, videogame_title, enterprise_name),
+    CONSTRAINT fk_sale_wallet FOREIGN KEY (wallet_name, wallet_banck) REFERENCES wallet(name, banck),
     CONSTRAINT fk_sale_user FOREIGN KEY (user_email) REFERENCES user(email),
     CONSTRAINT fk_sale_videogame FOREIGN KEY (videogame_title, enterprise_name) REFERENCES videogame(title, enterprise_name)
 );

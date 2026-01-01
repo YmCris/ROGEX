@@ -83,6 +83,7 @@ public abstract class GenericDAO<T> {
                 = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
                 = connection.prepareStatement(SQL_ENTITY_EXISTS)) {
 
+            System.out.println(SQL_ENTITY_EXISTS);
             for (int i = 0; i < primaryKeys.length; i++) {
                 statement.setString(i + 1, primaryKeys[i]);
             }

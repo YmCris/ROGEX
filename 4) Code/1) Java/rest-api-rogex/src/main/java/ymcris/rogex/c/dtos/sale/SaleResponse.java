@@ -2,6 +2,7 @@ package ymcris.rogex.c.dtos.sale;
 
 import java.time.LocalDate;
 import ymcris.rogex.e.models.sale.Sale;
+import ymcris.rogex.e.models.wallets.BanckType;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 
 /**
@@ -20,6 +21,8 @@ public class SaleResponse implements GenericObjectResponse {
     private String userEmail;
     private String videogameTitle;
     private String enterpriseName;
+    private String walletName;
+    private BanckType walletBanck;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public SaleResponse(Sale sale) {
@@ -30,6 +33,8 @@ public class SaleResponse implements GenericObjectResponse {
         this.userEmail = sale.getUserEmail();
         this.videogameTitle = sale.getVideogameTitle();
         this.enterpriseName = sale.getEnterpriseName();
+        this.walletBanck = sale.getWalletBanck();
+        this.walletName = sale.getWalletName();
     }
 
     // GETTERS -----------------------------------------------------------------
@@ -61,6 +66,14 @@ public class SaleResponse implements GenericObjectResponse {
         return enterpriseName;
     }
 
+    public String getWalletName() {
+        return walletName;
+    }
+
+    public BanckType getWalletBanck() {
+        return walletBanck;
+    }
+
     // SETTERS -----------------------------------------------------------------
     public void setVideogamePrice(double videogamePrice) {
         this.videogamePrice = videogamePrice;
@@ -88,6 +101,14 @@ public class SaleResponse implements GenericObjectResponse {
 
     public void setEnterpriseName(String enterpriseName) {
         this.enterpriseName = enterpriseName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
+
+    public void setWalletBanck(BanckType walletBanck) {
+        this.walletBanck = walletBanck;
     }
 
 }

@@ -23,6 +23,7 @@ import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.resources.GenericResource;
 import ymcris.rogex.g.commons.response.GenericJSONResponse;
 import ymcris.rogex.g.commons.services.GenericService;
+import ymcris.rogex.h.utilities.exceptions.DAOException;
 import ymcris.rogex.h.utilities.exceptions.ObjectNotFoundException;
 
 /**
@@ -50,8 +51,23 @@ public class VideogameResource extends GenericResource<Videogame> {
     @GET
     @Path("{enterpriseName}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllVideogames(@PathParam("enterpriseName") String enterpriseName) {
+    public Response getAllEnterpriseVideogames(@PathParam("enterpriseName") String enterpriseName) {
         return getAllObjectsInternal(new String[]{enterpriseName});
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllVideogames() {
+        VideogameService service = new VideogameService();
+        try {
+
+            return Response.ok(service.getAllVideogames()).build();
+
+        } catch (DAOException e) {
+
+            return Response.status(Response.Status.EXPECTATION_FAILED).build();
+        }
+
     }
 
     @GET

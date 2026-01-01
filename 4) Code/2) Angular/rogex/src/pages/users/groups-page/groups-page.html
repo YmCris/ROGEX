@@ -1,0 +1,69 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            @if (this.state.error||this.state.success) {
+            @if (!this.state.error&&this.state.success) {
+            <successful-action-component [message]="this.state.message"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
+            }
+            }
+
+            <h1>Crear Grupo</h1>
+            <form [formGroup]="createObjectForm" (ngSubmit)="createObject()">
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </div>
+            </form>
+            <br>
+
+            <h1>Eliminar Grupo</h1>
+            <form [formGroup]="deleteObjectForm" (ngSubmit)="deleteObject()">
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                </div>
+            </form>
+            <br>
+
+            <h1>Tus grupos</h1>
+
+            <div class="row mb-3">
+
+                @for (group of state.data; track group.name) {
+                <div class="col-12 mb-2">
+                    <nav class="navbar bg-body-tertiary px-3 rounded">
+
+                        <span class="navbar-brand">
+                            {{ group.name }}
+                        </span>
+
+                        <button class="btn btn-primary" [routerLink]="['/gamer/my-groups', group.name]">
+                            Ver
+                        </button>
+
+                    </nav>
+                </div>
+                }
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

@@ -58,6 +58,23 @@ export abstract class GenericGetWithoutForm<T> implements OnInit {
         });
     }
 
+    protected load(): void {
+        this.resetState();
+        this.state.loading = true;
+
+        this.service.getAllObjects().subscribe({
+            next: data => {
+                this.state.data = data;
+                this.state.loading = false;
+            },
+            error: () => {
+                this.state.loading = false;
+                this.state.error = true;
+                this.state.message = 'Error cargando objetos';
+            }
+        });
+    }
+
     private resetState(): void {
         this.state.success = false;
         this.state.error = false;
