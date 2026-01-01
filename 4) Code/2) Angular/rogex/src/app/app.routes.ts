@@ -67,9 +67,13 @@ export const routes: Routes = [
                 path: 'videogames/:title/:enterprise', loadComponent: () => import('../pages/users/videogame-page/videogame-page')
                     .then(m => m.UserVideogamePage)
             },
-                        {
+            {
                 path: 'buy/:title/:enterprise', loadComponent: () => import('../pages/users/buy-videogame-page/buy-videogame-page')
                     .then(m => m.BuyVideogamePage)
+            },
+            {
+                path: 'my-groups/:groupName', loadComponent: () => import('../pages/users/invitate-group-member-page/invitate-group-member-page')
+                    .then(m => m.InvitateGroupMemberPage)
             },
         ]
     },

@@ -4,6 +4,8 @@ import java.util.List;
 import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ymcris.rogex.g.commons.services.GenericService;
 import ymcris.rogex.h.utilities.exceptions.DAOException;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
@@ -23,6 +25,9 @@ import ymcris.rogex.h.utilities.exceptions.InvalidUserParametersException;
  * @since Dec 11, 2025
  */
 public abstract class GenericResource<T> {
+
+    private static final Logger logger
+            = LoggerFactory.getLogger(GenericResource.class);
 
     // CONTEXT INFO ------------------------------------------------------------
     @Context
@@ -151,6 +156,7 @@ public abstract class GenericResource<T> {
 
         } catch (DAOException exc) {
 
+            logger.error("Error executing {}", exc.getOperation(), exc);
             return jSONResponse.sendJSONResponse(exc.getMessage(),
                     Response.Status.EXPECTATION_FAILED);
 
