@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import ymcris.rogex.e.models.category.Category;
 import ymcris.rogex.e.models.videogame.AgeRating;
 import ymcris.rogex.e.models.videogame.Videogame;
@@ -314,6 +316,25 @@ public class VideogameDAO extends GenericDAO<Videogame> {
         }
 
         return false;
+    }
+
+    public List<Videogame> getAllVideogames() {
+        List<Videogame> videogames = new ArrayList<>();
+        try (Connection connection
+                = DBConnectionSingleton.getInstance().getConnection(); PreparedStatement statement
+                = connection.prepareStatement(SQL_GET_ALL_VIDEOGAMES)) {
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                videogames.add(getEntity(resultSet));
+            }
+
+            return videogames;
+
+        } catch (SQLException e) {
+            throw new DAOException("Getting all videogames", e);
+        }
+
     }
 
 }

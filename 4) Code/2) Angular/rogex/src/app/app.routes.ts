@@ -63,6 +63,14 @@ export const routes: Routes = [
                 path: 'invitations', loadComponent: () => import('../pages/users/invitations-page/invitations-page')
                     .then(m => m.InvitationsPage)
             },
+            {
+                path: 'videogames/:title/:enterprise', loadComponent: () => import('../pages/users/videogame-page/videogame-page')
+                    .then(m => m.UserVideogamePage)
+            },
+                        {
+                path: 'buy/:title/:enterprise', loadComponent: () => import('../pages/users/buy-videogame-page/buy-videogame-page')
+                    .then(m => m.BuyVideogamePage)
+            },
         ]
     },
 

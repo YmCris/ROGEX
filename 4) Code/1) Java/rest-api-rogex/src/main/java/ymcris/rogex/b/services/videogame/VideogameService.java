@@ -1,6 +1,7 @@
 package ymcris.rogex.b.services.videogame;
 
 import java.time.LocalDate;
+import java.util.List;
 import ymcris.rogex.c.dtos.videogame.NewVideogameRequest;
 import ymcris.rogex.c.dtos.videogame.UpdateVideogameRequest;
 import ymcris.rogex.d.daos.categories.CategoryDAO;
@@ -186,6 +187,10 @@ public class VideogameService extends GenericService<Videogame> {
         new VideogameDAO().insertCategories(videogame);
 
         return videogame;
+    }
+
+    public List<Videogame> getAllVideogames() {
+        return new VideogameDAO().getAllVideogames();
     }
 
 }

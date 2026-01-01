@@ -1,0 +1,54 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            @if (this.state.error||this.state.success) {
+            @if (!this.state.error&&this.state.success) {
+            <successful-action-component [message]="this.state.message"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
+            }
+            }
+
+            <h1>Comprar videojuego</h1>
+            <form [formGroup]="createObjectForm" (ngSubmit)="createObject()">
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha de compra:</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" formControlName="saleDate">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Nombre del wallet:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="walletName">
+                    </div>
+                </div>
+
+                <div class="row mb-3 align-items-center">
+                    <label class="col-sm-2 col-form-label">
+                        Banco del wallet:
+                    </label>
+
+                    <div class="col-sm-10">
+                        <select class="form-select" formControlName="walletBanck">
+                            <option value="" disabled selected>Seleccionar</option>
+                            <option value="BI">BI</option>
+                            <option value="AZTECA">AZTECA</option>
+                            <option value="PROMERICA">PROMERICA</option>
+                            <option value="BANTRAB">BANTRAB</option>
+                            <option value="BAC">BAC</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary">Comprar</button>
+            </form>
+            <br>
+
+        </div>
+    </div>
+</div>

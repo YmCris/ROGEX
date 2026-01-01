@@ -2,6 +2,7 @@ package ymcris.rogex.e.models.sale;
 
 import java.time.LocalDate;
 import org.apache.commons.lang3.StringUtils;
+import ymcris.rogex.e.models.wallets.BanckType;
 
 /**
  * The Sale class is the class responsible for
@@ -19,11 +20,14 @@ public class Sale {
     private String userEmail;
     private String videogameTitle;
     private String enterpriseName;
+    private String walletName;
+    private BanckType walletBanck;
 
     // CONSTRUCTOR METHOD ------------------------------------------------------
     public Sale(double videogamePrice, LocalDate saleDate,
             double commissionPercentage, double profit, String userEmail,
-            String videogameTitle, String enterpriseName) {
+            String videogameTitle, String enterpriseName, String walletName,
+            BanckType walletBanck) {
         this.videogamePrice = videogamePrice;
         this.saleDate = saleDate;
         this.commissionPercentage = commissionPercentage;
@@ -31,6 +35,8 @@ public class Sale {
         this.userEmail = userEmail;
         this.videogameTitle = videogameTitle;
         this.enterpriseName = enterpriseName;
+        this.walletBanck = walletBanck;
+        this.walletName = walletName;
     }
 
     // SPECIFIC METHODS --------------------------------------------------------
@@ -38,9 +44,11 @@ public class Sale {
         return !StringUtils.isAnyBlank(
                 userEmail,
                 videogameTitle,
-                enterpriseName)
+                enterpriseName,
+                walletName)
                 && videogamePrice > 0
                 && saleDate != null
+                && walletBanck != null
                 && commissionPercentage > 0
                 && profit > 0;
     }
@@ -74,6 +82,14 @@ public class Sale {
         return enterpriseName;
     }
 
+    public String getWalletName() {
+        return walletName;
+    }
+
+    public BanckType getWalletBanck() {
+        return walletBanck;
+    }
+
     // SETTERS -----------------------------------------------------------------
     public void setVideogamePrice(double videogamePrice) {
         this.videogamePrice = videogamePrice;
@@ -101,6 +117,14 @@ public class Sale {
 
     public void setEnterpriseName(String enterpriseName) {
         this.enterpriseName = enterpriseName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
+
+    public void setWalletBanck(BanckType walletBanck) {
+        this.walletBanck = walletBanck;
     }
 
 }
