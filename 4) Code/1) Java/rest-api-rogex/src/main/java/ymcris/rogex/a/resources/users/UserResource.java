@@ -22,7 +22,6 @@ import ymcris.rogex.e.models.users.User;
 import ymcris.rogex.c.dtos.users.UserResponse;
 import ymcris.rogex.c.dtos.users.NewUserRequest;
 import ymcris.rogex.b.services.users.UserService;
-import ymcris.rogex.c.dtos.banner.UpdateMainBannerRequest;
 import ymcris.rogex.c.dtos.users.UpdateUserRequest;
 import ymcris.rogex.g.commons.dtos.GenericObjectResponse;
 import ymcris.rogex.g.commons.dtos.GenericNewObjectRequest;
@@ -126,16 +125,15 @@ public class UserResource extends GenericImageResource<User> {
             @FormDataParam("fileObject") InputStream uploadedFileStream,
             @FormDataParam("fileObject") FormDataBodyPart bodyPart,
             @FormDataParam("fileObject") FormDataContentDisposition fileDetails,
-            @FormDataParam("data") UpdateMainBannerRequest updateMainBannerRequest,
-            @PathParam("email") String email,
-            UpdateUserRequest updateUserRequest) {
+            @FormDataParam("data") UpdateUserRequest updateUserRequest,
+            @PathParam("email") String email) {
 
         String mime = bodyPart.getMediaType().toString();
         if (!mime.startsWith("image/")) {
             return Response.status(400).build();
         }
 
-        return update(new String[]{email}, updateMainBannerRequest, uploadedFileStream);
+        return update(new String[]{email}, updateUserRequest, uploadedFileStream);
 
     }
 

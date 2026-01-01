@@ -5,7 +5,7 @@ import { roleGuard } from '../core/auth/role.guard';
 export const routes: Routes = [
 
     // Layouts with Lazy Loading of components and authentication layouts
-    {
+    {// Start Pages
         path: '',
         loadComponent: () =>
             import('../layouts/start-layout-component/start-layout-component')
@@ -26,7 +26,7 @@ export const routes: Routes = [
         ],
     },
 
-    {
+    {// Gamer pages
         path: 'gamer',
         loadComponent: () =>
             import('../layouts/user-layout-component/user-layout-component')
@@ -47,7 +47,7 @@ export const routes: Routes = [
     },
 
 
-    {
+    {// Enterprise pages
         path: 'employee',
         loadComponent: () =>
             import('../layouts/enterprise-layout-component/enterprise-layout-component')
@@ -57,10 +57,30 @@ export const routes: Routes = [
         data: { roles: ['ENTERPRISE'] },
         children: [
             {
-                path: '', loadComponent: () => import('../pages/enterprise-page/enterprise-page')
+                path: '', loadComponent: () => import('../pages/enterprises/enterprise-page/enterprise-page')
                     .then(m => m.EnterprisePage)
+            },
+            {
+                path: 'employees', loadComponent: () => import('../pages/enterprises/employees-page/employees-page')
+                    .then(m => m.EmployeesPage)
+            },
+            {
+                path: 'videogames', loadComponent: () => import('../pages/enterprises/videogames-page/videogames-page')
+                    .then(m => m.VideogamesPage)
+            },
+            {
+                path: 'videogames/videogame/:title/:enterprise', loadComponent: () => import('../pages/enterprises/videogame-page/videogame-page')
+                    .then(m => m.VideogamePage)
+            },
+            {
+                path: 'configurations', loadComponent: () => import('../pages/enterprises/configurations-page/configurations-page')
+                    .then(m => m.ConfigurationsPage)
+            },
+            {
+                path: 'log-out', loadComponent: () => import('../pages/system/log-in-page/log-in-page')
+                    .then(m => m.LogInPage)
             }
-            
+
         ]
     },
 
@@ -101,11 +121,11 @@ export const routes: Routes = [
                 path: 'log-out', loadComponent: () => import('../pages/system/log-in-page/log-in-page')
                     .then(m => m.LogInPage)
             }
-            
+
         ]
 
     },
 
-    //{ path: '**', redirectTo: '' }
+    { path: '**', redirectTo: '' }
 
 ];

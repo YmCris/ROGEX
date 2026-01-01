@@ -1,0 +1,38 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+
+            @if (this.state.error||this.state.success) {
+            @if (!this.state.error&&this.state.success) {
+            <successful-action-component [message]="this.state.message"></successful-action-component>
+            }@else {
+            <unsuccessful-action-component [message]="this.state.message"></unsuccessful-action-component>
+            }
+            }
+
+            <h1>Editar Empresa</h1>
+            <form [formGroup]="updateObjectForm" (ngSubmit)="updateObject()">
+
+                <div class="row mb-3">
+                    <label for="inputEmail3" class="col-sm-2 col-form-label">Descripción</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="description">
+                    </div>
+                </div>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Ocultar comentarios</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check form-switch pt-2">
+                            <input class="form-check-input" type="checkbox" formControlName="hiddenAllComments">
+                        </div>
+                    </div>
+                </fieldset>
+                <button type="submit" class="btn btn-primary">Actualizar</button>
+            </form>
+
+
+        </div>
+    </div>
+</div>

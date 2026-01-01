@@ -7,6 +7,7 @@ import { RouterOutlet } from "@angular/router";
   selector: 'app-user-layout-component',
   imports: [UserPageHeader, UserPageFooter, RouterOutlet],
   templateUrl: './user-layout-component.html',
+  styleUrl: './user-layout-component.css',
 })
 export class UserLayoutComponent {
 

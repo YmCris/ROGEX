@@ -44,7 +44,7 @@ export abstract class GenericCrud<T> implements OnInit {
 
     /**
      * Override this and leave this empty if the CRUD doesn't need load all objects
-     * or use loadObjectsWithPKs() if the CRUD need it
+     * or use loadObjectsWithPKs() or use loadObjectsWithPK() if the CRUD need it
      */
     protected afterInit(): void {
         this.loadObjects();
@@ -69,7 +69,7 @@ export abstract class GenericCrud<T> implements OnInit {
         this.service.createObject(objectCreated).subscribe({
             next: () => {
                 this.success('Creado correctamente', this.createObjectForm);
-                this.loadObjects();
+                this.afterInit();
             },
             error: err => this.fail(err)
         });
@@ -93,8 +93,8 @@ export abstract class GenericCrud<T> implements OnInit {
 
         this.service.updateObject(primaryKeys, update).subscribe({
             next: () => {
-                this.success('Objeto actualizado', this.updateObjectForm),
-                    this.loadObjects();
+                this.success('Objeto actualizado'),
+                    this.afterInit();
             },
             error: err => this.fail(err)
         });
@@ -116,7 +116,7 @@ export abstract class GenericCrud<T> implements OnInit {
         this.service.deleteWithPrimaryKeys(primaryKeys).subscribe({
             next: () => {
                 this.success('Objeto eliminado', this.deleteObjectForm),
-                    this.loadObjects();
+                    this.afterInit();
             },
             error: err => this.fail(err)
         });
@@ -171,6 +171,31 @@ export abstract class GenericCrud<T> implements OnInit {
         });
     }
 
+    /**
+ * Method responsible for load all objects with some restriction
+ * @returns 
+ */
+    loadObjectsWithPKsParameter(pk: string): void {
+        if (this.getObjectsForm.invalid) return;
+
+        this.resetState();
+
+        this.state.loading = true;
+
+        this.service.getAllByKey(pk).subscribe({
+            next: (objects) => {
+                this.state.data = objects;
+                this.state.loading = false;
+            },
+            error: (error) => {
+                this.state.loading = false;
+                this.state.error = true;
+                this.state.message = 'Error cargando objetos';
+                console.log(error.message);
+            }
+        });
+    }
+
     // AUXILIAR METHODS --------------------------------------------------------
     /**
      * Method responsible for do the commons actions in some success action
@@ -178,11 +203,14 @@ export abstract class GenericCrud<T> implements OnInit {
      * @param message message to show in the response components
      * @param form formGroup to reset this.
      */
-    private success(message: string, form: FormGroup): void {
+    private success(message: string, form?: FormGroup): void {
         this.state.success = true;
         this.state.error = false;
         this.state.message = message;
-        form.reset();
+        
+        if (form) {
+            form.reset();
+        }
     }
 
     /**

@@ -1,4 +1,4 @@
-.admin-content {
-  padding-top: 70px; /* o lo que mida tu navbar */
+.admin-content{
+  padding-top: 70px; 
   min-height: calc(100vh - 70px);
 }

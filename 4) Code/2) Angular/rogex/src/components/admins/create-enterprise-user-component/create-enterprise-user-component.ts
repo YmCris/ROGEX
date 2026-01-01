@@ -26,7 +26,7 @@ export class CreateEnterpriseUserComponent extends GenericCreate<EnterpriseUsers
     this.createObjectForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.maxLength(100)]],
       name: [null, [Validators.required, Validators.maxLength(150)]],
-      password: [null, [Validators.required, Validators.max(25)]],
+      password: [null, [Validators.required, Validators.maxLength(25)]],
       birthDate: [null, [Validators.required]],
       enterpriseName: [null, [Validators.required, Validators.maxLength(150)]]
     });

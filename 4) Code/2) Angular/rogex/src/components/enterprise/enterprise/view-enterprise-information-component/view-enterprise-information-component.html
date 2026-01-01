@@ -1,0 +1,41 @@
+<div class="container-lg pt-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+            <h1>Información de la empresa</h1>
+
+            <form [formGroup]="enterpriseForm">
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="name">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Descripción</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" formControlName="description">
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Comisión específica</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" formControlName="specificCommission">
+                    </div>
+                </div>
+
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Ocultar comentarios</legend>
+                    <div class="col-sm-10">
+                        <div class="form-check form-switch pt-2">
+                            <input class="form-check-input" type="checkbox" formControlName="hiddenAllComments">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+
+        </div>
+    </div>
+</div>

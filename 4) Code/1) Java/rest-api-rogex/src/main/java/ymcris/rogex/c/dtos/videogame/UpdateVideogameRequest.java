@@ -40,18 +40,6 @@ public class UpdateVideogameRequest extends GenericUpdateObjectRequest {
         return ageRating;
     }
 
-    public Boolean isSuspensionOfSale() {
-        return suspensionOfSale;
-    }
-
-    public Boolean isHiddenComments() {
-        return hiddenComments;
-    }
-
-    public Boolean isHidden() {
-        return hidden;
-    }
-
     public Boolean getSuspensionOfSale() {
         return suspensionOfSale;
     }
@@ -87,18 +75,6 @@ public class UpdateVideogameRequest extends GenericUpdateObjectRequest {
 
     public void setAgeRating(AgeRating ageRating) {
         this.ageRating = ageRating;
-    }
-
-    public void setSuspensionOfSale(boolean suspensionOfSale) {
-        this.suspensionOfSale = suspensionOfSale;
-    }
-
-    public void setHiddenComments(boolean hiddenComments) {
-        this.hiddenComments = hiddenComments;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
     }
 
     public void setPrice(Double price) {
